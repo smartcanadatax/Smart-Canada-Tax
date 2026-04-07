@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Smart Canada Tax</title>
+  <meta name="description" content="Smart Canada Tax is a free Canadian tax calculator app for iPhone, built to help Canadians estimate personal and corporate taxes quickly and accurately." />
+  <link rel="canonical" href="https://smartcanadatax.help/about.html" />
+  <style>
+    :root {
+      --red: #C8102E;
+      --red-dark: #9b0c22;
+      --red-light: #f9e8eb;
+      --bg: #f7f8fa;
+      --border: #e8eaed;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; color: var(--text); line-height: 1.6; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex; align-items: center; height: 64px; gap: 8px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-right: auto; }
+    .nav-logo { width: 34px; height: 34px; background: var(--red); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .nav-name { font-weight: 700; font-size: 1rem; color: var(--text); }
+    nav a.nav-link { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 6px 12px; border-radius: 8px; transition: all 0.15s; }
+    nav a.nav-link:hover { color: var(--red); background: var(--red-light); }
+    nav a.nav-link.active { color: var(--red); }
+    .nav-cta { background: var(--red); color: #fff !important; padding: 8px 18px !important; border-radius: 20px !important; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--red-dark) !important; color: #fff !important; }
+    @media (max-width: 680px) { nav a.nav-link:not(.nav-cta) { display: none; } }
+
+    .page-hero {
+      background: linear-gradient(150deg, #fff 0%, #fef2f4 60%, #fff 100%);
+      padding: 80px 32px 60px;
+      text-align: center;
+    }
+    .page-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); margin-bottom: 12px; }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .page-hero p { font-size: 1.05rem; color: var(--muted); max-width: 540px; margin: 0 auto; line-height: 1.7; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 0 32px; }
+    section { padding: 64px 32px; }
+
+    .mission-block {
+      background: var(--bg);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+    .mission-block h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 14px; }
+    .mission-block p { color: var(--muted); line-height: 1.8; font-size: 0.97rem; }
+
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-top: 32px; }
+    .value-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+    .value-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .value-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+    .value-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    .story p { font-size: 0.97rem; color: #444; line-height: 1.8; margin-bottom: 16px; }
+
+    .legal-note {
+      background: var(--bg);
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 40px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .legal-note strong { color: var(--text); }
+
+    footer { background: var(--text); color: rgba(255,255,255,0.5); padding: 40px 32px 28px; }
+    .footer-inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+    .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .footer-logo { width: 30px; height: 30px; background: var(--red); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+    .footer-name { font-weight: 700; color: #fff; font-size: 0.9rem; }
+    .footer-desc { font-size: 0.82rem; max-width: 260px; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.83rem; transition: color 0.15s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { max-width: 800px; margin: 24px auto 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.8rem; text-align: center; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">
+    <div class="nav-logo">🍁</div>
+    <span class="nav-name">Smart Canada Tax</span>
+  </a>
+  <a class="nav-link active" href="/about.html">About</a>
+  <a class="nav-link" href="/contact.html">Contact</a>
+  <a class="nav-link" href="/#privacy">Privacy</a>
+  <a class="nav-link nav-cta" href="/#download">Download Free</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-label">About Us</div>
+  <h1>Built for Canadians,<br>by Canadians</h1>
+  <p>Smart Canada Tax was created to make Canadian tax calculations accessible, fast, and free — without needing an accountant for every question.</p>
+</div>
+
+<section>
+  <div class="container">
+
+    <div class="mission-block">
+      <h2>Our Mission</h2>
+      <p>Tax in Canada is complicated. Thirteen provinces and territories, two official languages, personal and corporate rules that change every year — most Canadians don't have a CPA on speed dial. Smart Canada Tax exists to close that gap: give every Canadian a fast, accurate way to estimate their tax situation and make smarter financial decisions.</p>
+    </div>
+
+    <div class="story">
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 20px;">What We Built</h2>
+      <p>Smart Canada Tax is a free iOS app covering the most common Canadian tax scenarios — personal income tax, corporate tax, GST/HST, RRSP, rental income, self-employment, benefits, and more. Every calculator uses the current 2025 CRA rates for all 13 provinces and territories.</p>
+      <p>The app also includes an AI Tax Assistant powered by a large language model trained to understand Canadian tax law — T1 personal returns, T2 corporate returns, CCA classes, GST/HST thresholds, and more. Ask a question in plain English, get a plain English answer.</p>
+      <p>For questions that go beyond what an app can answer, we offer live 30-minute sessions with a qualified Canadian tax professional via Google Meet — at a fraction of what an accountant charges per hour.</p>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🆓</div>
+        <h3>Free Core Features</h3>
+        <p>All calculators are free. No paywalls on the tools you actually need.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔒</div>
+        <h3>Private by Design</h3>
+        <p>Your financial data never leaves your device. Calculations happen locally.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🍁</div>
+        <h3>Canada-Specific</h3>
+        <p>Built exclusively for Canadian tax rules — not a generic calculator with a Canadian flag.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📅</div>
+        <h3>Always Current</h3>
+        <p>Updated every year with the latest CRA rates, brackets, and contribution limits.</p>
+      </div>
+    </div>
+
+    <div class="legal-note">
+      <strong>Legal:</strong> Smart Canada Tax is developed and operated by <strong>1000936219 Ontario Inc.</strong>, a corporation registered in Ontario, Canada. The app provides estimates for planning and educational purposes only. It does not file tax returns or constitute professional tax advice. Always consult a licensed CPA for your specific situation.
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <div class="footer-logo">🍁</div>
+        <span class="footer-name">Smart Canada Tax</span>
+      </div>
+      <p class="footer-desc">Free Canadian tax calculator app for iPhone. All 13 provinces. Updated for 2025.</p>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/#privacy">Privacy Policy</a>
+      <a href="/#terms">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 Smart Canada Tax · 1000936219 Ontario Inc. · All rights reserved.</div>
+</footer>
+
+</body>
+</html>

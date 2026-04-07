@@ -7,33 +7,39 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://smartcanadatax.help/#about</loc>
+    <loc>https://smartcanadatax.help/about.html</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://smartcanadatax.help/#services</loc>
+    <loc>https://smartcanadatax.help/contact.html</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://smartcanadatax.help/#privacy</loc>
+    <loc>https://smartcanadatax.help/#features</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://smartcanadatax.help/#sessions</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://smartcanadatax.help/#terms</loc>
+    <loc>https://smartcanadatax.help/#privacy</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://smartcanadatax.help/#disclaimer</loc>
+    <loc>https://smartcanadatax.help/#terms</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.5</priority>
   </url>
 </urlset>

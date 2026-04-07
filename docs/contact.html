@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Smart Canada Tax</title>
+  <meta name="description" content="Contact the Smart Canada Tax team. Get help with the app, sessions, or general Canadian tax questions." />
+  <link rel="canonical" href="https://smartcanadatax.help/contact.html" />
+  <style>
+    :root {
+      --red: #C8102E;
+      --red-dark: #9b0c22;
+      --red-light: #f9e8eb;
+      --bg: #f7f8fa;
+      --border: #e8eaed;
+      --text: #1a1a2e;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; color: var(--text); line-height: 1.6; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex; align-items: center; height: 64px; gap: 8px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-right: auto; }
+    .nav-logo { width: 34px; height: 34px; background: var(--red); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .nav-name { font-weight: 700; font-size: 1rem; color: var(--text); }
+    nav a.nav-link { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 6px 12px; border-radius: 8px; transition: all 0.15s; }
+    nav a.nav-link:hover { color: var(--red); background: var(--red-light); }
+    nav a.nav-link.active { color: var(--red); }
+    .nav-cta { background: var(--red); color: #fff !important; padding: 8px 18px !important; border-radius: 20px !important; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--red-dark) !important; color: #fff !important; }
+    @media (max-width: 680px) { nav a.nav-link:not(.nav-cta) { display: none; } }
+
+    .page-hero {
+      background: linear-gradient(150deg, #fff 0%, #fef2f4 60%, #fff 100%);
+      padding: 80px 32px 60px;
+      text-align: center;
+    }
+    .page-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); margin-bottom: 12px; }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 16px; }
+    .page-hero p { font-size: 1.05rem; color: var(--muted); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+    section { padding: 64px 32px; }
+    .container { max-width: 800px; margin: 0 auto; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    @media (max-width: 640px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    .contact-info h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; }
+    .contact-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 24px; }
+    .contact-icon { width: 44px; height: 44px; background: var(--red-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .contact-item h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 2px; }
+    .contact-item p { font-size: 0.85rem; color: var(--muted); }
+    .contact-item a { color: var(--red); text-decoration: none; font-size: 0.88rem; }
+
+    .response-times { background: var(--bg); border-radius: 14px; padding: 20px; margin-top: 8px; }
+    .response-times h3 { font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; }
+    .rt-row { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--border); font-size: 0.83rem; }
+    .rt-row:first-of-type { border-top: none; }
+    .rt-row span:last-child { color: var(--red); font-weight: 600; }
+
+    /* FORM */
+    .contact-form { background: var(--bg); border-radius: 20px; padding: 32px; }
+    .contact-form h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 24px; }
+    .form-group { margin-bottom: 18px; }
+    label { display: block; font-size: 0.83rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    input, select, textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: var(--text);
+      background: #fff;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--red); }
+    textarea { resize: vertical; min-height: 110px; }
+    .btn-submit {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: 13px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 6px;
+    }
+    .btn-submit:hover { background: var(--red-dark); }
+    .form-note { font-size: 0.78rem; color: var(--muted); margin-top: 10px; text-align: center; }
+
+    .faq-section { background: var(--bg); }
+    .faq-section .container { max-width: 800px; }
+    .faq-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 28px; }
+    .faq-item { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 20px 24px; margin-bottom: 12px; }
+    .faq-q { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+    .faq-a { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .faq-a a { color: var(--red); }
+
+    footer { background: var(--text); color: rgba(255,255,255,0.5); padding: 40px 32px 28px; }
+    .footer-inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+    .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .footer-logo { width: 30px; height: 30px; background: var(--red); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+    .footer-name { font-weight: 700; color: #fff; font-size: 0.9rem; }
+    .footer-desc { font-size: 0.82rem; max-width: 260px; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.83rem; transition: color 0.15s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { max-width: 800px; margin: 24px auto 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.8rem; text-align: center; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">
+    <div class="nav-logo">🍁</div>
+    <span class="nav-name">Smart Canada Tax</span>
+  </a>
+  <a class="nav-link" href="/about.html">About</a>
+  <a class="nav-link active" href="/contact.html">Contact</a>
+  <a class="nav-link" href="/#privacy">Privacy</a>
+  <a class="nav-link nav-cta" href="/#download">Download Free</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-label">Get in Touch</div>
+  <h1>We're here to help</h1>
+  <p>Questions about the app, sessions, or a tax topic? Send us a message and we'll get back to you.</p>
+</div>
+
+<section>
+  <div class="container">
+    <div class="contact-grid">
+
+      <div class="contact-info">
+        <h2>Contact Us</h2>
+
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <h3>Email</h3>
+            <a href="mailto:admin@smartcanadatax.help">admin@smartcanadatax.help</a>
+            <p>Best for general questions and session support.</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div>
+            <h3>App Support</h3>
+            <p>For bugs or app issues, use the feedback option inside the app or email us directly.</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">🎥</div>
+          <div>
+            <h3>Book a Session</h3>
+            <p>To book a live advisor session, purchase through the app — you'll be contacted within 1 business day.</p>
+          </div>
+        </div>
+
+        <div class="response-times">
+          <h3>Response Times</h3>
+          <div class="rt-row"><span>General questions</span><span>Within 2 business days</span></div>
+          <div class="rt-row"><span>Session booking</span><span>Within 1 business day</span></div>
+          <div class="rt-row"><span>App bugs / issues</span><span>Within 3 business days</span></div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h2>Send a Message</h2>
+        <form action="mailto:admin@smartcanadatax.help" method="GET" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Topic</label>
+            <select id="subject" name="subject">
+              <option value="General Question">General Question</option>
+              <option value="Session Support">Session Support</option>
+              <option value="App Bug or Issue">App Bug or Issue</option>
+              <option value="Billing / Refund">Billing / Refund</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="body" placeholder="Tell us how we can help..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Message</button>
+          <p class="form-note">This opens your email app. Or email us directly at admin@smartcanadatax.help</p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-title">Frequently Asked Questions</div>
+
+    <div class="faq-item">
+      <div class="faq-q">Is the app really free?</div>
+      <div class="faq-a">Yes. All tax calculators are free with no subscription. The only paid features are live advisor sessions, purchased through Apple In-App Purchase.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How accurate are the calculations?</div>
+      <div class="faq-a">The app uses the current 2025 CRA federal and provincial rates. Results are estimates for planning purposes. Always verify with CRA or a licensed CPA before filing.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">I purchased a session — what happens next?</div>
+      <div class="faq-a">We'll contact you at the email linked to your Apple ID within 1 business day with a Calendly link to book your 30-minute Google Meet session.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Can I get a refund?</div>
+      <div class="faq-a">Sessions are non-refundable once purchased. For Apple In-App Purchase refund requests, please contact <a href="https://reportaproblem.apple.com" target="_blank">Apple Support</a> directly.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Does the app work offline?</div>
+      <div class="faq-a">Yes. All calculators work fully offline. The AI Tax Assistant requires an internet connection to generate responses.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Which provinces are supported?</div>
+      <div class="faq-a">All 13 — Ontario, Quebec, BC, Alberta, Saskatchewan, Manitoba, Nova Scotia, New Brunswick, PEI, Newfoundland & Labrador, Yukon, Northwest Territories, and Nunavut.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <div class="footer-logo">🍁</div>
+        <span class="footer-name">Smart Canada Tax</span>
+      </div>
+      <p class="footer-desc">Free Canadian tax calculator app for iPhone. All 13 provinces. Updated for 2025.</p>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/#privacy">Privacy Policy</a>
+      <a href="/#terms">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 Smart Canada Tax · 1000936219 Ontario Inc. · All rights reserved.</div>
+</footer>
+
+</body>
+</html>
