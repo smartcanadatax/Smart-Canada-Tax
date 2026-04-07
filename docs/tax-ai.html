@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Tax Assistant — Smart Canada Tax</title>
+  <meta name="description" content="Ask Canadian tax questions and get instant, accurate answers powered by AI. Personal tax, corporate tax, RRSP, GST/HST, and more." />
+  <link rel="canonical" href="https://smartcanadatax.help/tax-ai.html" />
+  <style>
+    :root {
+      --red: #C8102E;
+      --red-dark: #9b0c22;
+      --red-light: #f9e8eb;
+      --bg: #f7f8fa;
+      --border: #e8eaed;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --dark: #0f172a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; color: var(--text); line-height: 1.6; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex; align-items: center; height: 64px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo { width: 34px; height: 34px; background: var(--red); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .nav-name { font-weight: 700; font-size: 1rem; color: var(--text); }
+    .nav-links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 4px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 7px 14px; border-radius: 8px; white-space: nowrap; transition: all 0.15s; }
+    .nav-links a:hover { color: var(--red); background: var(--red-light); }
+    .nav-links a.active { color: var(--red); font-weight: 600; }
+    .nav-cta-wrap { margin-left: auto; }
+    .nav-cta-wrap a { background: var(--red); color: #fff; text-decoration: none; border-radius: 20px; font-weight: 600; font-size: 0.88rem; padding: 8px 18px; white-space: nowrap; transition: background 0.15s; }
+    .nav-cta-wrap a:hover { background: var(--red-dark); }
+    @media (max-width: 700px) { .nav-links { display: none; } }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(150deg, var(--dark) 0%, #1e293b 100%);
+      padding: 80px 32px 70px;
+      text-align: center;
+      color: #fff;
+    }
+    .hero img { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); margin: 0 auto 24px; display: block; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85); font-size: 0.78rem; font-weight: 600;
+      padding: 5px 14px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 16px; line-height: 1.15; }
+    .hero h1 span { color: #f87171; }
+    .hero p { font-size: 1.05rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    section { padding: 72px 32px; }
+    .container { max-width: 860px; margin: 0 auto; }
+    .section-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: 14px; }
+    .section-sub { font-size: 1rem; color: var(--muted); max-width: 560px; line-height: 1.7; margin-bottom: 40px; }
+
+    /* CHAT DEMO */
+    .chat-demo {
+      background: var(--dark);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+    }
+    .chat-header {
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .chat-header-dot { width: 10px; height: 10px; background: var(--red); border-radius: 50%; }
+    .chat-header-title { font-size: 0.88rem; font-weight: 600; color: rgba(255,255,255,0.8); }
+    .chat-body { padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; }
+    .msg { max-width: 80%; }
+    .msg.user { align-self: flex-end; }
+    .msg.ai { align-self: flex-start; }
+    .msg-bubble {
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .msg.user .msg-bubble { background: var(--red); color: #fff; border-bottom-right-radius: 4px; }
+    .msg.ai .msg-bubble { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.85); border-bottom-left-radius: 4px; border: 1px solid rgba(255,255,255,0.08); }
+    .msg-label { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .msg.user .msg-label { text-align: right; }
+
+    /* WHAT IT KNOWS */
+    .knows-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .knows-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+    .knows-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .knows-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 6px; }
+    .knows-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+    /* EXAMPLE QS */
+    .questions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+    .q-card {
+      background: #fff; border: 1.5px solid var(--border); border-radius: 12px;
+      padding: 16px 18px; font-size: 0.88rem; color: var(--text);
+      display: flex; align-items: flex-start; gap: 10px;
+      transition: all 0.15s;
+    }
+    .q-card:hover { border-color: var(--red); color: var(--red); }
+    .q-card::before { content: '💬'; flex-shrink: 0; }
+
+    /* LIMITATIONS */
+    .limitations { background: #fffbeb; border: 1px solid #fde68a; border-radius: 16px; padding: 28px 32px; }
+    .limitations h3 { font-size: 1rem; font-weight: 700; margin-bottom: 14px; color: #92400e; }
+    .limitations ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .limitations li { font-size: 0.88rem; color: #78350f; display: flex; gap: 10px; line-height: 1.6; }
+    .limitations li::before { content: '⚠️'; flex-shrink: 0; }
+
+    /* HOW */
+    .how-steps { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px; }
+    .how-step { text-align: center; }
+    .how-num { width: 48px; height: 48px; background: var(--red); color: #fff; font-size: 1.1rem; font-weight: 800; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+    .how-step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+    .how-step p { font-size: 0.85rem; color: var(--muted); }
+
+    /* CTA */
+    .cta-section { background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%); text-align: center; padding: 72px 32px; color: #fff; }
+    .cta-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: 12px; }
+    .cta-section p { font-size: 1rem; opacity: 0.85; margin-bottom: 32px; }
+    .btn-white { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--red); text-decoration: none; padding: 14px 28px; border-radius: 14px; font-weight: 700; font-size: 1rem; transition: all 0.2s; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+    footer { background: var(--text); color: rgba(255,255,255,0.5); padding: 40px 32px 28px; }
+    .footer-inner { max-width: 860px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px; }
+    .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .footer-logo { width: 30px; height: 30px; background: var(--red); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+    .footer-name { font-weight: 700; color: #fff; font-size: 0.9rem; }
+    .footer-desc { font-size: 0.82rem; max-width: 260px; }
+    .footer-links { display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.83rem; transition: color 0.15s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { max-width: 860px; margin: 24px auto 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.8rem; text-align: center; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">
+    <div class="nav-logo">🍁</div>
+    <span class="nav-name">Smart Canada Tax</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#features">Features</a>
+    <a href="/#sessions">Sessions</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+  <div class="nav-cta-wrap"><a href="/#download">Download Free</a></div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="/AppIcon.png" alt="Smart Canada Tax" />
+  <div class="hero-badge">✨ Powered by AI</div>
+  <h1>Your Canadian Tax Questions,<br><span>Answered Instantly</span></h1>
+  <p>The AI Tax Assistant inside Smart Canada Tax knows Canadian personal and corporate tax inside out. Ask anything — get a clear answer in seconds.</p>
+</div>
+
+<!-- CHAT DEMO -->
+<section style="background: var(--bg);">
+  <div class="container">
+    <div class="section-label">See It in Action</div>
+    <h2 class="section-title">Ask in plain English, get plain English answers</h2>
+    <p class="section-sub">No jargon. No generic advice. Answers grounded in Canadian tax law.</p>
+
+    <div class="chat-demo">
+      <div class="chat-header">
+        <div class="chat-header-dot"></div>
+        <span class="chat-header-title">AI Tax Assistant</span>
+      </div>
+      <div class="chat-body">
+        <div class="msg user">
+          <div class="msg-label">You</div>
+          <div class="msg-bubble">Can I deduct my home office expenses as a self-employed person in Canada?</div>
+        </div>
+        <div class="msg ai">
+          <div class="msg-label">AI Tax Assistant</div>
+          <div class="msg-bubble">📋 <strong>Personal Tax (T1):</strong> Yes — as a self-employed person you can deduct home office expenses on Form T2125. Your workspace must be your principal place of business or used exclusively for meeting clients. You can deduct a proportional share of rent/mortgage interest, utilities, internet, and maintenance based on the percentage of your home used for work. The deduction cannot exceed your net self-employment income for the year (no losses).<br><br>💡 <strong>Tax Tip:</strong> Calculate your workspace percentage by dividing the office square footage by total home square footage — keep a floor plan on file in case CRA asks.</div>
+        </div>
+        <div class="msg user">
+          <div class="msg-label">You</div>
+          <div class="msg-bubble">What's the small business deduction rate for Ontario corporations in 2025?</div>
+        </div>
+        <div class="msg ai">
+          <div class="msg-label">AI Tax Assistant</div>
+          <div class="msg-bubble">🏢 <strong>Corporate Tax (T2):</strong> Ontario CCPCs (Canadian-Controlled Private Corporations) pay a combined rate of <strong>12.2%</strong> on the first $500,000 of active business income — that's 9% federal (after the Small Business Deduction) plus 3.2% Ontario provincial. Above $500,000 the combined general rate is 26.5% (15% federal + 11.5% Ontario).<br><br>💡 <strong>Tax Tip:</strong> If you have multiple associated corporations, the $500,000 SBD limit is shared among them — plan accordingly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT KNOWS -->
+<section>
+  <div class="container">
+    <div class="section-label">Knowledge Base</div>
+    <h2 class="section-title">Trained on Canadian tax law</h2>
+    <p class="section-sub">The AI knows both personal (T1) and corporate (T2) tax — and always tells you which one applies to your question.</p>
+
+    <div class="knows-grid">
+      <div class="knows-card">
+        <div class="knows-icon">🧾</div>
+        <h3>Personal Tax (T1)</h3>
+        <p>Federal and provincial brackets, BPA, CPP/EI, RRSP, TFSA, medical credits, capital gains, rental income, T2125 self-employment.</p>
+      </div>
+      <div class="knows-card">
+        <div class="knows-icon">🏢</div>
+        <h3>Corporate Tax (T2)</h3>
+        <p>CCPC rates, Small Business Deduction, salary vs. dividend, RDTOH, GRIP, capital dividend account, CCA classes, Schedule 8.</p>
+      </div>
+      <div class="knows-card">
+        <div class="knows-icon">💰</div>
+        <h3>GST / HST</h3>
+        <p>Registration thresholds, HST by province, ITCs, simplified method, quick method, QST in Quebec.</p>
+      </div>
+      <div class="knows-card">
+        <div class="knows-icon">🏠</div>
+        <h3>Real Estate & Rental</h3>
+        <p>Principal residence exemption, T776, CCA recapture, non-resident withholding, Section 216 elections.</p>
+      </div>
+      <div class="knows-card">
+        <div class="knows-icon">📈</div>
+        <h3>RRSP & Investments</h3>
+        <p>Contribution limits, spousal RRSP, HBP, LLP, TFSA rules, capital gains inclusion, superficial loss.</p>
+      </div>
+      <div class="knows-card">
+        <div class="knows-icon">🌐</div>
+        <h3>Cross-Border Tax</h3>
+        <p>Non-resident rules, NR4, treaty benefits, departure tax, foreign income reporting, FBAR basics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXAMPLE QUESTIONS -->
+<section style="background: var(--bg);">
+  <div class="container">
+    <div class="section-label">Example Questions</div>
+    <h2 class="section-title">Things you can ask</h2>
+    <p class="section-sub">The AI handles both simple and complex Canadian tax questions.</p>
+
+    <div class="questions-grid">
+      <div class="q-card">What is my RRSP contribution limit for 2025?</div>
+      <div class="q-card">How does salary vs dividend work for a CCPC owner?</div>
+      <div class="q-card">Do I need to charge HST if I earn over $30,000?</div>
+      <div class="q-card">Can I deduct my car as a sole proprietor?</div>
+      <div class="q-card">How is CCA calculated in the first year of purchase?</div>
+      <div class="q-card">What is the capital gains inclusion rate in Canada?</div>
+      <div class="q-card">Can I split income with my spouse?</div>
+      <div class="q-card">How does the principal residence exemption work?</div>
+      <div class="q-card">What expenses can I deduct from rental income?</div>
+      <div class="q-card">What is the Small Business Deduction limit?</div>
+      <div class="q-card">How do I report T5013 partnership income?</div>
+      <div class="q-card">What is the TFSA contribution room for 2025?</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="container">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Simple to use, powerful answers</h2>
+    <p class="section-sub">No account needed. Just open the app and start asking.</p>
+
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <h3>Open the App</h3>
+        <p>Tap the AI Tax Assistant tab in Smart Canada Tax.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <h3>Type Your Question</h3>
+        <p>Ask in plain English — no tax jargon needed.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <h3>Get Your Answer</h3>
+        <p>Receive a clear, structured answer with a practical tax tip.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <h3>Need More Help?</h3>
+        <p>Book a live session with a real Canadian tax advisor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIMITATIONS -->
+<section style="background: var(--bg);">
+  <div class="container">
+    <div class="section-label">Important to Know</div>
+    <h2 class="section-title">What the AI can and can't do</h2>
+    <p class="section-sub" style="margin-bottom: 28px;">The AI is a powerful tool for understanding Canadian tax — not a replacement for a professional.</p>
+
+    <div class="limitations">
+      <h3>Limitations & Disclaimer</h3>
+      <ul>
+        <li>The AI provides general tax information, not professional tax advice tailored to your specific situation.</li>
+        <li>It does not file tax returns, prepare T1 or T2 returns, or submit anything to CRA on your behalf.</li>
+        <li>AI can make mistakes. Always verify answers against the <a href="https://www.canada.ca/en/revenue-agency.html" target="_blank" style="color: #92400e;">CRA website</a> or consult a licensed CPA before making decisions.</li>
+        <li>Your questions are sent to Groq's servers over encrypted HTTPS. Your financial calculator data is never shared with the AI.</li>
+        <li>For complex situations — business sales, estate planning, cross-border issues — book a live advisor session.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Try the AI Tax Assistant Free</h2>
+  <p>Download Smart Canada Tax — no subscription, no account required.</p>
+  <a href="/#download" class="btn-white">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#C8102E"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    Download on App Store
+  </a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <div class="footer-logo">🍁</div>
+        <span class="footer-name">Smart Canada Tax</span>
+      </div>
+      <p class="footer-desc">Free Canadian tax calculator app for iPhone. All 13 provinces. Updated for 2025.</p>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/tax-ai.html">Tax AI</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/#privacy">Privacy Policy</a>
+      <a href="/#terms">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 Smart Canada Tax · 1000936219 Ontario Inc. · All rights reserved.</div>
+</footer>
+
+</body>
+</html>
