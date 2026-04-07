@@ -48,14 +48,13 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.97);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 0 32px;
       display: flex;
       align-items: center;
       height: 64px;
-      gap: 8px;
     }
     .nav-brand {
       display: flex;
@@ -79,28 +78,32 @@
       font-size: 1rem;
       color: var(--text);
     }
-    nav a.nav-link {
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-links a {
       color: var(--muted);
       text-decoration: none;
       font-size: 0.88rem;
       font-weight: 500;
-      padding: 6px 12px;
+      padding: 7px 14px;
       border-radius: 8px;
+      white-space: nowrap;
       transition: all 0.15s;
     }
-    nav a.nav-link:hover { color: var(--red); background: var(--red-light); }
-    .nav-cta {
+    .nav-links a:hover { color: var(--red); background: var(--red-light); }
+    .nav-links .nav-cta {
       background: var(--red);
-      color: #fff !important;
-      padding: 8px 18px !important;
-      border-radius: 20px !important;
-      font-weight: 600 !important;
-      transition: background 0.15s !important;
+      color: #fff;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-left: 8px;
     }
-    .nav-cta:hover { background: var(--red-dark) !important; color: #fff !important; }
-    @media (max-width: 680px) {
-      nav a.nav-link { display: none; }
-      .nav-cta { display: flex !important; }
+    .nav-links .nav-cta:hover { background: var(--red-dark); color: #fff; }
+    @media (max-width: 700px) {
+      .nav-links a:not(.nav-cta) { display: none; }
     }
 
     /* ── HERO ── */
@@ -455,11 +458,13 @@
     <div class="nav-logo">🍁</div>
     <span class="nav-name">Smart Canada Tax</span>
   </a>
-  <a class="nav-link" href="#features">Features</a>
-  <a class="nav-link" href="#sessions">Sessions</a>
-  <a class="nav-link" href="/about.html">About</a>
-  <a class="nav-link" href="/contact.html">Contact</a>
-  <a class="nav-link nav-cta" href="#download">Download Free</a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#sessions">Sessions</a>
+    <a href="/about.html">About</a>
+    <a href="/contact.html">Contact</a>
+    <a class="nav-cta" href="#download">Download Free</a>
+  </div>
 </nav>
 
 <!-- HERO -->
