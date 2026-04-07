@@ -52,7 +52,8 @@
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 0 32px;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
       height: 64px;
     }
@@ -61,7 +62,7 @@
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      margin-right: auto;
+      justify-self: start;
     }
     .nav-logo {
       width: 34px;
@@ -82,6 +83,7 @@
       display: flex;
       align-items: center;
       gap: 4px;
+      justify-self: center;
     }
     .nav-links a {
       color: var(--muted);
@@ -94,16 +96,24 @@
       transition: all 0.15s;
     }
     .nav-links a:hover { color: var(--red); background: var(--red-light); }
-    .nav-links .nav-cta {
+    .nav-cta-wrap {
+      justify-self: end;
+    }
+    .nav-cta-wrap a {
       background: var(--red);
       color: #fff;
+      text-decoration: none;
       border-radius: 20px;
       font-weight: 600;
-      margin-left: 8px;
+      font-size: 0.88rem;
+      padding: 8px 18px;
+      white-space: nowrap;
+      transition: background 0.15s;
     }
-    .nav-links .nav-cta:hover { background: var(--red-dark); color: #fff; }
+    .nav-cta-wrap a:hover { background: var(--red-dark); }
     @media (max-width: 700px) {
-      .nav-links a:not(.nav-cta) { display: none; }
+      nav { grid-template-columns: 1fr auto; }
+      .nav-links { display: none; }
     }
 
     /* ── HERO ── */
@@ -463,14 +473,15 @@
     <a href="#sessions">Sessions</a>
     <a href="/about.html">About</a>
     <a href="/contact.html">Contact</a>
-    <a class="nav-cta" href="#download">Download Free</a>
+  </div>
+  <div class="nav-cta-wrap">
+    <a href="#download">Download Free</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <img src="/AppIcon.png" alt="Smart Canada Tax" style="width:96px;height:96px;border-radius:22px;box-shadow:0 8px 32px rgba(0,0,0,0.15);margin-bottom:24px;" />
-  <div class="hero-badge">🍁 Updated for 2025 Tax Year</div>
+  <img src="/AppIcon.png" alt="Smart Canada Tax" style="width:96px;height:96px;border-radius:22px;box-shadow:0 8px 32px rgba(0,0,0,0.15);margin:0 auto 24px;display:block;" />
   <h1>Canadian Taxes,<br><span>Simplified.</span></h1>
   <p>Free iOS app for personal income tax, corporate tax, GST/HST, RRSP, and more — covering all 13 provinces and territories.</p>
   <div class="hero-buttons" id="download">
