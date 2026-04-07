@@ -380,7 +380,7 @@ struct CorporateSessionSection: View {
                 Image(systemName: "clock.fill")
                     .font(.caption2)
                     .foregroundColor(.orange)
-                Text("Limited time price — increases to $100")
+                Text("30-minute session with a tax professional")
                     .font(.caption)
                     .foregroundColor(.orange)
             }

@@ -143,7 +143,7 @@ struct SessionPickerSheet: View {
                             title: "Personal Tax Questions",
                             subtitle: "Deductions, RRSP, credits, rental income & more",
                             price: "$35",
-                            priceNote: "increases to $50",
+                            priceNote: "30-minute session",
                             highlightSubtitle: true
                         )
                     }
@@ -158,7 +158,7 @@ struct SessionPickerSheet: View {
                             title: "Corporate Tax Questions",
                             subtitle: "T2, SBD, salary vs. dividend, GST/HST, incorporation — get expert answers without paying an accountant thousands of dollars.",
                             price: "$80",
-                            priceNote: "increases to $100",
+                            priceNote: "30-minute session",
                             highlightSubtitle: true
                         )
                     }
@@ -241,14 +241,9 @@ private struct SessionPickerRow: View {
                     .font(highlightSubtitle ? .caption.bold() : .caption)
                     .foregroundColor(highlightSubtitle ? Color("CanadianRed") : .secondary)
                     .fixedSize(horizontal: false, vertical: true)
-                HStack(spacing: 4) {
-                    Image(systemName: "clock.fill")
-                        .font(.caption2)
-                        .foregroundColor(.orange)
-                    Text("Limited time · \(priceNote)")
-                        .font(.caption2)
-                        .foregroundColor(.orange)
-                }
+                Text(priceNote)
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
             }
 
             Spacer()
@@ -454,10 +449,7 @@ private struct CorporateSessionCTACard: View {
             Divider()
 
             HStack(spacing: 6) {
-                Image(systemName: "clock.fill")
-                    .font(.caption2)
-                    .foregroundColor(.orange)
-                Text("Limited time · increases to $100")
+                Text("30-minute session with a tax professional")
                     .font(.caption2)
                     .foregroundColor(.secondary)
                 Spacer()
