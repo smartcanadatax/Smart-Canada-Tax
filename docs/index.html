@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canadian Tax Calculator — App Info</title>
+  <style>
+    :root {
+      --red: #C8102E;
+      --light: #f9f9f9;
+      --border: #e0e0e0;
+      --text: #1a1a1a;
+      --muted: #666;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--red);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 56px;
+    }
+    nav .brand {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      margin-right: auto;
+    }
+    nav a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    nav a:hover { background: rgba(255,255,255,0.15); }
+    @media (max-width: 600px) {
+      nav a { display: none; }
+      nav a.always { display: block; }
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--red) 0%, #a00c24 100%);
+      color: #fff;
+      text-align: center;
+      padding: 72px 24px 60px;
+    }
+    .hero .flag { font-size: 3rem; margin-bottom: 12px; }
+    .hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+    .hero p { font-size: 1.05rem; opacity: 0.88; max-width: 560px; margin: 0 auto; }
+
+    /* SECTIONS */
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 60px 0 40px; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: none; }
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2 .icon { font-size: 1.3rem; }
+    h3 { font-size: 1.05rem; font-weight: 600; margin: 24px 0 8px; }
+    p { margin-bottom: 14px; color: #333; }
+    ul, ol { padding-left: 20px; margin-bottom: 14px; }
+    li { margin-bottom: 6px; color: #333; }
+
+    /* CARDS */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .card .card-icon { font-size: 1.6rem; margin-bottom: 8px; }
+    .card h3 { margin: 0 0 6px; font-size: 0.95rem; }
+    .card p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+
+    /* PRICE CARDS */
+    .price-cards { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 20px; }
+    .price-card {
+      flex: 1;
+      min-width: 220px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .price-card.featured { border-color: var(--red); }
+    .price-card .type { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+    .price-card .price { font-size: 2rem; font-weight: 800; color: var(--red); margin: 6px 0; }
+    .price-card .note { font-size: 0.8rem; color: var(--muted); }
+    .price-card p { font-size: 0.9rem; margin-top: 10px; }
+
+    /* WARNING BANNER */
+    .warning {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 0.9rem;
+    }
+    .warning strong { color: #b45309; }
+
+    /* FOOTER */
+    footer {
+      background: #1a1a1a;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.85rem;
+    }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#">🍁 Canadian Tax Calculator</a>
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#sessions">Sessions</a>
+  <a href="#privacy">Privacy</a>
+  <a href="#terms">Terms</a>
+  <a href="#disclaimer">Disclaimer</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="flag">🍁</div>
+  <h1>Canadian Tax Calculator</h1>
+  <p>Simple, accurate Canadian tax tools for individuals and small businesses — personal, corporate, GST/HST, RRSP, and more.</p>
+</div>
+
+<div class="container">
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2><span class="icon">📱</span> About the App</h2>
+    <p>
+      Canadian Tax Calculator is an iOS app built to help Canadians estimate their tax obligations quickly and accurately.
+      Whether you're an individual filer, a freelancer, or a small business owner, the app covers the most common
+      Canadian federal and provincial tax scenarios.
+    </p>
+    <p>
+      The app is for <strong>estimation and planning purposes only</strong> and does not file tax returns or provide
+      professional accounting advice.
+    </p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🧮</div>
+        <h3>Personal Income Tax</h3>
+        <p>Federal + provincial tax, BPA credits, CPP/EI, Quebec abatement.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏢</div>
+        <h3>Corporate Tax</h3>
+        <p>T2 estimates, Small Business Deduction, active vs. passive income.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📄</div>
+        <h3>T2125 Self-Employed</h3>
+        <p>Business income, allowable expenses, net income calculation.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💰</div>
+        <h3>GST / HST</h3>
+        <p>Calculate GST/HST collected and remittable by province.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📈</div>
+        <h3>RRSP Calculator</h3>
+        <p>Contribution room, tax savings, and growth projections.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏠</div>
+        <h3>Rental Income</h3>
+        <p>Net rental income, allowable expenses, depreciation.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <h3>Cross-Border / Non-Resident</h3>
+        <p>Withholding tax, NR4, rental income for non-residents.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📚</div>
+        <h3>Resources</h3>
+        <p>2025 tax brackets, historical rates, filing deadlines, glossary.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <h2><span class="icon">💼</span> Services</h2>
+    <p>
+      Beyond calculators, the app offers access to professional Canadian tax advisory services for individuals
+      and small businesses that need personalized guidance.
+    </p>
+
+    <h3>What We Offer</h3>
+    <ul>
+      <li><strong>Personal Tax Advisory</strong> — Guidance on deductions, RRSP strategy, credits, rental income, and more.</li>
+      <li><strong>Corporate Tax Advisory</strong> — T2, Small Business Deduction, salary vs. dividend planning, GST/HST, and incorporation questions.</li>
+      <li><strong>30-Minute Video Sessions</strong> — One-on-one sessions via Google Meet with a qualified Canadian tax professional.</li>
+    </ul>
+
+    <h3>How Payments Work</h3>
+    <p>
+      All session payments are processed securely through <strong>Apple In-App Purchase</strong> via the App Store.
+      Applicable taxes are added at checkout by Apple. Sessions are non-refundable once the booking is confirmed,
+      except where required by applicable law.
+    </p>
+
+    <div class="warning">
+      <strong>⚠️ Not a Filing Service:</strong> Services provided through this app are for educational and
+      planning purposes. We do not prepare, file, or submit tax returns on your behalf.
+    </div>
+  </section>
+
+  <!-- SESSIONS -->
+  <section id="sessions">
+    <h2><span class="icon">🎥</span> Tax Advisor Sessions</h2>
+    <p>
+      Book a 30-minute one-on-one session with a qualified Canadian tax professional. Sessions are conducted
+      via Google Meet and scheduled through Calendly after your payment is confirmed.
+    </p>
+
+    <div class="price-cards">
+      <div class="price-card">
+        <div class="type">Personal Tax</div>
+        <div class="price">$35</div>
+        <div class="note">Introductory rate · increases to $50</div>
+        <p>Deductions, RRSP, credits, rental income, capital gains, and more.</p>
+      </div>
+      <div class="price-card featured">
+        <div class="type">Corporate Tax</div>
+        <div class="price">$80</div>
+        <div class="note">Introductory rate · increases to $100</div>
+        <p>T2, SBD, salary vs. dividend, GST/HST, incorporation — expert answers without paying an accountant thousands of dollars.</p>
+      </div>
+    </div>
+
+    <h3>Session Process</h3>
+    <ol>
+      <li>Purchase your session securely through Apple In-App Purchase.</li>
+      <li>You will be contacted within 1 business day to confirm your session time via Calendly.</li>
+      <li>Attend your 30-minute session on Google Meet at the scheduled time.</li>
+    </ol>
+
+    <h3>Cancellations & Refunds</h3>
+    <p>
+      Sessions are non-refundable once purchased. If you need to reschedule, contact us at least 24 hours
+      before your scheduled session time. Failure to attend without notice forfeits the session.
+      Refund requests related to Apple In-App Purchase must be directed to Apple Support.
+    </p>
+  </section>
+
+  <!-- PRIVACY POLICY -->
+  <section id="privacy">
+    <h2><span class="icon">🔒</span> Privacy Policy</h2>
+    <p><em>Effective date: January 1, 2025</em></p>
+
+    <h3>Information We Collect</h3>
+    <p>
+      The app does <strong>not</strong> collect, store, or transmit any personal financial data you enter into
+      the calculators. All calculations are performed locally on your device.
+    </p>
+    <p>We may collect the following through Apple's standard frameworks:</p>
+    <ul>
+      <li>In-App Purchase transaction records (processed by Apple; we receive only confirmation of successful purchase)</li>
+      <li>Crash reports and basic diagnostics (via Apple's standard crash reporting, if enabled by you)</li>
+    </ul>
+
+    <h3>Information We Do Not Collect</h3>
+    <ul>
+      <li>Your name, email address, or contact information (unless you voluntarily provide it to book a session)</li>
+      <li>Your income, tax, or financial data entered in any calculator</li>
+      <li>Your location data</li>
+      <li>Device identifiers for advertising purposes</li>
+    </ul>
+
+    <h3>Third-Party Services</h3>
+    <ul>
+      <li><strong>Apple App Store / StoreKit</strong> — Handles all payment processing. We do not see or store your payment card details.</li>
+      <li><strong>Calendly</strong> — Used for session scheduling. Subject to <a href="https://calendly.com/privacy" target="_blank">Calendly's Privacy Policy</a>.</li>
+      <li><strong>Google Meet</strong> — Used for video sessions. Subject to <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.</li>
+    </ul>
+
+    <h3>Data Retention</h3>
+    <p>
+      No financial or personal data entered in the app is stored on our servers. Session booking information
+      (if provided) is retained only as long as necessary to deliver the service.
+    </p>
+
+    <h3>Children's Privacy</h3>
+    <p>
+      This app is not directed at children under 13. We do not knowingly collect personal information from
+      children under 13.
+    </p>
+
+    <h3>Changes to This Policy</h3>
+    <p>
+      We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated
+      effective date.
+    </p>
+
+    <h3>Contact</h3>
+    <p>
+      Questions about privacy? Contact us through the App Store listing or at the email address on file with Apple.
+    </p>
+  </section>
+
+  <!-- TERMS -->
+  <section id="terms">
+    <h2><span class="icon">📋</span> Terms of Service</h2>
+    <p><em>Effective date: January 1, 2025</em></p>
+
+    <h3>Acceptance of Terms</h3>
+    <p>
+      By downloading or using Canadian Tax Calculator, you agree to these Terms of Service. If you do not
+      agree, do not use the app.
+    </p>
+
+    <h3>Use of the App</h3>
+    <ul>
+      <li>The app is provided for personal, non-commercial estimation and educational purposes.</li>
+      <li>You may not reverse-engineer, copy, or redistribute the app or its content.</li>
+      <li>You are responsible for verifying all tax calculations with CRA or a qualified professional before filing.</li>
+    </ul>
+
+    <h3>Session Purchases</h3>
+    <ul>
+      <li>All purchases are final and non-refundable unless required by law.</li>
+      <li>Sessions must be booked within 60 days of purchase.</li>
+      <li>We reserve the right to reschedule sessions in exceptional circumstances.</li>
+      <li>Sessions do not constitute the preparation or filing of tax returns.</li>
+    </ul>
+
+    <h3>Intellectual Property</h3>
+    <p>
+      All content, design, and software in the app are owned by the developer and protected by applicable
+      copyright and intellectual property laws.
+    </p>
+
+    <h3>Limitation of Liability</h3>
+    <p>
+      To the maximum extent permitted by law, the developer shall not be liable for any direct, indirect,
+      incidental, or consequential damages arising from your use of the app or reliance on its outputs.
+    </p>
+
+    <h3>Governing Law</h3>
+    <p>
+      These terms are governed by the laws of Canada. Any disputes shall be resolved in the applicable
+      Canadian jurisdiction.
+    </p>
+
+    <h3>Changes to Terms</h3>
+    <p>
+      We may update these terms at any time. Continued use of the app after changes constitutes acceptance
+      of the updated terms.
+    </p>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section id="disclaimer">
+    <h2><span class="icon">⚠️</span> Disclaimer</h2>
+
+    <div class="warning" style="margin-bottom: 20px;">
+      <strong>Estimates Only — Not a Tax Filing Service</strong>
+    </div>
+
+    <p>
+      Canadian Tax Calculator provides <strong>estimates only</strong>. Results are based on user-provided
+      inputs and publicly available tax rates. They are intended for general planning and educational purposes.
+    </p>
+
+    <h3>No Professional Advice</h3>
+    <p>
+      Nothing in this app constitutes professional tax, legal, or financial advice. Always consult a
+      qualified Canadian tax professional or CPA before making tax decisions or filing returns.
+    </p>
+
+    <h3>Accuracy</h3>
+    <p>
+      While we strive to keep tax rates and rules up to date, tax laws change frequently. We make no
+      warranty, express or implied, that the calculations are accurate, complete, or current. Always
+      verify results against the Canada Revenue Agency (CRA) website or a qualified professional.
+    </p>
+
+    <h3>No Guarantee of Outcome</h3>
+    <p>
+      Use of this app does not guarantee any particular tax result. The developer is not responsible for
+      penalties, interest, or other consequences arising from reliance on app outputs.
+    </p>
+
+    <h3>CRA Resources</h3>
+    <p>
+      For official Canadian tax information, visit the
+      <a href="https://www.canada.ca/en/revenue-agency.html" target="_blank">Canada Revenue Agency (CRA)</a>.
+    </p>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 Canadian Tax Calculator. All rights reserved.</p>
+  <p style="margin-top: 8px;">
+    <a href="#privacy">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="#terms">Terms of Service</a> &nbsp;·&nbsp;
+    <a href="#disclaimer">Disclaimer</a>
+  </p>
+</footer>
+
+</body>
+</html>

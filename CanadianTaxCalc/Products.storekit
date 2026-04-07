@@ -1,0 +1,65 @@
+{
+  "identifier" : "com.smartcanadatax.products",
+  "nonConsumableProducts" : [
+    {
+      "displayPrice" : "35.99",
+      "familyShareable" : false,
+      "internalID" : "A1B2C3D4-1234-5678-ABCD-EF1234567890",
+      "localizations" : [
+        {
+          "description" : "30-minute personal tax session with a Canadian tax advisor",
+          "displayName" : "Personal Tax Session",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.smartcanadatax.session.personal",
+      "referenceName" : "Personal Tax Session",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "79.99",
+      "familyShareable" : false,
+      "internalID" : "B2C3D4E5-2345-6789-BCDE-F12345678901",
+      "localizations" : [
+        {
+          "description" : "30-minute corporate tax session with a Canadian tax advisor",
+          "displayName" : "Corporate Tax Session",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.smartcanadatax.session.corporate",
+      "referenceName" : "Corporate Tax Session",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1234567890",
+    "_developerTeamID" : "XBBABT9X98",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verify Receipt"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      }
+    ]
+  },
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
