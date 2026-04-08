@@ -192,46 +192,79 @@
         </div>
       </div>
 
-      <div class="contact-form">
+      <div class="contact-form" id="contactBox">
         <h2>Send a Message</h2>
-        <form action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="cf904fca-dab3-46f6-9a9f-41cb9bb71130" />
-          <input type="hidden" name="subject" value="[Smart Canada Tax] New Contact Message" />
-          <input type="hidden" name="from_name" value="Smart Canada Tax Website" />
-          <input type="hidden" name="redirect" value="https://smartcanadatax.help/contact.html?sent=1" />
+
+        <div id="successMsg" style="display:none;text-align:center;padding:40px 16px;">
+          <div style="font-size:3rem;margin-bottom:16px;">✅</div>
+          <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:8px;color:#1a1a2e;">Message Sent!</h3>
+          <p style="color:#64748b;font-size:0.92rem;line-height:1.6;">Thanks for reaching out.<br>We'll get back to you within 2 business days.</p>
+        </div>
+
+        <form id="contactForm">
           <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+            <label for="cname">Your Name</label>
+            <input type="text" id="cname" placeholder="Jane Smith" required />
           </div>
           <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+            <label for="cemail">Email Address</label>
+            <input type="email" id="cemail" placeholder="jane@example.com" required />
           </div>
           <div class="form-group">
-            <label for="topic">Topic</label>
-            <select id="topic" name="topic">
-              <option value="General Question">General Question</option>
-              <option value="Session Support">Session Support</option>
-              <option value="App Bug or Issue">App Bug or Issue</option>
-              <option value="Billing / Refund">Billing / Refund</option>
-              <option value="Other">Other</option>
+            <label for="ctopic">Topic</label>
+            <select id="ctopic">
+              <option>General Question</option>
+              <option>Session Support</option>
+              <option>App Bug or Issue</option>
+              <option>Billing / Refund</option>
+              <option>Other</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Tell us how we can help..." required></textarea>
+            <label for="cmessage">Message</label>
+            <textarea id="cmessage" placeholder="Tell us how we can help..." required style="min-height:110px;"></textarea>
           </div>
-          <button type="submit" class="btn-submit">Send Message</button>
+          <button type="button" class="btn-submit" id="sendBtn" onclick="sendMessage()">Send Message</button>
         </form>
+
         <script>
-          if (new URLSearchParams(window.location.search).get('sent') === '1') {
-            document.querySelector('.contact-form form').style.display = 'none';
-            document.querySelector('.contact-form h2').insertAdjacentHTML('afterend',
-              '<div style="text-align:center;padding:32px 16px;">' +
-              '<div style="font-size:2.5rem;margin-bottom:12px;">✅</div>' +
-              '<h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px;">Message Sent!</h3>' +
-              '<p style="color:#64748b;font-size:0.9rem;">Thanks for reaching out. We\'ll get back to you within 2 business days.</p>' +
-              '</div>');
+          async function sendMessage() {
+            var name    = document.getElementById('cname').value.trim();
+            var email   = document.getElementById('cemail').value.trim();
+            var topic   = document.getElementById('ctopic').value;
+            var message = document.getElementById('cmessage').value.trim();
+            if (!name || !email || !message) { alert('Please fill in all fields.'); return; }
+            var btn = document.getElementById('sendBtn');
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+            var payload = {
+              access_key: 'cf904fca-dab3-46f6-9a9f-41cb9bb71130',
+              subject: '[Smart Canada Tax] ' + topic,
+              from_name: 'Smart Canada Tax Website',
+              name: name,
+              email: email,
+              message: 'Topic: ' + topic + '\nName: ' + name + '\nEmail: ' + email + '\n\n' + message
+            };
+            try {
+              var res = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(payload)
+              });
+              var data = await res.json();
+              if (data.success) {
+                document.getElementById('contactForm').style.display = 'none';
+                document.getElementById('successMsg').style.display = 'block';
+              } else {
+                alert('Something went wrong. Please try again.');
+                btn.disabled = false;
+                btn.textContent = 'Send Message';
+              }
+            } catch(e) {
+              alert('Network error. Please try again.');
+              btn.disabled = false;
+              btn.textContent = 'Send Message';
+            }
           }
         </script>
       </div>
