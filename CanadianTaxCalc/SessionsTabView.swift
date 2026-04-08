@@ -384,7 +384,7 @@ private struct SessionBookCTACard: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Personal Tax Session")
                         .font(.subheadline.bold())
-                    Text("30 min · Canadian tax professional · $35 intro rate")
+                    Text("30 min · Canadian tax professional · $34.99")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
