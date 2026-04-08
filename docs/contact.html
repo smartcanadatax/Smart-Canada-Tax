@@ -339,5 +339,84 @@
   <div class="footer-copy">© 2026 Smart Canada Tax · 1000936219 Ontario Inc. · All rights reserved.</div>
 </footer>
 
+<!-- ── APP DOWNLOAD BANNER + POPUP ── -->
+<style>
+  #app-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,#C8102E 0%,#9b0c22 100%);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;gap:10px;box-shadow:0 2px 12px rgba(0,0,0,.25);}
+  #app-banner .b-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+  #app-banner img{width:38px;height:38px;border-radius:8px;flex-shrink:0;}
+  #app-banner .b-text{font-size:.78rem;line-height:1.3;overflow:hidden;}
+  #app-banner .b-text strong{font-size:.85rem;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  #app-banner .b-btn{background:#fff;color:#C8102E;font-weight:700;font-size:.8rem;padding:7px 14px;border-radius:20px;text-decoration:none;white-space:nowrap;flex-shrink:0;}
+  #app-banner .b-close{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.3rem;cursor:pointer;padding:0 2px;flex-shrink:0;line-height:1;}
+  #app-popup-overlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px;}
+  #app-popup-overlay.show{display:flex;}
+  #app-popup{background:#fff;border-radius:20px;padding:28px 24px;max-width:340px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;}
+  #app-popup img{width:68px;height:68px;border-radius:15px;margin-bottom:12px;}
+  #app-popup h2{font-size:1.2rem;color:#1a1a2e;margin-bottom:6px;}
+  #app-popup .p-badge{display:inline-block;background:#e8f5e9;color:#2e7d32;font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:12px;margin-bottom:14px;}
+  #app-popup ul{list-style:none;text-align:left;margin:0 0 18px;padding:0;}
+  #app-popup ul li{font-size:.86rem;color:#444;padding:4px 0;display:flex;align-items:center;gap:8px;}
+  #app-popup ul li::before{content:"✓";color:#C8102E;font-weight:700;flex-shrink:0;}
+  #app-popup .p-store-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:#000;color:#fff;text-decoration:none;border-radius:12px;padding:13px 18px;font-size:.88rem;font-weight:600;width:100%;margin-bottom:10px;}
+  #app-popup .p-dismiss{background:none;border:none;color:#999;font-size:.8rem;cursor:pointer;padding:4px;}
+  #app-popup .p-close-x{position:absolute;top:12px;right:14px;background:none;border:none;font-size:1.4rem;color:#bbb;cursor:pointer;line-height:1;}
+  body.banner-shown{padding-top:60px;}
+</style>
+<div id="app-banner">
+  <div class="b-left">
+    <img src="/AppIcon.png" alt="Smart Canada Tax">
+    <div class="b-text">
+      <strong>Smart Canada Tax — Free Download</strong>
+      All calculators free · 3 free AI tax questions
+    </div>
+  </div>
+  <a href="#" class="b-btn" id="banner-store-btn">Get App</a>
+  <button class="b-close" id="banner-close-btn" aria-label="Close">×</button>
+</div>
+<div id="app-popup-overlay">
+  <div id="app-popup">
+    <button class="p-close-x" id="popup-close-x" aria-label="Close">×</button>
+    <img src="/AppIcon.png" alt="Smart Canada Tax">
+    <h2>Smart Canada Tax</h2>
+    <div class="p-badge">FREE DOWNLOAD</div>
+    <ul>
+      <li>All tax calculators — personal, corporate, GST/HST &amp; more</li>
+      <li>3 free AI tax questions included</li>
+      <li>All 13 provinces &amp; territories</li>
+      <li>Works offline · no data collected</li>
+    </ul>
+    <a href="#" class="p-store-btn" id="popup-store-btn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download on the App Store
+    </a>
+    <button class="p-dismiss" id="popup-dismiss">Maybe later</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORE_URL="#";
+  document.getElementById("banner-store-btn").href=STORE_URL;
+  document.getElementById("popup-store-btn").href=STORE_URL;
+  var banner=document.getElementById("app-banner");
+  var overlay=document.getElementById("app-popup-overlay");
+  if(!sessionStorage.getItem("sct_banner_off")){document.body.classList.add("banner-shown");}
+  else{banner.style.display="none";}
+  document.getElementById("banner-close-btn").addEventListener("click",function(){
+    banner.style.display="none";document.body.classList.remove("banner-shown");sessionStorage.setItem("sct_banner_off","1");
+  });
+  function hidePopup(){overlay.classList.remove("show");}
+  document.getElementById("popup-close-x").addEventListener("click",hidePopup);
+  document.getElementById("popup-dismiss").addEventListener("click",hidePopup);
+  overlay.addEventListener("click",function(e){if(e.target===overlay)hidePopup();});
+  if(!sessionStorage.getItem("sct_popup_shown")){
+    document.addEventListener("click",function handler(e){
+      if(!overlay.contains(e.target)&&!banner.contains(e.target)){
+        overlay.classList.add("show");sessionStorage.setItem("sct_popup_shown","1");
+        document.removeEventListener("click",handler);
+      }
+    });
+  }
+})();
+</script>
 </body>
 </html>
