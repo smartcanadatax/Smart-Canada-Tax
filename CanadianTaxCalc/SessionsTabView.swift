@@ -142,7 +142,7 @@ struct SessionPickerSheet: View {
                             iconColor: Color("CanadianRed"),
                             title: "Personal Tax Questions",
                             subtitle: "Deductions, RRSP, credits, rental income & more",
-                            price: "$35",
+                            price: "$34.99",
                             priceNote: "30-minute session",
                             highlightSubtitle: true
                         )
@@ -157,7 +157,7 @@ struct SessionPickerSheet: View {
                             iconColor: .indigo,
                             title: "Corporate Tax Questions",
                             subtitle: "T2, SBD, salary vs. dividend, GST/HST, incorporation — get expert answers without paying an accountant thousands of dollars.",
-                            price: "$80",
+                            price: "$79.99",
                             priceNote: "30-minute session",
                             highlightSubtitle: true
                         )
