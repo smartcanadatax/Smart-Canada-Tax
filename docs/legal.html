@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Canada Tax — Privacy Policy &amp; Terms of Use</title>
+  <meta name="description" content="Privacy Policy and Terms of Use for Smart Canada Tax iOS app." />
+  <style>
+    :root {
+      --red: #C8102E;
+      --red-light: #f9e8eb;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --bg: #f7f8fa;
+      --card: #ffffff;
+      --border: #e8eaed;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    nav .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--red);
+      text-decoration: none;
+    }
+    nav .nav-links {
+      margin-left: auto;
+      display: flex;
+      gap: 20px;
+    }
+    nav .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    nav .nav-links a:hover { color: var(--red); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--red) 0%, #9b0c22 100%);
+      color: white;
+      text-align: center;
+      padding: 48px 24px 36px;
+    }
+    .hero h1 { font-size: 1.9rem; font-weight: 700; margin-bottom: 8px; }
+    .hero p { font-size: 1rem; opacity: 0.88; }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .tabs a {
+      padding: 14px 32px;
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .tabs a:hover { color: var(--red); border-bottom-color: var(--red-light); }
+
+    /* CONTENT */
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    section { margin-bottom: 60px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--red-light);
+    }
+    .section-header .icon {
+      background: var(--red-light);
+      color: var(--red);
+      border-radius: 10px;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .section-header h2 { font-size: 1.5rem; color: var(--red); }
+
+    .updated {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .notice {
+      background: var(--red-light);
+      border-left: 4px solid var(--red);
+      padding: 14px 18px;
+      border-radius: 6px;
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 24px 0 8px;
+    }
+    h3:first-child { margin-top: 0; }
+
+    p { color: #374151; margin-bottom: 10px; font-size: 0.95rem; }
+    ul { padding-left: 1.4em; margin-bottom: 10px; }
+    li { color: #374151; font-size: 0.95rem; margin-bottom: 4px; }
+    a { color: var(--red); }
+
+    /* DATA TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin: 16px 0 8px;
+    }
+    th {
+      text-align: left;
+      padding: 8px 10px;
+      background: var(--bg);
+      border-bottom: 2px solid var(--border);
+      color: var(--muted);
+      font-weight: 600;
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid var(--border);
+      color: #374151;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* BADGES */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0;
+    }
+    .badge {
+      background: var(--red-light);
+      color: var(--red);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--red); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .tabs a { padding: 12px 18px; font-size: 0.88rem; }
+      .hero h1 { font-size: 1.5rem; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="/">🍁 Smart Canada Tax</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Legal Information</h1>
+  <p>Privacy Policy &amp; Terms of Use for Smart Canada Tax</p>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <a href="#privacy">🛡️ Privacy Policy</a>
+  <a href="#terms">📄 Terms of Use</a>
+</div>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- PRIVACY POLICY                            -->
+  <!-- ══════════════════════════════════════════ -->
+  <section id="privacy">
+    <div class="section-header">
+      <div class="icon">🛡️</div>
+      <h2>Privacy Policy</h2>
+    </div>
+    <p class="updated">Last updated: April 8, 2026 &nbsp;·&nbsp; <strong>1000936219 Ontario Inc.</strong></p>
+
+    <div class="notice">
+      Smart Canada Tax is built with privacy as a core principle. All tax calculations happen entirely on your device — no financial data is ever sent to our servers.
+    </div>
+
+    <div class="badges">
+      <span class="badge">🔒 All calculations on-device</span>
+      <span class="badge">📵 No ads ever</span>
+      <span class="badge">📱 No account required</span>
+      <span class="badge">🚫 Never sold to anyone</span>
+      <span class="badge">📊 No analytics or tracking</span>
+      <span class="badge">💳 Payments handled by Apple</span>
+    </div>
+
+    <div class="card">
+      <h3>Data Collection Summary</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Where It Goes</th>
+            <th>Shared?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tax calculator inputs (income, deductions, etc.)</td>
+            <td>On device only — never transmitted</td>
+            <td>Never</td>
+          </tr>
+          <tr>
+            <td>Session bookings &amp; preferences</td>
+            <td>On device only (UserDefaults)</td>
+            <td>Never</td>
+          </tr>
+          <tr>
+            <td>Contact form inquiries</td>
+            <td>Sent to admin@smartcanadatax.help</td>
+            <td>Not shared</td>
+          </tr>
+          <tr>
+            <td>In-app purchases</td>
+            <td>Processed entirely by Apple</td>
+            <td>We receive no payment data</td>
+          </tr>
+          <tr>
+            <td>Analytics &amp; tracking</td>
+            <td>None collected</td>
+            <td>Never</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>1. Information We Do NOT Collect</h3>
+      <p>Smart Canada Tax does <strong>not</strong> collect, store, or transmit:</p>
+      <ul>
+        <li>Income figures, tax estimates, or any financial data entered into calculators</li>
+        <li>Your Social Insurance Number (SIN), date of birth, or government identifiers</li>
+        <li>Your name, address, or personal contact information (except contact inquiries you voluntarily submit)</li>
+        <li>Precise or approximate location data</li>
+        <li>Device identifiers linked to your financial inputs</li>
+        <li>Behavioural analytics or usage tracking tied to any personal identifier</li>
+      </ul>
+      <p>All calculator inputs are processed entirely on your device and are never sent anywhere.</p>
+
+      <h3>2. Data Stored on Your Device</h3>
+      <p>The App may store booked session details and app preferences locally on your device using Apple's UserDefaults. This data remains solely on your device, is never transmitted to our servers, and is not accessible to us or any third party. Deleting the app removes all locally stored data.</p>
+
+      <h3>3. Contact Inquiries</h3>
+      <p>If you submit a message through the Services or Contact section of the app or website, your name, email address, and message are transmitted to <a href="mailto:admin@smartcanadatax.help">admin@smartcanadatax.help</a>. This information is used solely to respond to your inquiry. We do not store it in any database, share it with third parties, or use it for marketing.</p>
+
+      <h3>4. In-App Purchases &amp; Advisory Sessions</h3>
+      <p>Any in-app purchases or session bookings are processed by Apple through StoreKit. We do not receive, store, or have access to your payment card details or billing information. Session bookings may be coordinated through Calendly, subject to <a href="https://calendly.com/privacy" target="_blank">Calendly's Privacy Policy</a>.</p>
+
+      <h3>5. Third-Party Services</h3>
+      <p>This App does not embed any advertising networks, analytics SDKs, or user-tracking tools. We do not serve advertisements.</p>
+      <ul>
+        <li><strong>Apple StoreKit</strong> — in-app purchases, subject to <a href="https://www.apple.com/legal/privacy/" target="_blank">Apple's Privacy Policy</a></li>
+        <li><strong>Calendly</strong> — session booking coordination, subject to <a href="https://calendly.com/privacy" target="_blank">Calendly's Privacy Policy</a></li>
+      </ul>
+
+      <h3>6. AI Tax Guidance</h3>
+      <p>If you use the Tax AI feature, your typed queries are sent to our AI provider over an encrypted HTTPS connection to generate a response. We do not log or store these conversations on our servers. Financial data entered into calculators is never sent to the AI — only the text you type in the AI chat.</p>
+
+      <h3>7. Apple App Store &amp; iOS</h3>
+      <p>Apple may collect certain usage and crash data as part of standard iOS operation, subject to <a href="https://www.apple.com/legal/privacy/" target="_blank">Apple's Privacy Policy</a>. We do not control or have access to data collected by Apple.</p>
+
+      <h3>8. Children's Privacy</h3>
+      <p>This App is not directed to individuals under 18. We do not knowingly collect personal information from minors.</p>
+
+      <h3>9. Data Security</h3>
+      <p>Since we do not collect or store your financial data on our servers, the risk of a server-side data breach exposing your financial information does not apply. Data stored on your device is protected by Apple's built-in device encryption.</p>
+
+      <h3>10. PIPEDA / GDPR / CCPA</h3>
+      <p>Because we collect no personal financial data and store nothing on our servers, data protection obligations relating to financial data processing do not apply to our core operations. We do not sell personal information. All data remains under your sole control on your device.</p>
+
+      <h3>11. Changes to This Policy</h3>
+      <p>We may update this Privacy Policy from time to time. Material changes will be reflected with an updated date above. Continued use of the App after changes are posted constitutes acceptance of the updated policy.</p>
+
+      <h3>12. Contact</h3>
+      <p><strong>1000936219 Ontario Inc.</strong><br>
+      Ontario, Canada<br>
+      <a href="mailto:admin@smartcanadatax.help">admin@smartcanadatax.help</a></p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- TERMS OF USE                              -->
+  <!-- ══════════════════════════════════════════ -->
+  <section id="terms">
+    <div class="section-header">
+      <div class="icon">📄</div>
+      <h2>Terms of Use</h2>
+    </div>
+    <p class="updated">Last updated: April 8, 2026 &nbsp;·&nbsp; <strong>1000936219 Ontario Inc.</strong></p>
+
+    <div class="notice">
+      By downloading or using Smart Canada Tax, you agree to these Terms of Use. Please read them carefully.
+    </div>
+
+    <div class="card">
+      <h3>1. Acceptance of Terms</h3>
+      <p>By downloading, installing, or using the Smart Canada Tax application ("the App"), you agree to be bound by these Terms of Use and all applicable laws. If you do not agree, do not use the App.</p>
+
+      <h3>2. License</h3>
+      <p>We grant you a limited, non-exclusive, non-transferable, revocable license to use Smart Canada Tax for personal, non-commercial tax estimation purposes on Apple devices you own or control, subject to these Terms.</p>
+
+      <h3>3. Permitted Use</h3>
+      <p>You may use the App solely for lawful personal or business tax estimation purposes. You may not:</p>
+      <ul>
+        <li>Copy, modify, distribute, sell, or sublicense any part of the App</li>
+        <li>Reverse engineer, decompile, or disassemble the App</li>
+        <li>Use the App for any unlawful purpose or in violation of any applicable laws</li>
+        <li>Attempt to gain unauthorized access to any systems connected to the App</li>
+      </ul>
+
+      <h3>4. Tax Estimates — Disclaimer of Accuracy</h3>
+      <p>All calculations and results provided by Smart Canada Tax are <strong>estimates for informational purposes only</strong>. They are based on published CRA rates and general tax rules, which may change. Actual tax obligations, credits, and benefit amounts will be determined by the Canada Revenue Agency (CRA) based on your complete and accurate tax return.</p>
+      <p>Smart Canada Tax does <strong>not</strong>:</p>
+      <ul>
+        <li>Prepare, review, or file tax returns on your behalf</li>
+        <li>Provide legal or professional tax advice</li>
+        <li>Guarantee the accuracy of any calculation result</li>
+      </ul>
+      <p>Always consult a qualified Canadian tax professional (CPA) for advice tailored to your situation.</p>
+
+      <h3>5. AI Tax Guidance</h3>
+      <p>The Tax AI feature provides general educational information about Canadian tax topics. AI-generated responses are not professional tax advice, legal advice, or a substitute for consulting a registered Canadian tax professional. Do not rely solely on AI responses for tax filing decisions.</p>
+
+      <h3>6. Professional Advisory Sessions</h3>
+      <p>The App offers the ability to book paid sessions with third-party Canadian tax professionals. These professionals operate independently. We facilitate the booking but are not responsible for the advice provided during sessions. Advisory session fees are listed in the App and processed through Apple.</p>
+
+      <h3>7. Subscriptions &amp; In-App Purchases</h3>
+      <p>Smart Canada Tax may offer optional paid features or advisory sessions. All purchases are processed by Apple through your Apple ID. Where applicable:</p>
+      <ul>
+        <li>Subscriptions automatically renew unless cancelled at least 24 hours before the end of the current period</li>
+        <li>You can manage or cancel subscriptions in your Apple ID account settings</li>
+        <li>We do not offer refunds outside of Apple's standard refund policy</li>
+      </ul>
+
+      <h3>8. Intellectual Property</h3>
+      <p>All content within Smart Canada Tax — including design, graphics, text, code, and data — is the property of 1000936219 Ontario Inc. or used under applicable licenses. You may not reproduce, distribute, or create derivative works without express written permission.</p>
+
+      <h3>9. Disclaimer of Warranties</h3>
+      <p>The App is provided "as is" and "as available" without warranties of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that the App will be error-free, uninterrupted, or that tax calculations will be accurate for your specific situation.</p>
+
+      <h3>10. Limitation of Liability</h3>
+      <p>To the maximum extent permitted by applicable law, 1000936219 Ontario Inc. and its officers, directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to taxes owing, penalties, interest, professional fees, or other costs arising from your use of or reliance on this App or any advisory session. <strong>Your use of this App is entirely at your own risk.</strong></p>
+
+      <h3>11. Indemnification</h3>
+      <p>You agree to indemnify and hold harmless 1000936219 Ontario Inc. from any claims, damages, losses, or expenses (including legal fees) arising from your use of the App, your violation of these Terms, or your violation of any applicable law.</p>
+
+      <h3>12. Governing Law</h3>
+      <p>These Terms shall be governed by and construed in accordance with the laws of the Province of Ontario and the federal laws of Canada applicable therein, without regard to conflict of law principles.</p>
+
+      <h3>13. Changes to Terms</h3>
+      <p>We reserve the right to modify these Terms at any time. Material changes will be communicated through an updated date above or an in-app notice. Continued use of the App after changes constitutes acceptance of the revised Terms.</p>
+
+      <h3>14. Contact</h3>
+      <p><strong>1000936219 Ontario Inc.</strong><br>
+      Ontario, Canada<br>
+      <a href="mailto:admin@smartcanadatax.help">admin@smartcanadatax.help</a></p>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Smart Canada Tax &nbsp;·&nbsp; 1000936219 Ontario Inc. &nbsp;·&nbsp;
+  <a href="mailto:admin@smartcanadatax.help">admin@smartcanadatax.help</a></p>
+  <p style="margin-top:6px;">
+    <a href="/">Home</a> &nbsp;·&nbsp;
+    <a href="#privacy">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="#terms">Terms of Use</a> &nbsp;·&nbsp;
+    <a href="/contact.html">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>

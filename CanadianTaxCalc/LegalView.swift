@@ -15,7 +15,7 @@ struct TermsAgreementView: View {
                     Image(systemName: "maple.leaf.fill")
                         .font(.system(size: 44))
                         .foregroundColor(Color("CanadianRed"))
-                    Text("SmartCanadaTax")
+                    Text("Smart Canada Tax")
                         .font(.title2.bold())
                     Text("Before you continue, please read and accept\nour Terms of Service and Disclaimer.")
                         .font(.subheadline)
@@ -41,7 +41,7 @@ struct TermsAgreementView: View {
                                 Text("Estimates Only — Not a Tax Filing Service")
                                     .font(.subheadline.bold())
                                     .foregroundColor(.orange)
-                                Text("All results are for informational purposes only. SmartCanadaTax does not prepare, review, or file any tax return on your behalf.")
+                                Text("All results are for informational purposes only. Smart Canada Tax does not prepare, review, or file any tax return on your behalf.")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -62,7 +62,7 @@ struct TermsAgreementView: View {
                             AgreementPoint(icon: "creditcard",
                                            text: "Advisory session payments are processed securely by Apple In-App Purchase. Sessions are educational in nature only.")
                             AgreementPoint(icon: "exclamationmark.shield",
-                                           text: "SmartCanadaTax is not liable for any taxes, penalties, or costs arising from reliance on App results.")
+                                           text: "Smart Canada Tax is not liable for any taxes, penalties, or costs arising from reliance on App results.")
                         }
 
                         // Links to full documents
@@ -123,7 +123,7 @@ struct TermsAgreementView: View {
         .alert("Agreement Required", isPresented: $showDeclineAlert) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("You must agree to the Terms of Service and Disclaimer to use SmartCanadaTax.")
+            Text("You must agree to the Terms of Service and Disclaimer to use Smart Canada Tax.")
         }
     }
 }
@@ -154,10 +154,10 @@ struct TermsOfServiceView: View {
                             title: "Terms of Service", lastUpdated: "March 2026")
 
                 LegalSection(title: "1. Acceptance of Terms",
-                             text: "By downloading, installing, or using the SmartCanadaTax application (the \"App\"), you unconditionally agree to be bound by these Terms of Service and all applicable laws. If you do not agree to these terms in their entirety, you must immediately cease use of the App and delete it from your device.")
+                             text: "By downloading, installing, or using the Smart Canada Tax application (the \"App\"), you unconditionally agree to be bound by these Terms of Service and all applicable laws. If you do not agree to these terms in their entirety, you must immediately cease use of the App and delete it from your device.")
 
                 LegalSection(title: "2. Estimation Tool Only — Not a Tax Filing Service",
-                             text: "All results produced by this App are ESTIMATES ONLY and are provided solely for general informational and educational purposes. They do not constitute a completed, verified, or filed tax return of any kind.\n\nSmartCanadaTax DOES NOT:\n• Prepare, review, audit, or file any tax return (T1, T2, GST/HST, or otherwise) on your behalf\n• Submit any information to the Canada Revenue Agency (CRA) or any government authority\n• Act as your accountant, tax preparer, bookkeeper, or authorized CRA representative\n• Provide formal tax opinions, legal advice, or any binding professional guidance\n• Guarantee that any estimate reflects your actual tax liability\n\nTax outcomes depend on individual facts and circumstances not captured by this App. Amounts assessed by the CRA may differ substantially — including owing significantly more or less — than results shown.")
+                             text: "All results produced by this App are ESTIMATES ONLY and are provided solely for general informational and educational purposes. They do not constitute a completed, verified, or filed tax return of any kind.\n\nSmart Canada Tax DOES NOT:\n• Prepare, review, audit, or file any tax return (T1, T2, GST/HST, or otherwise) on your behalf\n• Submit any information to the Canada Revenue Agency (CRA) or any government authority\n• Act as your accountant, tax preparer, bookkeeper, or authorized CRA representative\n• Provide formal tax opinions, legal advice, or any binding professional guidance\n• Guarantee that any estimate reflects your actual tax liability\n\nTax outcomes depend on individual facts and circumstances not captured by this App. Amounts assessed by the CRA may differ substantially — including owing significantly more or less — than results shown.")
 
                 LegalSection(title: "3. No Warranty or Guarantee of Accuracy",
                              text: "THIS APP IS PROVIDED \"AS IS\" AND \"AS AVAILABLE\" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. We make NO WARRANTY as to the accuracy, completeness, timeliness, or fitness for any particular purpose of any calculation, rate, or result produced by this App.\n\nWe expressly disclaim all liability for:\n• Errors or omissions in tax rate, bracket, or credit data\n• Differences between App estimates and your actual CRA assessment\n• Penalties, interest, arrears, or other costs arising from reliance on App results\n• Tax law changes not yet reflected in the App\n• Incorrect results caused by user input errors\n\nFiling an incorrect tax return can result in CRA penalties and interest charges. DO NOT use this App as your sole or primary basis for preparing or filing any tax return.")
@@ -166,16 +166,16 @@ struct TermsOfServiceView: View {
                              text: "Nothing in this App constitutes tax advice, legal advice, accounting advice, financial planning advice, or any form of regulated professional service. Results produced by this App are not a substitute for personalized advice from a qualified Canadian CPA, tax lawyer, or registered tax preparer. Always consult a qualified professional before making financial or tax-related decisions.")
 
                 LegalSection(title: "5. Advisory Sessions — Educational Guidance Only",
-                             text: "Tax strategy sessions offered through this App are educational and informational in nature only. They do not constitute a formal tax engagement, CPA-client relationship, or legally binding tax opinion. Session advisors are not acting as your authorized CRA representative unless a separate written engagement is executed.\n\nAdvice provided in sessions is general in nature and may not account for all aspects of your individual situation. SmartCanadaTax is not responsible for outcomes resulting from actions taken based on session guidance.\n\nPayment for sessions is processed through Apple In-App Purchase (StoreKit), subject to Apple's own Terms and Conditions. SmartCanadaTax is not responsible for any errors, disputes, or issues arising from Apple's payment processing.")
+                             text: "Tax strategy sessions offered through this App are educational and informational in nature only. They do not constitute a formal tax engagement, CPA-client relationship, or legally binding tax opinion. Session advisors are not acting as your authorized CRA representative unless a separate written engagement is executed.\n\nAdvice provided in sessions is general in nature and may not account for all aspects of your individual situation. Smart Canada Tax is not responsible for outcomes resulting from actions taken based on session guidance.\n\nPayment for sessions is processed through Apple In-App Purchase (StoreKit), subject to Apple's own Terms and Conditions. Smart Canada Tax is not responsible for any errors, disputes, or issues arising from Apple's payment processing.")
 
                 LegalSection(title: "6. Limitation of Liability & Indemnification",
-                             text: "TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, SmartCanadaTax and its developers, officers, agents, and affiliates shall NOT be liable for any direct, indirect, incidental, special, consequential, exemplary, or punitive damages of any kind, including but not limited to:\n• Tax underpayments, penalties, or interest assessed by the CRA\n• Lost income, revenue, or savings\n• Cost of professional tax advice sought to correct errors\n• Any other financial loss arising from your use of or reliance on this App\n\nYour sole remedy for dissatisfaction with the App is to discontinue its use.\n\nYou agree to indemnify and hold harmless SmartCanadaTax and its developers from any claim, demand, or damage arising out of your use of the App or violation of these Terms.")
+                             text: "TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, Smart Canada Tax and its developers, officers, agents, and affiliates shall NOT be liable for any direct, indirect, incidental, special, consequential, exemplary, or punitive damages of any kind, including but not limited to:\n• Tax underpayments, penalties, or interest assessed by the CRA\n• Lost income, revenue, or savings\n• Cost of professional tax advice sought to correct errors\n• Any other financial loss arising from your use of or reliance on this App\n\nYour sole remedy for dissatisfaction with the App is to discontinue its use.\n\nYou agree to indemnify and hold harmless Smart Canada Tax and its developers from any claim, demand, or damage arising out of your use of the App or violation of these Terms.")
 
                 LegalSection(title: "7. Data and Privacy",
                              text: "This App performs all tax calculations locally on your device. We do not transmit, store on our servers, or share any income or financial data you enter into the calculators. Please see our Privacy Policy for full details.")
 
                 LegalSection(title: "8. Intellectual Property",
-                             text: "All content, design, code, and data within this App are the intellectual property of SmartCanadaTax. You may not reproduce, distribute, modify, or create derivative works without express written permission.")
+                             text: "All content, design, code, and data within this App are the intellectual property of Smart Canada Tax. You may not reproduce, distribute, modify, or create derivative works without express written permission.")
 
                 LegalSection(title: "9. Changes to Terms",
                              text: "We reserve the right to update or modify these Terms at any time without prior notice. Your continued use of the App after any changes constitutes your acceptance of the revised Terms. We encourage you to review these Terms periodically.")
@@ -204,7 +204,7 @@ struct PrivacyPolicyView: View {
                             title: "Privacy Policy", lastUpdated: "March 2026")
 
                 LegalSection(title: "1. Overview",
-                             text: "SmartCanadaTax is designed with your privacy as a core principle. This App does not collect, transmit, or sell any personal financial information you enter into the calculators. This policy explains exactly what data is and is not collected.")
+                             text: "Smart Canada Tax is designed with your privacy as a core principle. This App does not collect, transmit, or sell any personal financial information you enter into the calculators. This policy explains exactly what data is and is not collected.")
 
                 LegalSection(title: "2. Data We Do NOT Collect",
                              text: "We do NOT collect, store on our servers, or transmit:\n• Income figures, tax estimates, or any financial data entered into calculators\n• Your Social Insurance Number (SIN), date of birth, or government identifiers\n• Your name, address, or personal contact information (except as described below)\n• Precise or approximate location data\n• Device identifiers linked to your financial inputs\n• Behavioural analytics tied to any personal identifier\n\nAll calculator inputs are processed entirely on your device and are never sent anywhere.")
@@ -284,7 +284,7 @@ struct AppDisclaimerView: View {
                              text: "The information and results in this App do not constitute tax advice, legal advice, accounting advice, or any form of regulated professional service. Advisory sessions offered through this App are educational in nature and do not create a formal CPA-client or legal-professional relationship.\n\nAlways consult a qualified Canadian CPA, tax lawyer, or registered tax preparer before filing any return or making significant financial or tax-related decisions.")
 
                 LegalSection(title: "Limitation of Liability",
-                             text: "SmartCanadaTax and its developers expressly disclaim, to the fullest extent permitted by law, all liability for any taxes, penalties, interest, fines, professional fees, or other costs or damages of any kind arising from your use of or reliance on this App or any advisory session. YOUR USE OF THIS APP IS ENTIRELY AT YOUR OWN RISK.")
+                             text: "Smart Canada Tax and its developers expressly disclaim, to the fullest extent permitted by law, all liability for any taxes, penalties, interest, fines, professional fees, or other costs or damages of any kind arising from your use of or reliance on this App or any advisory session. YOUR USE OF THIS APP IS ENTIRELY AT YOUR OWN RISK.")
 
                 LegalSection(title: "CRA Is the Sole Authority",
                              text: "The Canada Revenue Agency (CRA) is the authoritative source for all Canadian federal tax matters. Provincial revenue authorities govern provincial taxes. For official rates, rules, credits, and filing requirements, consult canada.ca or a qualified Canadian tax professional.")

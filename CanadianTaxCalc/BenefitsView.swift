@@ -2,202 +2,56 @@ import SwiftUI
 
 // MARK: - Benefits Hub
 struct BenefitsView: View {
-    var body: some View {
-        NavigationStack {
-            List {
-                Section("Family Benefits") {
-                    NavigationLink(destination: CCBView()) {
-                        Label {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Canada Child Benefit (CCB)")
-                                    .font(.subheadline.bold())
-                                Text("Up to $7,997/year per child under 6")
-                                    .font(.caption).foregroundColor(.secondary)
-                            }
-                        } icon: {
-                            Image(systemName: "figure.2.and.child.holdinghands")
-                                .foregroundColor(.pink)
-                        }
-                    }
-                    NavigationLink(destination: CWBView()) {
-                        Label {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Canada Workers Benefit (CWB)")
-                                    .font(.subheadline.bold())
-                                Text("Up to $1,633 single · $2,813 family")
-                                    .font(.caption).foregroundColor(.secondary)
-                            }
-                        } icon: {
-                            Image(systemName: "briefcase.fill")
-                                .foregroundColor(.green)
-                        }
-                    }
-                }
-                Section("Seniors") {
-                    NavigationLink(destination: OASGISView()) {
-                        Label {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("OAS & GIS Estimator")
-                                    .font(.subheadline.bold())
-                                Text("Old Age Security · Guaranteed Income Supplement")
-                                    .font(.caption).foregroundColor(.secondary)
-                            }
-                        } icon: {
-                            Image(systemName: "person.fill.badge.plus")
-                                .foregroundColor(.teal)
-                        }
-                    }
-                }
-            }
-            .navigationTitle("Benefits & Credits")
-            .navigationBarTitleDisplayMode(.large)
-        }
-    }
-}
-
-// MARK: - Canada Child Benefit
-struct CCBView: View {
-
-    @State private var childrenUnder6  = ""
-    @State private var children6to17  = ""
-    @State private var familyAFNI      = ""
-
-    // 2025–2026 benefit year
-    private let maxUnder6: Double  = 7_997
-    private let max6to17:  Double  = 6_748
-    private let threshold: Double  = 37_487
-    private let threshold2: Double = 68_708
-
-    private var totalChildren: Int {
-        (Int(childrenUnder6) ?? 0) + (Int(children6to17) ?? 0)
-    }
-
-    private var fullBenefit: Double {
-        (Double(childrenUnder6) ?? 0) * maxUnder6
-        + (Double(children6to17) ?? 0) * max6to17
-    }
-
-    // CRA phase-out rates by number of children
-    private var phaseRate1: Double {
-        switch totalChildren {
-        case 1:       return 0.135
-        case 2:       return 0.190
-        case 3:       return 0.228
-        default:      return 0.238   // 4+
-        }
-    }
-    private var phaseRate2: Double {
-        switch totalChildren {
-        case 1:       return 0.057
-        case 2:       return 0.105
-        case 3:       return 0.127
-        default:      return 0.132
-        }
-    }
-
-    private var annualCCB: Double {
-        guard let afni = Double(familyAFNI), totalChildren > 0 else { return 0 }
-        if afni <= threshold { return fullBenefit }
-        let excess1 = min(afni, threshold2) - threshold
-        let excess2 = max(0, afni - threshold2)
-        let reduction = excess1 * phaseRate1 + excess2 * phaseRate2
-        return max(0, fullBenefit - reduction)
-    }
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        Form {
-            Section(header: Label("Children", systemImage: "figure.2.and.child.holdinghands")) {
-                HStack {
-                    Text("Children under 6")
-                    Spacer()
-                    TextField("0", text: $childrenUnder6)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(width: 60)
-                }
-                HStack {
-                    Text("Children age 6–17")
-                    Spacer()
-                    TextField("0", text: $children6to17)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(width: 60)
-                }
-                if totalChildren > 0 {
-                    HStack {
-                        Text("Full benefit (before phase-out)")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Spacer()
-                        Text(fullBenefit.currencyString)
-                            .font(.caption.bold())
+        List {
+            Section("Family Benefits") {
+                NavigationLink(destination: CWBView()) {
+                    Label {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Canada Workers Benefit (CWB)")
+                                .font(.subheadline.bold())
+                            Text("Up to $1,633 single · $2,813 family")
+                                .font(.caption).foregroundColor(.secondary)
+                        }
+                    } icon: {
+                        Image(systemName: "briefcase.fill")
                             .foregroundColor(.green)
                     }
                 }
             }
-
-            Section(header: Label("Family Net Income (AFNI)", systemImage: "dollarsign.circle")) {
-                HStack {
-                    Text("Adjusted Family Net Income")
-                    Spacer()
-                    Text("$")
-                        .foregroundColor(.secondary)
-                    TextField("0", text: $familyAFNI)
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(width: 110)
-                }
-                Text("Combined net income of you and your spouse/partner from line 23600 of each return.")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-
-            if totalChildren > 0, let _ = Double(familyAFNI) {
-                Section(header: Label("Your Estimated CCB (2025–26)", systemImage: "checkmark.circle.fill")) {
-                    HStack {
-                        Text("Annual CCB")
-                            .font(.headline)
-                        Spacer()
-                        Text(annualCCB.currencyString)
-                            .font(.title3.bold())
-                            .foregroundColor(annualCCB > 0 ? .pink : .secondary)
-                    }
-                    HStack {
-                        Text("Monthly CCB")
-                            .font(.subheadline)
-                        Spacer()
-                        Text((annualCCB / 12).currencyString)
-                            .font(.subheadline.bold())
-                            .foregroundColor(.pink)
-                    }
-                    if let afni = Double(familyAFNI), afni > threshold {
-                        HStack {
-                            Text("Phase-out applied")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            Spacer()
-                            Text("-\((fullBenefit - annualCCB).currencyString)")
-                                .font(.caption.bold())
-                                .foregroundColor(.orange)
+            Section("Seniors") {
+                NavigationLink(destination: OASGISView()) {
+                    Label {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("OAS & GIS Estimator")
+                                .font(.subheadline.bold())
+                            Text("Old Age Security · Guaranteed Income Supplement")
+                                .font(.caption).foregroundColor(.secondary)
                         }
+                    } icon: {
+                        Image(systemName: "person.fill.badge.plus")
+                            .foregroundColor(.teal)
                     }
                 }
             }
-
-            Section(header: Label("Key Rules", systemImage: "info.circle.fill")) {
-                BulletPoint("CCB is tax-free and not considered income.")
-                BulletPoint("Recalculated every July based on prior year's family net income (AFNI).")
-                BulletPoint("2025–26 max: $7,997/yr per child under 6 · $6,748/yr per child 6–17.")
-                BulletPoint("Phase-out starts when AFNI exceeds $37,487.")
-                BulletPoint("Both spouses must file a return to receive CCB — even with zero income.")
-                BulletPoint("CCB supplements: provinces/territories may add additional amounts.")
-                BulletPoint("Child Disability Benefit (CDB): extra $3,173/yr per DTC-approved child.")
-            }
-
-            DisclaimerRow()
         }
-        .navigationTitle("Canada Child Benefit")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle("Benefits & Credits")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .fontWeight(.semibold)
+                        Text("Back")
+                    }
+                    .foregroundColor(Color("CanadianRed"))
+                }
+            }
+        }
     }
 }
 
@@ -349,6 +203,7 @@ struct CWBView: View {
 
 // MARK: - OAS / GIS Estimator
 struct OASGISView: View {
+    @Environment(\.dismiss) private var dismiss
 
     enum AgeGroup: String, CaseIterable {
         case under75 = "Age 65–74"
@@ -364,12 +219,12 @@ struct OASGISView: View {
     @State private var coupleStatus = CoupleStatus.single
     @State private var annualOtherIncome = ""
 
-    // 2025 approximate quarterly-indexed rates (Q1 2026)
+    // Q2 2026 (April–June 2026) rates — indexed quarterly
     private var oasMonthly: Double {
-        ageGroup == .under75 ? 727.67 : 800.44
+        ageGroup == .under75 ? 743.05 : 817.36
     }
-    // OAS clawback threshold (2025)
-    private let clawbackThreshold: Double = 93_454
+    // OAS clawback threshold (2026 tax year)
+    private let clawbackThreshold: Double = 95_323
 
     private var annualOAS: Double { oasMonthly * 12 }
 
@@ -380,12 +235,12 @@ struct OASGISView: View {
     }
     private var netOAS: Double { max(0, annualOAS - oasClawback) }
 
-    // GIS max monthly (Q1 2026)
+    // GIS max monthly (Q2 2026 — April–June 2026)
     private var gisMaxMonthly: Double {
         switch coupleStatus {
-        case .single:           return 1_105.43
-        case .couplePartnerOAS: return 667.41
-        case .coupleNoOAS:      return 1_409.72
+        case .single:           return 1_109.85
+        case .couplePartnerOAS: return 668.08
+        case .coupleNoOAS:      return 1_109.85
         }
     }
     // GIS income threshold (zero above this)
@@ -469,7 +324,7 @@ struct OASGISView: View {
                         .font(.subheadline.bold())
                         .foregroundColor(.teal)
                 }
-                Text("Clawback: 15% of total income above $93,454 (2025). Rates indexed quarterly.")
+                Text("Clawback: 15% of net world income above $95,323 (2026). OAS/GIS rates indexed quarterly.")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -517,7 +372,20 @@ struct OASGISView: View {
 
             DisclaimerRow()
         }
+        .navigationBarBackButtonHidden(true)
         .navigationTitle("OAS & GIS Estimator")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { dismiss() }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                                .fontWeight(.semibold)
+                            Text("Back")
+                        }
+                        .foregroundColor(Color("CanadianRed"))
+                    }
+                }
+            }
         .navigationBarTitleDisplayMode(.inline)
     }
 }

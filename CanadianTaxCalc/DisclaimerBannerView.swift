@@ -37,7 +37,7 @@ struct DisclaimerRow: View {
                         .font(.caption)
                         .fontWeight(.semibold)
                         .foregroundColor(.orange)
-                    Text("For informational purposes only. Please consult a qualified Canadian tax professional for personalized advice.")
+                    Text("These are estimates only. Actual benefit amounts will be determined by the CRA based on your net income and individual circumstances. Please consult a qualified Canadian tax professional for personalized advice.")
                         .font(.caption2)
                         .foregroundColor(.secondary)
                 }

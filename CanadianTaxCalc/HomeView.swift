@@ -21,32 +21,32 @@ struct HomeView: View {
                                 NavigationLink(destination: PersonalTaxView()) {
                                     QuickCard(title: "Personal Tax",    icon: "person.fill",                color: Color("CanadianRed"))
                                 }
-                                .buttonStyle(.plain)
+                                .buttonStyle(QuickCardButtonStyle())
 
                                 NavigationLink(destination: CorporateTaxView()) {
                                     QuickCard(title: "Corporate Tax",   icon: "building.2.fill",            color: .indigo)
                                 }
-                                .buttonStyle(.plain)
+                                .buttonStyle(QuickCardButtonStyle())
 
                                 NavigationLink(destination: RRSPView()) {
                                     QuickCard(title: "RRSP",            icon: "chart.line.uptrend.xyaxis",  color: .green)
                                 }
-                                .buttonStyle(.plain)
+                                .buttonStyle(QuickCardButtonStyle())
 
                                 NavigationLink(destination: GSTHSTView()) {
                                     QuickCard(title: "GST / HST",       icon: "dollarsign.circle.fill",     color: .blue)
                                 }
-                                .buttonStyle(.plain)
+                                .buttonStyle(QuickCardButtonStyle())
 
                                 NavigationLink(destination: RentalIncomeView()) {
                                     QuickCard(title: "Rental Income",   icon: "house.and.flag.fill",        color: .orange)
                                 }
-                                .buttonStyle(.plain)
+                                .buttonStyle(QuickCardButtonStyle())
 
                                 NavigationLink(destination: TaxPlanningView()) {
                                     QuickCard(title: "Tax Planning",    icon: "lightbulb.fill",             color: .purple)
                                 }
-                                .buttonStyle(.plain)
+                                .buttonStyle(QuickCardButtonStyle())
                             }
                         }
 
@@ -60,7 +60,7 @@ struct HomeView: View {
                         DisclaimerBanner()
 
                         // Footer
-                        Text("SmartCanadaTax  •  All Provinces")
+                        Text("Smart Canada Tax  •  All Provinces")
                             .font(.caption2)
                             .foregroundColor(.secondary.opacity(0.6))
                             .multilineTextAlignment(.center)
@@ -71,7 +71,19 @@ struct HomeView: View {
                     .padding(.vertical, 20)
                 }
             }
-            .background(Color(.systemBackground))
+            .background(
+                LinearGradient(
+                    colors: [
+                        Color(.systemBackground),
+                        Color("CanadianRed").opacity(0.06),
+                        Color.blue.opacity(0.06),
+                        Color(.systemBackground)
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+            )
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -83,56 +95,66 @@ struct HomeView: View {
 struct HomeHeroView: View {
     var body: some View {
         ZStack {
-            Color.white
+            // Gradient background
+            LinearGradient(
+                colors: [
+                    Color("CanadianRed").opacity(0.18),
+                    Color.red.opacity(0.08),
+                    Color.white.opacity(0.95)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
 
+            // Decorative maple leaves
             VStack(spacing: 0) {
                 HStack(alignment: .top) {
                     Image(systemName: "maple.leaf.fill")
                         .font(.system(size: 65))
-                        .foregroundStyle(Color("CanadianRed").opacity(0.45))
+                        .foregroundStyle(Color("CanadianRed").opacity(0.18))
                         .rotationEffect(.degrees(15))
                     Spacer()
                     Image(systemName: "maple.leaf.fill")
                         .font(.system(size: 100))
-                        .foregroundStyle(Color("CanadianRed").opacity(0.45))
+                        .foregroundStyle(Color("CanadianRed").opacity(0.13))
                         .rotationEffect(.degrees(-20))
                 }
                 Spacer()
                 HStack(alignment: .bottom) {
                     Image(systemName: "maple.leaf.fill")
                         .font(.system(size: 85))
-                        .foregroundStyle(Color("CanadianRed").opacity(0.45))
+                        .foregroundStyle(Color("CanadianRed").opacity(0.13))
                         .rotationEffect(.degrees(35))
                     Spacer()
                     Image(systemName: "maple.leaf.fill")
                         .font(.system(size: 60))
-                        .foregroundStyle(Color("CanadianRed").opacity(0.45))
+                        .foregroundStyle(Color("CanadianRed").opacity(0.18))
                         .rotationEffect(.degrees(-50))
                 }
             }
             .padding(6)
 
-            VStack(spacing: 14) {
+            // Logo + title (no box)
+            VStack(spacing: 12) {
                 Image("AppLogo")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 64, height: 64)
                     .cornerRadius(14)
-                    .shadow(color: .black.opacity(0.10), radius: 4, x: 0, y: 2)
+                    .shadow(color: Color("CanadianRed").opacity(0.20), radius: 8, x: 0, y: 4)
 
-                Text("SmartCanadaTax")
-                    .font(.custom("Georgia-Bold", size: 26))
+                Text("Smart Canada Tax")
+                    .font(.custom("Optima-Regular", size: 28))
                     .foregroundColor(Color("CanadianRed"))
                 Text("Tax Calculators · AI Guidance · Expert Sessions")
                     .font(.subheadline.bold())
-                    .foregroundColor(Color("CanadianRed").opacity(0.75))
+                    .foregroundColor(Color("CanadianRed").opacity(0.70))
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal, 24)
-            .padding(.vertical, 36)
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 185)
+        .frame(height: 210)
     }
 }
 
@@ -168,7 +190,18 @@ private struct HomeSectionLabel: View {
     }
 }
 
-// MARK: - Quick Card (redesigned)
+// MARK: - Quick Card Button Style
+
+struct QuickCardButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.94 : 1.0)
+            .opacity(configuration.isPressed ? 0.85 : 1.0)
+            .animation(.easeOut(duration: 0.12), value: configuration.isPressed)
+    }
+}
+
+// MARK: - Quick Card (glassmorphism)
 
 struct QuickCard: View {
     let title: String
@@ -178,11 +211,18 @@ struct QuickCard: View {
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             Image(systemName: icon)
-                .font(.system(size: 32))
-                .foregroundColor(color)
-                .frame(width: 64, height: 64)
-                .background(color.opacity(0.12))
-                .cornerRadius(14)
+                .font(.system(size: 26))
+                .foregroundColor(.white)
+                .frame(width: 54, height: 54)
+                .background(
+                    LinearGradient(
+                        colors: [color, color.opacity(0.7)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+                .shadow(color: color.opacity(0.45), radius: 8, x: 0, y: 4)
 
             Text(title)
                 .font(.subheadline.weight(.semibold))
@@ -192,9 +232,36 @@ struct QuickCard: View {
         }
         .frame(maxWidth: .infinity, minHeight: 120, alignment: .center)
         .padding(16)
-        .background(Color(.secondarySystemGroupedBackground))
-        .cornerRadius(16)
-        .shadow(color: .black.opacity(0.06), radius: 6, x: 0, y: 2)
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(.ultraThinMaterial)
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(color.opacity(0.07))
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(
+                        LinearGradient(
+                            colors: [.white.opacity(0.35), .white.opacity(0.05)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+            }
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(
+                    LinearGradient(
+                        colors: [.white.opacity(0.7), color.opacity(0.25)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
+        .shadow(color: color.opacity(0.18), radius: 14, x: 0, y: 6)
+        .contentShape(Rectangle())
     }
 }
 
@@ -255,9 +322,30 @@ private struct HomeBookCTA: View {
             .padding(.horizontal)
             .padding(.vertical, 12)
         }
-        .background(Color(.secondarySystemGroupedBackground))
-        .cornerRadius(16)
-        .shadow(color: .black.opacity(0.06), radius: 6, x: 0, y: 2)
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(.ultraThinMaterial)
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color("CanadianRed").opacity(0.04))
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(LinearGradient(
+                        colors: [.white.opacity(0.3), .white.opacity(0.05)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ))
+            }
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(LinearGradient(
+                    colors: [.white.opacity(0.6), Color("CanadianRed").opacity(0.15)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ), lineWidth: 1)
+        )
+        .shadow(color: Color("CanadianRed").opacity(0.10), radius: 12, x: 0, y: 5)
     }
 }
 
@@ -291,11 +379,18 @@ private struct HomeServicesTeaser: View {
                 ForEach(services, id: \.2) { svc in
                     VStack(spacing: 6) {
                         Image(systemName: svc.0)
-                            .font(.system(size: 34))
-                            .foregroundColor(svc.1)
-                            .frame(width: 64, height: 64)
-                            .background(svc.1.opacity(0.12))
-                            .cornerRadius(14)
+                            .font(.system(size: 22))
+                            .foregroundColor(.white)
+                            .frame(width: 48, height: 48)
+                            .background(
+                                LinearGradient(
+                                    colors: [svc.1, svc.1.opacity(0.7)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .shadow(color: svc.1.opacity(0.4), radius: 6, x: 0, y: 3)
                         Text(svc.2)
                             .font(.caption2)
                             .foregroundColor(.primary)
@@ -303,6 +398,31 @@ private struct HomeServicesTeaser: View {
                             .lineLimit(2)
                     }
                     .frame(maxWidth: .infinity)
+                    .padding(10)
+                    .background(
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 14)
+                                .fill(.ultraThinMaterial)
+                            RoundedRectangle(cornerRadius: 14)
+                                .fill(svc.1.opacity(0.06))
+                            RoundedRectangle(cornerRadius: 14)
+                                .fill(LinearGradient(
+                                    colors: [.white.opacity(0.3), .white.opacity(0.05)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ))
+                        }
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 14)
+                            .stroke(LinearGradient(
+                                colors: [.white.opacity(0.6), svc.1.opacity(0.2)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ), lineWidth: 1)
+                    )
+                    .shadow(color: svc.1.opacity(0.12), radius: 8, x: 0, y: 4)
                 }
             }
 
@@ -321,9 +441,30 @@ private struct HomeServicesTeaser: View {
             }
         }
         .padding()
-        .background(Color(.secondarySystemGroupedBackground))
-        .cornerRadius(16)
-        .shadow(color: .black.opacity(0.06), radius: 6, x: 0, y: 2)
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(.ultraThinMaterial)
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.teal.opacity(0.04))
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(LinearGradient(
+                        colors: [.white.opacity(0.3), .white.opacity(0.05)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ))
+            }
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(LinearGradient(
+                    colors: [.white.opacity(0.6), Color.teal.opacity(0.2)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ), lineWidth: 1)
+        )
+        .shadow(color: Color.teal.opacity(0.10), radius: 12, x: 0, y: 5)
     }
 }
 

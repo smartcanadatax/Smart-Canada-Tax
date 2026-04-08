@@ -394,7 +394,7 @@ private struct ServiceInquiryView: View {
         errorText = nil
         let payload: [String: String] = [
             "access_key": "cf904fca-dab3-46f6-9a9f-41cb9bb71130",
-            "subject": "SmartCanadaTax Inquiry — \(service.title)",
+            "subject": "Smart Canada Tax Inquiry — \(service.title)",
             "from_name": "Smart Canada Tax App",
             "name": name,
             "email": email,
@@ -551,7 +551,7 @@ struct ContactInquiryView: View {
         errorText = nil
         let payload: [String: String] = [
             "access_key": "cf904fca-dab3-46f6-9a9f-41cb9bb71130",
-            "subject": "SmartCanadaTax — New Inquiry from \(name)",
+            "subject": "Smart Canada Tax — New Inquiry from \(name)",
             "from_name": "Smart Canada Tax App",
             "name": name,
             "email": email,
