@@ -2,28 +2,35 @@ import SwiftUI
 
 // MARK: - Services Tab
 struct ServicesView: View {
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 0) {
-                    ServicesHero()
-                    VStack(spacing: 20) {
-                        ServicesGrid()
-                            .padding(.horizontal)
-                        ContactUsSection()
-                            .padding(.horizontal)
-                        DisclaimerBanner()
-                        Spacer(minLength: 30)
-                    }
-                    .padding(.top, 20)
+        ScrollView {
+            VStack(spacing: 0) {
+                ServicesHero()
+                VStack(spacing: 20) {
+                    ServicesGrid()
+                        .padding(.horizontal)
+                    ContactUsSection()
+                        .padding(.horizontal)
+                    DisclaimerBanner()
+                    Spacer(minLength: 30)
                 }
+                .padding(.top, 20)
             }
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Services")
-                        .font(.title3.bold())
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle("Services")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .fontWeight(.semibold)
+                        Text("Back")
+                    }
+                    .foregroundColor(Color("CanadianRed"))
                 }
             }
         }
@@ -304,23 +311,24 @@ struct ServiceDetailView: View {
 private struct ServiceInquiryView: View {
     let service: TaxService
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.openURL) private var openURL
     @State private var name = ""
     @State private var email = ""
     @State private var message = ""
+    @State private var isSending = false
     @State private var submitted = false
+    @State private var errorText: String?
 
     var body: some View {
         NavigationStack {
             if submitted {
                 VStack(spacing: 20) {
                     Spacer()
-                    Image(systemName: "envelope.circle.fill")
+                    Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: 64))
-                        .foregroundColor(.blue)
-                    Text("Check Your Mail App")
+                        .foregroundColor(.green)
+                    Text("Message Sent!")
                         .font(.title2.bold())
-                    Text("Your Mail app should have opened with your inquiry pre-filled. Please tap Send in Mail to complete your message.")
+                    Text("We've received your inquiry and will be in touch within 2 business days.")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
@@ -343,22 +351,31 @@ private struct ServiceInquiryView: View {
                         TextField("Tell us about your situation…", text: $message, axis: .vertical)
                             .lineLimit(4, reservesSpace: true)
                     }
+                    if let err = errorText {
+                        Section {
+                            Text(err).font(.caption).foregroundColor(.red)
+                        }
+                    }
                     Section {
                         Button {
-                            sendEmail()
+                            sendMessage()
                         } label: {
                             HStack {
                                 Spacer()
-                                Text("Send Inquiry")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                                if isSending {
+                                    ProgressView().tint(.white)
+                                } else {
+                                    Text("Send Inquiry")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                }
                                 Spacer()
                             }
                             .padding(.vertical, 4)
-                            .background(name.isEmpty || email.isEmpty ? Color.gray : service.iconColor)
+                            .background(name.isEmpty || email.isEmpty || isSending ? Color.gray : service.iconColor)
                             .cornerRadius(8)
                         }
-                        .disabled(name.isEmpty || email.isEmpty)
+                        .disabled(name.isEmpty || email.isEmpty || isSending)
                     }
                 }
                 .navigationTitle("Contact Us — \(service.title)")
@@ -372,14 +389,37 @@ private struct ServiceInquiryView: View {
         }
     }
 
-    private func sendEmail() {
-        let subject = "SmartCanadaTax Inquiry — \(service.title)"
-        let body = "Name: \(name)\nEmail: \(email)\nService: \(service.title)\n\nMessage:\n\(message.isEmpty ? "No message provided." : message)"
-        guard let encoded = "mailto:smartcanadatax@gmail.com?subject=\(subject)&body=\(body)"
-            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: encoded) else { return }
-        openURL(url)
-        submitted = true
+    private func sendMessage() {
+        isSending = true
+        errorText = nil
+        let payload: [String: String] = [
+            "access_key": "cf904fca-dab3-46f6-9a9f-41cb9bb71130",
+            "subject": "SmartCanadaTax Inquiry — \(service.title)",
+            "from_name": "Smart Canada Tax App",
+            "name": name,
+            "email": email,
+            "message": "Name: \(name)\nEmail: \(email)\nService: \(service.title)\n\nMessage:\n\(message.isEmpty ? "No message provided." : message)"
+        ]
+        guard let url = URL(string: "https://api.web3forms.com/submit"),
+              let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody = body
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            DispatchQueue.main.async {
+                isSending = false
+                if error != nil { errorText = "Network error. Please try again."; return }
+                if let data = data,
+                   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   json["success"] as? Bool == true {
+                    submitted = true
+                } else {
+                    errorText = "Something went wrong. Please try again."
+                }
+            }
+        }.resume()
     }
 }
 
@@ -425,23 +465,24 @@ private struct ContactUsSection: View {
 // MARK: - Contact Inquiry Sheet
 struct ContactInquiryView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.openURL) private var openURL
     @State private var name = ""
     @State private var email = ""
     @State private var message = ""
+    @State private var isSending = false
     @State private var submitted = false
+    @State private var errorText: String?
 
     var body: some View {
         NavigationStack {
             if submitted {
                 VStack(spacing: 20) {
                     Spacer()
-                    Image(systemName: "envelope.circle.fill")
+                    Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: 64))
-                        .foregroundColor(.blue)
-                    Text("Check Your Mail App")
+                        .foregroundColor(.green)
+                    Text("Message Sent!")
                         .font(.title2.bold())
-                    Text("Your Mail app should have opened with your message pre-filled. Please tap Send in Mail to complete.")
+                    Text("We've received your message and will get back to you within 2 business days.")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
@@ -464,22 +505,34 @@ struct ContactInquiryView: View {
                         TextField("Tell us about your situation…", text: $message, axis: .vertical)
                             .lineLimit(5, reservesSpace: true)
                     }
+                    if let err = errorText {
+                        Section {
+                            Text(err)
+                                .font(.caption)
+                                .foregroundColor(.red)
+                        }
+                    }
                     Section {
                         Button {
-                            sendEmail()
+                            sendMessage()
                         } label: {
                             HStack {
                                 Spacer()
-                                Text("Send Message")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                                if isSending {
+                                    ProgressView()
+                                        .tint(.white)
+                                } else {
+                                    Text("Send Message")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                }
                                 Spacer()
                             }
                             .padding(.vertical, 4)
-                            .background(name.isEmpty || email.isEmpty ? Color.gray : Color("CanadianRed"))
+                            .background(name.isEmpty || email.isEmpty || isSending ? Color.gray : Color("CanadianRed"))
                             .cornerRadius(8)
                         }
-                        .disabled(name.isEmpty || email.isEmpty)
+                        .disabled(name.isEmpty || email.isEmpty || isSending)
                     }
                 }
                 .navigationTitle("Contact Us")
@@ -493,14 +546,40 @@ struct ContactInquiryView: View {
         }
     }
 
-    private func sendEmail() {
-        let subject = "SmartCanadaTax — New Inquiry from \(name)"
-        let body = "Name: \(name)\nEmail: \(email)\n\nMessage:\n\(message.isEmpty ? "No message provided." : message)"
-        guard let encoded = "mailto:smartcanadatax@gmail.com?subject=\(subject)&body=\(body)"
-            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: encoded) else { return }
-        openURL(url)
-        submitted = true
+    private func sendMessage() {
+        isSending = true
+        errorText = nil
+        let payload: [String: String] = [
+            "access_key": "cf904fca-dab3-46f6-9a9f-41cb9bb71130",
+            "subject": "SmartCanadaTax — New Inquiry from \(name)",
+            "from_name": "Smart Canada Tax App",
+            "name": name,
+            "email": email,
+            "message": "Name: \(name)\nEmail: \(email)\n\nMessage:\n\(message.isEmpty ? "No message provided." : message)"
+        ]
+        guard let url = URL(string: "https://api.web3forms.com/submit"),
+              let body = try? JSONSerialization.data(withJSONObject: payload) else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody = body
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            DispatchQueue.main.async {
+                isSending = false
+                if error != nil {
+                    errorText = "Network error. Please try again."
+                    return
+                }
+                if let data = data,
+                   let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   json["success"] as? Bool == true {
+                    submitted = true
+                } else {
+                    errorText = "Something went wrong. Please try again."
+                }
+            }
+        }.resume()
     }
 }
 

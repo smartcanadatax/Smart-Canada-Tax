@@ -184,7 +184,7 @@ struct TermsOfServiceView: View {
                              text: "These Terms are governed by the laws of Canada and the applicable provincial laws, without regard to conflict of law principles. Any disputes arising under these Terms shall be resolved in the courts of competent jurisdiction in Canada.")
 
                 LegalSection(title: "11. Contact",
-                             text: "For questions about these Terms, contact us at smartcanadatax@gmail.com or through the Services tab in the App.")
+                             text: "For questions about these Terms, contact us at admin@smartcanadatax.help or through the Services tab in the App.")
 
                 Spacer(minLength: 30)
             }
@@ -213,7 +213,7 @@ struct PrivacyPolicyView: View {
                              text: "The App may store session bookings and user preferences locally on your device using Apple's secure on-device storage (UserDefaults). This data remains solely on your device, is never transmitted to our servers, and is not accessible to us or any third party.")
 
                 LegalSection(title: "4. Contact Form & Inquiry Data",
-                             text: "If you submit a contact inquiry through the Services tab, your name, email address, and message are transmitted directly to smartcanadatax@gmail.com via your device's Mail app. This information is used solely to respond to your request. We do not store this data in any database, share it with third parties, or use it for marketing purposes without your consent.")
+                             text: "If you submit a contact inquiry through the Services tab, your name, email address, and message are transmitted directly to admin@smartcanadatax.help via your device's Mail app. This information is used solely to respond to your request. We do not store this data in any database, share it with third parties, or use it for marketing purposes without your consent.")
 
                 LegalSection(title: "5. Third-Party Services",
                              text: "This App integrates with the following third-party services:\n\n• Apple In-App Purchase (StoreKit) — used for payment processing of advisory sessions. Payments are handled entirely by Apple and subject to Apple's own Privacy Policy and Terms. We do not receive or store your payment card details.\n\n• Calendly — used for booking session time slots. When you book through Calendly, Calendly's own Privacy Policy and Terms apply.\n\nThis App does NOT integrate with any third-party analytics, advertising networks, or user-tracking SDKs. We do not serve advertisements of any kind.")
@@ -228,13 +228,13 @@ struct PrivacyPolicyView: View {
                              text: "Since we do not collect or store your financial data on our servers, the risk of a data breach exposing your financial information is minimized. Any data stored on-device is protected by your device's built-in security and encryption.")
 
                 LegalSection(title: "9. Your Rights",
-                             text: "Since we do not maintain a database of your personal information, there is no profile to access, correct, or delete on our end. For any inquiry-related data sent to our email, you may contact us at smartcanadatax@gmail.com to request deletion.")
+                             text: "Since we do not maintain a database of your personal information, there is no profile to access, correct, or delete on our end. For any inquiry-related data sent to our email, you may contact us at admin@smartcanadatax.help to request deletion.")
 
                 LegalSection(title: "10. Changes to This Policy",
                              text: "We may update this Privacy Policy from time to time. Changes will be reflected with an updated \"Last Updated\" date in the App. Your continued use of the App after changes are posted constitutes acceptance of the updated policy.")
 
                 LegalSection(title: "11. Contact",
-                             text: "For privacy questions or concerns, contact us at smartcanadatax@gmail.com or through the Services tab in the App.")
+                             text: "For privacy questions or concerns, contact us at admin@smartcanadatax.help or through the Services tab in the App.")
 
                 Spacer(minLength: 30)
             }
