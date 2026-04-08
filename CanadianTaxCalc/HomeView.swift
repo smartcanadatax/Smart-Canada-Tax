@@ -302,7 +302,7 @@ private struct HomeBookCTA: View {
                 Image(systemName: "person.fill")
                     .font(.caption2)
                     .foregroundColor(Color("CanadianRed"))
-                Text("Personal $35  ·  Corporate $80")
+                Text("Personal $34.99  ·  Corporate $79.99")
                     .font(.caption2.bold())
                     .foregroundColor(.primary)
                 Spacer()

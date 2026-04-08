@@ -51,7 +51,7 @@ struct SessionDetailView: View {
                 DetailRow(label: "Name", value: currentSession.name)
                 DetailRow(label: "Email", value: currentSession.email)
 DetailRow(label: "Duration", value: "30 minutes")
-                DetailRow(label: "Fee", value: "$35 CAD")
+                DetailRow(label: "Fee", value: "$34.99 CAD")
             }
 
             // Prep tips

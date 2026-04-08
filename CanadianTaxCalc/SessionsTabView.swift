@@ -434,7 +434,7 @@ private struct CorporateSessionCTACard: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Corporate Tax Session")
                         .font(.subheadline.bold())
-                    Text("30 min · Canadian tax professional · $80 intro rate")
+                    Text("30 min · Canadian tax professional · $79.99")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
