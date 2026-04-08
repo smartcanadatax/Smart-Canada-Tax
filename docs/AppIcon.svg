@@ -4,17 +4,10 @@
   <!-- Pure white background -->
   <rect width="1024" height="1024" fill="#FFFFFF"/>
 
-  <!-- Clip for shadow half (right/bottom diagonal) -->
-  <defs>
-    <clipPath id="shadow-clip">
-      <polygon points="512,0 1024,0 1024,1024 512,1024 512,600 200,1024 0,1024 0,800"/>
-    </clipPath>
-  </defs>
-
   <!-- Maple leaf group centered -->
   <g transform="translate(512, 478) scale(3.3)">
 
-    <!-- Main leaf — dark red -->
+    <!-- Main leaf — Canadian red -->
     <path d="
       M 0,-128
       C -4,-98 -9,-84 -17,-76
@@ -37,35 +30,9 @@
       C 82,-40 60,-50 40,-58
       L 53,-90 L 17,-76
       C 9,-84 4,-98 0,-128 Z
-    " fill="#8B0000"/>
+    " fill="#C8102E"/>
 
-    <!-- Shadow overlay on right/lower diagonal — slightly darker -->
-    <path d="
-      M 0,-128
-      C -4,-98 -9,-84 -17,-76
-      L -53,-90 L -40,-58
-      C -60,-50 -82,-40 -87,-33
-      L -66,-12
-      C -84,-6 -102,6 -99,14
-      L -75,36
-      C -80,46 -86,64 -82,74
-      L -46,58
-      C -44,76 -48,102 -42,112
-      L -8,92 L -8,136 L 8,136 L 8,92
-      L 42,112
-      C 48,102 44,76 46,58
-      L 82,74
-      C 86,64 80,46 75,36
-      L 99,14
-      C 102,6 84,-6 66,-12
-      L 87,-33
-      C 82,-40 60,-50 40,-58
-      L 53,-90 L 17,-76
-      C 9,-84 4,-98 0,-128 Z
-    " fill="#6B0000" opacity="0.55"
-      clip-path="url(#shadow-half)"/>
-
-    <!-- Dollar sign — white with slight stroke -->
+    <!-- Dollar sign — gold -->
     <text
       x="0" y="28"
       text-anchor="middle"
@@ -73,19 +40,11 @@
       font-family="-apple-system, Helvetica Neue, Arial, sans-serif"
       font-weight="800"
       font-size="96"
-      fill="white"
-      stroke="white"
+      fill="#FFD700"
+      stroke="#FFD700"
       stroke-width="2"
     >$</text>
 
   </g>
-
-  <!-- Shadow clip defined in leaf-local space (applied before transform) -->
-  <defs>
-    <clipPath id="shadow-half" clipPathUnits="userSpaceOnUse">
-      <!-- diagonal cut: top-right to bottom-left, in screen coords -->
-      <polygon points="512,0 1024,0 1024,1024 0,1024"/>
-    </clipPath>
-  </defs>
 
 </svg>
