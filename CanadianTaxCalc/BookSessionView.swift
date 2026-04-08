@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct BookSessionView: View {
+    @Environment(\.dismiss) private var dismiss
+
 
     var body: some View {
         NavigationStack {
@@ -47,6 +49,18 @@ struct BookSessionView: View {
                 }
             }
             .navigationTitle("Book a Session")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { dismiss() }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                                .fontWeight(.semibold)
+                            Text("Back")
+                        }
+                        .foregroundColor(Color("CanadianRed"))
+                    }
+                }
+            }
             .navigationBarTitleDisplayMode(.inline)
         }
     }
@@ -76,7 +90,7 @@ struct BookSessionHero: View {
                     Text("Introductory Price:")
                         .font(.subheadline)
                         .foregroundColor(.white.opacity(0.9))
-                    Text("$35")
+                    Text("$34.99")
                         .font(.title.bold())
                         .foregroundColor(.white)
                 }
@@ -274,7 +288,7 @@ struct BookCTASection: View {
                 .multilineTextAlignment(.center)
 
             VStack(spacing: 4) {
-                Text("$35")
+                Text("$34.99")
                     .font(.system(size: 44, weight: .bold))
                     .foregroundColor(Color("CanadianRed"))
                 Text("Tax Professional Advice Session")
@@ -339,7 +353,7 @@ struct CorporateSessionSection: View {
                 }
                 Spacer()
                 VStack(alignment: .trailing, spacing: 2) {
-                    Text("$80")
+                    Text("$79.99")
                         .font(.title2.bold())
                         .foregroundColor(.indigo)
                     Text("intro price")
