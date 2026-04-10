@@ -7,7 +7,7 @@
   <meta name="description" content="Free Canadian personal income tax calculator for 2025. Calculate federal and provincial tax for all 10 provinces and 3 territories. Includes CPP, EI, and all credits." />
   <link rel="canonical" href="https://smartcanadatax.help/calculator-personal-tax.html" />
   <style>
-    :root { --red: #C8102E; --red-dark: #9b0c22; --white: #fff; --bg: #f7f8fa; --text: #1a1a2e; --muted: #64748b; --border: #e8eaed; }
+    :root { --red: #c0392b; --red-dark: #a93226; --white: #fff; --bg: #f7f8fa; --text: #1a1a2e; --muted: #64748b; --border: #e8eaed; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
     nav { position: sticky; top: 0; z-index: 100; background: var(--red); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
@@ -135,87 +135,22 @@
   <!-- Results -->
   <div class="results" id="results">
 
-    <!-- Headline numbers -->
     <div class="result-highlight">
-      <div><div class="lbl">After-Tax Income</div><div style="font-size:.8rem;opacity:.7">(after CPP, EI &amp; all taxes)</div></div>
+      <div><div class="lbl">After-Tax Income</div><div style="font-size:.8rem;opacity:.7">Take-home after all taxes &amp; CPP/EI</div></div>
       <div class="val" id="r-afterTax">—</div>
     </div>
 
-    <div class="summary-grid">
-      <div class="sum-box">
-        <div class="sl">Total Tax</div>
-        <div class="sv" id="r-totalTax">—</div>
-      </div>
-      <div class="sum-box">
-        <div class="sl">Effective Rate (incl. CPP/EI)</div>
-        <div class="sv" id="r-avgRate">—</div>
-      </div>
-      <div class="sum-box">
-        <div class="sl">Marginal Rate</div>
-        <div class="sv" id="r-margRate">—</div>
-      </div>
-      <div class="sum-box">
-        <div class="sl">CPP + EI Contributions</div>
-        <div class="sv" id="r-cppEi">—</div>
-      </div>
-    </div>
-
-    <!-- Income Summary -->
     <div class="card">
-      <p class="section-title">Income Summary</p>
-      <div class="result-row"><span class="lbl">Employment Income</span><span class="val" id="r-employment">—</span></div>
-      <div class="result-row" id="row-selfEmp" style="display:none"><span class="lbl">Self-Employment Income</span><span class="val" id="r-selfEmp">—</span></div>
-      <div class="result-row" id="row-capGains" style="display:none"><span class="lbl">Capital Gains (total)</span><span class="val" id="r-capGains">—</span></div>
-      <div class="result-row" id="row-capTaxable" style="display:none"><span class="lbl">Taxable Capital Gains (50%)</span><span class="val" id="r-capTaxable">—</span></div>
-      <div class="result-row" id="row-other" style="display:none"><span class="lbl">Other Income</span><span class="val" id="r-other">—</span></div>
-      <div class="result-row"><span class="lbl">Total Income</span><span class="val" id="r-totalIncome">—</span></div>
-      <div class="result-row" id="row-rrsp" style="display:none"><span class="lbl">RRSP Deduction</span><span class="val" id="r-rrspDed">—</span></div>
-      <div class="result-row" id="row-line22215"><span class="lbl">Line 22215 (Enhanced CPP Deduction)</span><span class="val" id="r-line22215">—</span></div>
-      <div class="result-row"><span class="lbl">Taxable Income</span><span class="val" id="r-taxableIncome">—</span></div>
-    </div>
-
-    <!-- CPP / EI -->
-    <div class="card">
-      <p class="section-title">CPP / EI Contributions</p>
-      <div class="result-row"><span class="lbl" id="lbl-cpp">CPP1 Contribution</span><span class="val" id="r-cpp">—</span></div>
-      <div class="result-row" id="row-cpp2"><span class="lbl">CPP2 Contribution</span><span class="val" id="r-cpp2">—</span></div>
-      <div class="result-row"><span class="lbl" id="lbl-ei">EI Premium</span><span class="val" id="r-ei">—</span></div>
-      <div class="result-row" id="row-qpip" style="display:none"><span class="lbl">QPIP Premium</span><span class="val" id="r-qpip">—</span></div>
-      <div class="result-row"><span class="lbl">Total CPP + EI</span><span class="val" id="r-cppEiTotal2">—</span></div>
-    </div>
-
-    <!-- Federal Tax -->
-    <div class="card">
-      <p class="section-title">Federal Tax Breakdown</p>
-      <table class="bracket-table" id="fed-table">
-        <thead><tr><th>Rate</th><th>Income in Bracket</th><th>Tax</th></tr></thead>
-        <tbody id="fed-tbody"></tbody>
-      </table>
-      <hr class="divider" />
-      <div class="result-row"><span class="lbl">Federal Tax (gross)</span><span class="val" id="r-fedGross">—</span></div>
-      <div class="result-row"><span class="lbl">BPA Credit (<span id="r-bpaAmount">—</span> × 14.5%)</span><span class="val" id="r-bpaCr">—</span></div>
-      <div class="result-row" id="row-fedEmpCr"><span class="lbl">Canada Employment Credit</span><span class="val" id="r-fedEmpCr">—</span></div>
-      <div class="result-row"><span class="lbl">CPP/EI Credit</span><span class="val" id="r-fedCppEiCr">—</span></div>
-      <div class="result-row" id="row-qcAbatement" style="display:none"><span class="lbl">Quebec Abatement (16.5%)</span><span class="val" id="r-qcAbatement">—</span></div>
-      <div class="result-row"><span class="lbl" style="font-weight:700">Federal Tax (net)</span><span class="val" id="r-fedTax">—</span></div>
-    </div>
-
-    <!-- Provincial Tax -->
-    <div class="card">
-      <p class="section-title" id="prov-title">Provincial Tax Breakdown</p>
-      <table class="bracket-table">
-        <thead><tr><th>Rate</th><th>Income in Bracket</th><th>Tax</th></tr></thead>
-        <tbody id="prov-tbody"></tbody>
-      </table>
-      <hr class="divider" />
-      <div class="result-row"><span class="lbl">Provincial Tax (gross)</span><span class="val" id="r-provGross">—</span></div>
-      <div class="result-row"><span class="lbl" id="lbl-provBpa">Prov. BPA Credit</span><span class="val" id="r-provBpaCr">—</span></div>
-      <div class="result-row"><span class="lbl">Prov. CPP/EI Credit</span><span class="val" id="r-provCppEiCr">—</span></div>
-      <div class="result-row" id="row-provEmpCr" style="display:none"><span class="lbl">Prov. Employment Credit</span><span class="val" id="r-provEmpCr">—</span></div>
-      <div class="result-row"><span class="lbl">Provincial Basic Tax</span><span class="val" id="r-provBase">—</span></div>
-      <div class="result-row" id="row-ontSurtax" style="display:none"><span class="lbl">Ontario Surtax</span><span class="val" id="r-ontSurtax">—</span></div>
-      <div class="result-row" id="row-ohp" style="display:none"><span class="lbl">Ontario Health Premium</span><span class="val" id="r-ohp">—</span></div>
-      <div class="result-row"><span class="lbl" style="font-weight:700">Provincial Tax (total)</span><span class="val" id="r-provTax">—</span></div>
+      <div class="result-row"><span class="lbl">Federal Income Tax</span><span class="val" id="r-fedTax">—</span></div>
+      <div class="result-row"><span class="lbl" id="r-provLabel">Provincial Tax</span><span class="val" id="r-provTax">—</span></div>
+      <div class="result-row"><span class="lbl" id="r-cppLabel">CPP / EI Contributions</span><span class="val" id="r-cppEi">—</span></div>
+      <div class="result-row" style="border-top:2px solid var(--border);margin-top:4px;padding-top:16px"><span class="lbl" style="font-weight:700">Total Tax + Contributions</span><span class="val" id="r-totalPlusCpp">—</span></div>
+      <div class="result-row" style="border-top:2px solid var(--border);margin-top:4px;padding-top:16px">
+        <span class="lbl" style="font-weight:700;color:var(--red)">After-Tax Income</span>
+        <span class="val" style="color:var(--red)" id="r-afterTax2">—</span>
+      </div>
+      <div class="result-row"><span class="lbl">Average Tax Rate</span><span class="val" id="r-avgRate">—</span></div>
+      <div class="result-row"><span class="lbl">Marginal Tax Rate</span><span class="val" id="r-margRate">—</span></div>
     </div>
 
     <!-- Book CTA -->
@@ -229,7 +164,7 @@
   <!-- Info -->
   <div class="card" style="margin-top:24px">
     <p class="section-title">About This Calculator</p>
-    <p style="color:var(--muted);font-size:.9rem;line-height:1.7">Uses 2025 CRA rates: federal brackets, all 13 provincial/territorial brackets, Canada Pension Plan (CPP1 + CPP2), Employment Insurance (EI), Quebec QPP/QPIP, Quebec abatement, Ontario Health Premium, Ontario surtax, BPA tapering for high earners, Canada Employment Amount, and Line 22215 enhanced CPP deduction. Capital gains use the 50% inclusion rate. Results match the Smart Canada Tax mobile app.</p>
+    <p style="color:var(--muted);font-size:.9rem;line-height:1.7">Uses 2025 CRA rates: federal brackets, all 10 provinces and 3 territories, Canada Pension Plan (CPP1 + CPP2), Employment Insurance (EI), Quebec QPP/QPIP, Quebec abatement, Ontario Health Premium, Ontario surtax, BPA tapering for high earners, Canada Employment Amount, and Line 22215 enhanced CPP deduction. Capital gains use the 50% inclusion rate. Results match the Smart Canada Tax mobile app.</p>
     <p style="color:var(--muted);font-size:.85rem;margin-top:12px">⚠️ This calculator provides estimates only. For personalized advice, consult a licensed Canadian tax professional.</p>
   </div>
 
@@ -574,29 +509,7 @@ function fmt(n) {
 function pct(n) {
   return (n * 100).toFixed(1) + "%";
 }
-function show(id) { document.getElementById(id).style.display = ""; }
-function hide(id) { document.getElementById(id).style.display = "none"; }
 function set(id, v) { document.getElementById(id).textContent = v; }
-
-function buildBracketRows(tbodyId, lines) {
-  const tbody = document.getElementById(tbodyId);
-  tbody.innerHTML = "";
-  if (!lines || lines.length === 0) {
-    tbody.innerHTML = "<tr><td colspan='3' style='color:var(--muted)'>No income in this range</td></tr>";
-    return;
-  }
-  for (const l of lines) {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${(l.rate * 100).toFixed(2)}%</td><td>${fmt(l.income)}</td><td>${fmt(l.tax)}</td>`;
-    tbody.appendChild(tr);
-  }
-  // total row
-  const total = lines.reduce((s, l) => s + l.tax, 0);
-  const tr = document.createElement("tr");
-  tr.style.fontWeight = "700";
-  tr.innerHTML = `<td>Total</td><td></td><td>${fmt(total)}</td>`;
-  tbody.appendChild(tr);
-}
 
 function calculate() {
   const employment  = parseFloat(document.getElementById("employment").value)  || 0;
@@ -613,57 +526,17 @@ function calculate() {
 
   const r = taxEngine(employment, selfEmp, capitalGains, otherIncome, rrsp, provinceKey);
 
-  // Headline
-  set("r-afterTax", fmt(r.afterTaxIncome));
-  set("r-totalTax",  fmt(r.totalTax));
-  set("r-avgRate",   pct(r.avgRate));
-  set("r-margRate",  pct(r.margRate));
-  set("r-cppEi",     fmt(r.cppEiTotal));
+  set("r-afterTax",     fmt(r.afterTaxIncome));
+  set("r-afterTax2",    fmt(r.afterTaxIncome));
+  set("r-fedTax",       fmt(r.fedTax));
+  set("r-provTax",      fmt(r.provTax));
+  set("r-cppEi",        fmt(r.cppEiTotal));
+  set("r-totalPlusCpp", fmt(r.totalTax + r.cppEiTotal));
+  set("r-avgRate",      pct(r.avgRate));
+  set("r-margRate",     pct(r.margRate));
 
-  // Income summary
-  set("r-employment",    fmt(r.employment));
-  if (r.selfEmp > 0) { show("row-selfEmp"); set("r-selfEmp", fmt(r.selfEmp)); } else hide("row-selfEmp");
-  if (r.capitalGains > 0) {
-    show("row-capGains"); set("r-capGains", fmt(r.capitalGains));
-    show("row-capTaxable"); set("r-capTaxable", fmt(r.capTaxable));
-  } else { hide("row-capGains"); hide("row-capTaxable"); }
-  if (r.otherIncome > 0) { show("row-other"); set("r-other", fmt(r.otherIncome)); } else hide("row-other");
-  set("r-totalIncome", fmt(r.totalIncome));
-  if (r.rrsp > 0) { show("row-rrsp"); set("r-rrspDed", fmt(r.rrsp)); } else hide("row-rrsp");
-  set("r-line22215", fmt(r.line22215));
-  set("r-taxableIncome", fmt(r.taxableIncome));
-
-  // CPP / EI
-  set("lbl-cpp", r.isQC ? "QPP1 Contribution" : "CPP1 Contribution");
-  set("r-cpp", fmt(r.cppBase));
-  if (r.cpp2 > 0) { show("row-cpp2"); set("r-cpp2", fmt(r.cpp2)); } else hide("row-cpp2");
-  set("lbl-ei", r.isQC ? "EI Premium (Quebec rate)" : "EI Premium");
-  set("r-ei", fmt(r.eiPremium));
-  if (r.qpipPremium > 0) { show("row-qpip"); set("r-qpip", fmt(r.qpipPremium)); } else hide("row-qpip");
-  set("r-cppEiTotal2", fmt(r.cppEiTotal));
-
-  // Federal
-  buildBracketRows("fed-tbody", r.fedLines);
-  set("r-fedGross", fmt(r.fedGross));
-  set("r-bpaAmount", fmt(r.bpa));
-  set("r-bpaCr",    fmt(r.fedBPACr));
-  if (r.fedEmpCr > 0) { show("row-fedEmpCr"); set("r-fedEmpCr", fmt(r.fedEmpCr)); } else hide("row-fedEmpCr");
-  set("r-fedCppEiCr", fmt(r.fedCPPCr + r.fedEICr + (r.fedQPIPCredit || 0)));
-  if (r.isQC) { show("row-qcAbatement"); set("r-qcAbatement", fmt(r.qcAbatement)); } else hide("row-qcAbatement");
-  set("r-fedTax", fmt(r.fedTax));
-
-  // Provincial
-  set("prov-title", r.provName + " Tax Breakdown");
-  buildBracketRows("prov-tbody", r.provLines);
-  set("r-provGross", fmt(r.provGross));
-  set("lbl-provBpa", r.provName + " BPA Credit ($" + Math.round(r.provBPA).toLocaleString("en-CA") + " × " + (r.provLines[0]?.rate * 100 || 0).toFixed(2) + "%)");
-  set("r-provBpaCr", fmt(r.provBPACr));
-  set("r-provCppEiCr", fmt(r.provCPPEICr));
-  if (r.provEmpCr > 0) { show("row-provEmpCr"); set("r-provEmpCr", fmt(r.provEmpCr)); } else hide("row-provEmpCr");
-  set("r-provBase", fmt(r.provBase));
-  if (r.ontSurtax > 0) { show("row-ontSurtax"); set("r-ontSurtax", fmt(r.ontSurtax)); } else hide("row-ontSurtax");
-  if (r.ohp > 0) { show("row-ohp"); set("r-ohp", fmt(r.ohp)); } else hide("row-ohp");
-  set("r-provTax", fmt(r.provTax));
+  set("r-provLabel", r.provName + " Tax");
+  set("r-cppLabel",  r.qpipPremium > 0 ? "QPP / EI / QPIP Contributions" : "CPP / EI Contributions");
 
   document.getElementById("results").classList.add("show");
   document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "start" });
