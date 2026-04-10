@@ -1,8 +1,8 @@
 {
-  "identifier" : "com.smartcanadatax.products",
-  "nonConsumableProducts" : [
+  "identifier" : "com.1000936219.smartcanadatax.products",
+  "consumableProducts" : [
     {
-      "displayPrice" : "35.99",
+      "displayPrice" : "34.99",
       "familyShareable" : false,
       "internalID" : "A1B2C3D4-1234-5678-ABCD-EF1234567890",
       "localizations" : [
@@ -12,9 +12,9 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "com.smartcanadatax.session.personal",
+      "productID" : "com.1000936219.smartcanadatax.session.personal",
       "referenceName" : "Personal Tax Session",
-      "type" : "NonConsumable"
+      "type" : "Consumable"
     },
     {
       "displayPrice" : "79.99",
@@ -27,9 +27,9 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "com.smartcanadatax.session.corporate",
+      "productID" : "com.1000936219.smartcanadatax.session.corporate",
       "referenceName" : "Corporate Tax Session",
-      "type" : "NonConsumable"
+      "type" : "Consumable"
     }
   ],
   "settings" : {

@@ -402,6 +402,7 @@ fileprivate enum TaxEngine {
 // MARK: - View
 
 struct PersonalTaxView: View {
+    @Environment(\.dismiss) private var dismiss
 
     @State private var selectedProvince = Province.ontario
     @State private var employmentText   = ""
@@ -412,67 +413,78 @@ struct PersonalTaxView: View {
     @State private var result: SimpleResult?
 
     var body: some View {
-        NavigationStack {
-            Form {
+        Form {
 
-                // Year & Province
-                Section(header: Text("Tax Year & Province")) {
-                    HStack {
-                        Text("Tax Year")
-                        Spacer()
-                        Text("2025").foregroundColor(.secondary)
-                    }
-                    Picker("Province / Territory", selection: $selectedProvince) {
-                        ForEach(Province.allCases) { Text($0.displayName).tag($0) }
-                    }
+            // Year & Province
+            Section(header: Text("Tax Year & Province")) {
+                HStack {
+                    Text("Tax Year")
+                    Spacer()
+                    Text("2025").foregroundColor(.secondary)
                 }
-
-                // Income
-                Section(header: Label("Income", systemImage: "dollarsign.circle.fill")) {
-                    PTRow(label: "Employment Income", text: $employmentText,
-                          info: "Total employment income from T4 slips, including wages, salaries, and taxable benefits.")
-                    PTRow(label: "Self-Employment Income", text: $selfEmpText,
-                          info: "Net business or professional income after expenses.")
-                    PTRow(label: "Capital Gains (total)", text: $capitalGainsText,
-                          info: "Total capital gains realized. 50% inclusion rate applied automatically.")
-                    Text("50% inclusion rate applied automatically")
-                        .font(.caption2).foregroundColor(.secondary)
-                    PTRow(label: "Other Income", text: $otherIncText,
-                          info: "Includes EI benefits, CPP/OAS, pensions, RRSP withdrawals, and other taxable income.")
-                    Text("EI benefits, CPP/OAS, pension, RRSP withdrawals, etc.")
-                        .font(.caption2).foregroundColor(.secondary)
-                }
-
-                // RRSP
-                Section(header: Label("Deduction", systemImage: "minus.circle.fill")) {
-                    PTRow(label: "RRSP Contributions", text: $rrspText,
-                          info: "RRSP deduction reduces taxable income dollar-for-dollar.")
-                }
-
-                // Calculate
-                Section {
-                    Button(action: calculate) {
-                        HStack {
-                            Spacer()
-                            Image(systemName: "function")
-                            Text("Calculate Tax").fontWeight(.semibold)
-                            Spacer()
-                        }
-                        .foregroundColor(.white)
-                        .padding(.vertical, 4)
-                    }
-                    .listRowBackground(Color("CanadianRed"))
-                }
-
-                // Results
-                if let r = result {
-                    summarySection(r)
-                    DisclaimerRow()
+                Picker("Province / Territory", selection: $selectedProvince) {
+                    ForEach(Province.allCases) { Text($0.displayName).tag($0) }
                 }
             }
-            .navigationTitle("Personal Income Tax")
-            .navigationBarTitleDisplayMode(.inline)
+
+            // Income
+            Section(header: Label("Income", systemImage: "dollarsign.circle.fill")) {
+                PTRow(label: "Employment Income", text: $employmentText,
+                      info: "Total employment income from T4 slips, including wages, salaries, and taxable benefits.")
+                PTRow(label: "Self-Employment Income", text: $selfEmpText,
+                      info: "Net business or professional income after expenses.")
+                PTRow(label: "Capital Gains (total)", text: $capitalGainsText,
+                      info: "Total capital gains realized. 50% inclusion rate applied automatically.")
+                Text("50% inclusion rate applied automatically")
+                    .font(.caption2).foregroundColor(.secondary)
+                PTRow(label: "Other Income", text: $otherIncText,
+                      info: "Includes EI benefits, CPP/OAS, pensions, RRSP withdrawals, and other taxable income.")
+                Text("EI benefits, CPP/OAS, pension, RRSP withdrawals, etc.")
+                    .font(.caption2).foregroundColor(.secondary)
+            }
+
+            // RRSP
+            Section(header: Label("Deduction", systemImage: "minus.circle.fill")) {
+                PTRow(label: "RRSP Contributions", text: $rrspText,
+                      info: "RRSP deduction reduces taxable income dollar-for-dollar.")
+            }
+
+            // Calculate
+            Section {
+                Button(action: calculate) {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "function")
+                        Text("Calculate Tax").fontWeight(.semibold)
+                        Spacer()
+                    }
+                    .foregroundColor(.white)
+                    .padding(.vertical, 4)
+                }
+                .listRowBackground(Color("CanadianRed"))
+            }
+
+            // Results
+            if let r = result {
+                summarySection(r)
+                DisclaimerRow()
+            }
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle("Personal Income Tax")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .fontWeight(.semibold)
+                        Text("Back")
+                    }
+                    .foregroundColor(Color("CanadianRed"))
+                }
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     // MARK: – Tax Summary

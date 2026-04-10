@@ -28,6 +28,8 @@ enum CorporationType: String, CaseIterable, Identifiable {
 }
 
 struct CorporateTaxView: View {
+    @Environment(\.dismiss) private var dismiss
+
     @State private var selectedProvince   = Province.ontario
     @State private var corpType           = CorporationType.ccpc
     @State private var revenueText        = ""    // total sales / revenue
@@ -42,147 +44,158 @@ struct CorporateTaxView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            Form {
+        Form {
 
-                // ── Corporation Details ──────────────────────────
-                Section(header: Label("Corporation Details", systemImage: "building.2.fill")) {
-                    Picker("Province of Operations", selection: $selectedProvince) {
-                        ForEach(Province.allCases) { Text($0.displayName).tag($0) }
-                    }
-                    Picker("Type of Corporation", selection: $corpType) {
-                        ForEach(CorporationType.allCases) { Text($0.displayName).tag($0) }
-                    }
-                    Text(corpType.description)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+            // ── Corporation Details ──────────────────────────
+            Section(header: Label("Corporation Details", systemImage: "building.2.fill")) {
+                Picker("Province of Operations", selection: $selectedProvince) {
+                    ForEach(Province.allCases) { Text($0.displayName).tag($0) }
                 }
-
-                // ── Revenue & Expenses ───────────────────────────
-                Section(header: Label("Revenue & Expenses (excl. GST/HST)", systemImage: "dollarsign.circle")) {
-                    CorpRow(label: "Total Sales / Revenue", text: $revenueText,
-                            info: "Total gross revenue before expenses and taxes.")
-                    CorpRow(label: "Total Expenses (excl. GST/HST)", text: $expensesText,
-                            info: "Total deductible business expenses, excluding GST/HST.")
-                    HStack {
-                        Text("Net Income Before Tax")
-                            .font(.subheadline.bold())
-                        InfoButton(title: "Net Income Before Tax",
-                                   description: "Revenue minus expenses. Used as active business income for tax.")
-                        Spacer()
-                        Text(netIncome.currencyString)
-                            .font(.subheadline.bold())
-                            .foregroundColor(Color("CanadianRed"))
-                            .monospacedDigit()
-                    }
+                Picker("Type of Corporation", selection: $corpType) {
+                    ForEach(CorporationType.allCases) { Text($0.displayName).tag($0) }
                 }
-
-                // ── Notes ────────────────────────────────────────
-                Section {
-                    HStack(alignment: .top, spacing: 8) {
-                        Image(systemName: "info.circle.fill").foregroundColor(.blue).font(.caption)
-                        Text("Enter revenue and expenses excluding any GST/HST collected or paid. Net income = Revenue – Expenses and is used as active business income for tax calculation.")
-                            .font(.caption2).foregroundColor(.secondary)
-                    }
-                }
-
-                // ── Calculate ────────────────────────────────────
-                Section {
-                    Button(action: calculate) {
-                        HStack {
-                            Image(systemName: "building.2.fill")
-                            Text("Calculate Corporate Tax")
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 6)
-                        .foregroundColor(.white)
-                    }
-                    .listRowBackground(Color.indigo)
-                }
-
-                // ── Results ──────────────────────────────────────
-                if let r = result, showResult {
-
-                    Section(header: Label("Income Breakdown", systemImage: "list.bullet")) {
-                        ResultRow(label: "Total Revenue", value: parse(revenueText).currencyString)
-                        ResultRow(label: "Total Expenses (excl. GST/HST)", value: "–\(parse(expensesText).currencyString)", valueColor: .green)
-                        ResultRow(label: "Net Income (Active Business Income)", value: r.activeBusinessIncome.currencyString, bold: true)
-                        if corpType.sbdEligible && r.sbdEligible > 0 {
-                            ResultRow(label: "SBD Eligible Portion", value: r.sbdEligible.currencyString)
-                            ResultRow(label: "Above SBD Threshold", value: r.aboveThreshold.currencyString)
-                        }
-                    }
-
-                    Section(header: Label("Tax Calculation", systemImage: "percent")) {
-                        if corpType.sbdEligible && r.sbdEligible > 0 {
-                            ResultRow(label: "Federal Tax on SBD Income (9%)", value: r.federalTaxOnSBD.currencyString)
-                            ResultRow(label: "Provincial Tax on SBD Income", value: r.provincialTaxOnSBD.currencyString)
-                        }
-                        if r.aboveThreshold > 0 {
-                            ResultRow(label: "Federal Tax on General Income (15%)", value: r.federalTaxOnGeneral.currencyString)
-                            ResultRow(label: "Provincial Tax on General Income", value: r.provincialTaxOnGeneral.currencyString)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Total Corporate Tax").font(.subheadline.bold()).foregroundColor(Color("CanadianRed"))
-                            InfoButton(title: "Total Corporate Tax", description: "Total federal and provincial corporate tax payable.")
-                            Spacer()
-                            Text(r.totalTax.currencyString).font(.subheadline.bold()).foregroundColor(Color("CanadianRed")).monospacedDigit()
-                        }
-                        HStack {
-                            Text("After-Tax Income").font(.subheadline.bold())
-                            InfoButton(title: "After-Tax Income", description: "Net income remaining after corporate tax.")
-                            Spacer()
-                            Text(r.afterTaxIncome.currencyString).font(.subheadline.bold()).monospacedDigit()
-                        }
-                        HStack {
-                            Text("Effective Tax Rate").font(.subheadline)
-                            InfoButton(title: "Effective Tax Rate", description: "Total tax payable divided by net income.")
-                            Spacer()
-                            Text(r.effectiveRate.percentString).font(.subheadline).monospacedDigit()
-                        }
-                    }
-
-                    Section(header: Label("Combined Rates – \(selectedProvince.displayName)", systemImage: "building.columns")) {
-                        if corpType.sbdEligible {
-                            rateRow(label: "SBD Rate (Federal 9% + Prov \(r.combinedSBDRate - CorporateTaxData.federalSBDRate).percentString)",
-                                    value: r.combinedSBDRate.percentString)
-                        }
-                        rateRow(label: "General Rate (Federal 15% + Prov)",
-                                value: r.combinedGeneralRate.percentString)
-                        if let pr = CorporateTaxData.rate(for: selectedProvince) {
-                            HStack(spacing: 0) {
-                                rateChip(label: "Federal General", value: CorporateTaxData.federalGeneralRate.percentString, color: .indigo)
-                                Spacer()
-                                rateChip(label: "Prov General", value: pr.generalRate.percentString, color: .blue)
-                                Spacer()
-                                if corpType.sbdEligible {
-                                    rateChip(label: "Prov SBD", value: pr.smallBusinessRate.percentString, color: .green)
-                                }
-                            }
-                            .padding(.vertical, 4)
-                        }
-                    }
-
-                    Section(header: Label("Notes", systemImage: "info.circle.fill")) {
-                        BulletPoint("Rates shown are for 2024. Rates change annually.")
-                        BulletPoint("Federal SBD limit: \(CorporateTaxData.federalSBDLimit.shortCurrencyString) (\(selectedProvince.rawValue) SBD limit may differ).")
-                        BulletPoint("Investment / passive income taxed differently (~50.2% refundable).")
-                        BulletPoint("Personal services businesses do not qualify for SBD.")
-                        BulletPoint("Association rules may reduce the SBD limit among related corporations.")
-                        if corpType == .investment {
-                            BulletPoint("Holding company passive income may reduce SBD of associated operating corps (Passive Income Grind).")
-                        }
-                    }
+                Text(corpType.description)
                     .font(.caption)
                     .foregroundColor(.secondary)
+            }
 
-                    DisclaimerRow()
+            // ── Revenue & Expenses ───────────────────────────
+            Section(header: Label("Revenue & Expenses (excl. GST/HST)", systemImage: "dollarsign.circle")) {
+                CorpRow(label: "Total Sales / Revenue", text: $revenueText,
+                        info: "Total gross revenue before expenses and taxes.")
+                CorpRow(label: "Total Expenses (excl. GST/HST)", text: $expensesText,
+                        info: "Total deductible business expenses, excluding GST/HST.")
+                HStack {
+                    Text("Net Income Before Tax")
+                        .font(.subheadline.bold())
+                    InfoButton(title: "Net Income Before Tax",
+                               description: "Revenue minus expenses. Used as active business income for tax.")
+                    Spacer()
+                    Text(netIncome.currencyString)
+                        .font(.subheadline.bold())
+                        .foregroundColor(Color("CanadianRed"))
+                        .monospacedDigit()
                 }
             }
-            .navigationTitle("Corporate Tax")
-            .navigationBarTitleDisplayMode(.inline)
+
+            // ── Notes ────────────────────────────────────────
+            Section {
+                HStack(alignment: .top, spacing: 8) {
+                    Image(systemName: "info.circle.fill").foregroundColor(.blue).font(.caption)
+                    Text("Enter revenue and expenses excluding any GST/HST collected or paid. Net income = Revenue – Expenses and is used as active business income for tax calculation.")
+                        .font(.caption2).foregroundColor(.secondary)
+                }
+            }
+
+            // ── Calculate ────────────────────────────────────
+            Section {
+                Button(action: calculate) {
+                    HStack {
+                        Image(systemName: "building.2.fill")
+                        Text("Calculate Corporate Tax")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 6)
+                    .foregroundColor(.white)
+                }
+                .listRowBackground(Color.indigo)
+            }
+
+            // ── Results ──────────────────────────────────────
+            if let r = result, showResult {
+
+                Section(header: Label("Income Breakdown", systemImage: "list.bullet")) {
+                    ResultRow(label: "Total Revenue", value: parse(revenueText).currencyString)
+                    ResultRow(label: "Total Expenses (excl. GST/HST)", value: "–\(parse(expensesText).currencyString)", valueColor: .green)
+                    ResultRow(label: "Net Income (Active Business Income)", value: r.activeBusinessIncome.currencyString, bold: true)
+                    if corpType.sbdEligible && r.sbdEligible > 0 {
+                        ResultRow(label: "SBD Eligible Portion", value: r.sbdEligible.currencyString)
+                        ResultRow(label: "Above SBD Threshold", value: r.aboveThreshold.currencyString)
+                    }
+                }
+
+                Section(header: Label("Tax Calculation", systemImage: "percent")) {
+                    if corpType.sbdEligible && r.sbdEligible > 0 {
+                        ResultRow(label: "Federal Tax on SBD Income (9%)", value: r.federalTaxOnSBD.currencyString)
+                        ResultRow(label: "Provincial Tax on SBD Income", value: r.provincialTaxOnSBD.currencyString)
+                    }
+                    if r.aboveThreshold > 0 {
+                        ResultRow(label: "Federal Tax on General Income (15%)", value: r.federalTaxOnGeneral.currencyString)
+                        ResultRow(label: "Provincial Tax on General Income", value: r.provincialTaxOnGeneral.currencyString)
+                    }
+                    Divider()
+                    HStack {
+                        Text("Total Corporate Tax").font(.subheadline.bold()).foregroundColor(Color("CanadianRed"))
+                        InfoButton(title: "Total Corporate Tax", description: "Total federal and provincial corporate tax payable.")
+                        Spacer()
+                        Text(r.totalTax.currencyString).font(.subheadline.bold()).foregroundColor(Color("CanadianRed")).monospacedDigit()
+                    }
+                    HStack {
+                        Text("After-Tax Income").font(.subheadline.bold())
+                        InfoButton(title: "After-Tax Income", description: "Net income remaining after corporate tax.")
+                        Spacer()
+                        Text(r.afterTaxIncome.currencyString).font(.subheadline.bold()).monospacedDigit()
+                    }
+                    HStack {
+                        Text("Effective Tax Rate").font(.subheadline)
+                        InfoButton(title: "Effective Tax Rate", description: "Total tax payable divided by net income.")
+                        Spacer()
+                        Text(r.effectiveRate.percentString).font(.subheadline).monospacedDigit()
+                    }
+                }
+
+                Section(header: Label("Combined Rates – \(selectedProvince.displayName)", systemImage: "building.columns")) {
+                    if corpType.sbdEligible {
+                        rateRow(label: "SBD Rate (Federal 9% + Prov \(r.combinedSBDRate - CorporateTaxData.federalSBDRate).percentString)",
+                                value: r.combinedSBDRate.percentString)
+                    }
+                    rateRow(label: "General Rate (Federal 15% + Prov)",
+                            value: r.combinedGeneralRate.percentString)
+                    if let pr = CorporateTaxData.rate(for: selectedProvince) {
+                        HStack(spacing: 0) {
+                            rateChip(label: "Federal General", value: CorporateTaxData.federalGeneralRate.percentString, color: .indigo)
+                            Spacer()
+                            rateChip(label: "Prov General", value: pr.generalRate.percentString, color: .blue)
+                            Spacer()
+                            if corpType.sbdEligible {
+                                rateChip(label: "Prov SBD", value: pr.smallBusinessRate.percentString, color: .green)
+                            }
+                        }
+                        .padding(.vertical, 4)
+                    }
+                }
+
+                Section(header: Label("Notes", systemImage: "info.circle.fill")) {
+                    BulletPoint("Rates shown are for 2024. Rates change annually.")
+                    BulletPoint("Federal SBD limit: \(CorporateTaxData.federalSBDLimit.shortCurrencyString) (\(selectedProvince.rawValue) SBD limit may differ).")
+                    BulletPoint("Investment / passive income taxed differently (~50.2% refundable).")
+                    BulletPoint("Personal services businesses do not qualify for SBD.")
+                    BulletPoint("Association rules may reduce the SBD limit among related corporations.")
+                    if corpType == .investment {
+                        BulletPoint("Holding company passive income may reduce SBD of associated operating corps (Passive Income Grind).")
+                    }
+                }
+                .font(.caption)
+                .foregroundColor(.secondary)
+
+                DisclaimerRow()
+            }
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle("Corporate Tax")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .fontWeight(.semibold)
+                        Text("Back")
+                    }
+                    .foregroundColor(Color("CanadianRed"))
+                }
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     // MARK: – Helpers

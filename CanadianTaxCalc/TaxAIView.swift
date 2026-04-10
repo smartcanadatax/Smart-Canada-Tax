@@ -70,6 +70,18 @@ struct TaxAIView: View {
             .navigationTitle("Tax AI")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        NotificationCenter.default.post(name: NSNotification.Name("SwitchToHomeTab"), object: nil)
+                    }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                                .fontWeight(.semibold)
+                            Text("Back")
+                        }
+                        .foregroundColor(Color("CanadianRed"))
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack(spacing: 14) {
                         Button { showDisclaimer = true } label: {

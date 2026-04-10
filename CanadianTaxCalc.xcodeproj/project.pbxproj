@@ -40,7 +40,7 @@
 		C000003300000000000000 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B000003300000000000000 /* LegalView.swift */; };
 		C000003400000000000000 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B000003400000000000000 /* StoreKitManager.swift */; };
 		C000003500000000000000 /* PaymentConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B000003500000000000000 /* PaymentConfirmationView.swift */; };
-		C000003600000000000000 /* TaxBrackets2025View.swift in Sources */ = {isa = PBXBuildFile; fileRef = B000003600000000000000 /* TaxBrackets2025View.swift */; };
+		C000003600000000000000 /* Products.storekit in Sources */ = {isa = PBXBuildFile; fileRef = B000003600000000000000 /* Products.storekit */; };
 		C000003700000000000000 /* TaxAIEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B000003700000000000000 /* TaxAIEngine.swift */; };
 		C000003800000000000000 /* TaxAIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B000003800000000000000 /* TaxAIView.swift */; };
 		C000003900000000000000 /* TaxAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B000003900000000000000 /* TaxAIService.swift */; };
@@ -82,11 +82,10 @@
 		B000003300000000000000 /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
 		B000003400000000000000 /* StoreKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitManager.swift; sourceTree = "<group>"; };
 		B000003500000000000000 /* PaymentConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentConfirmationView.swift; sourceTree = "<group>"; };
-		B000003600000000000000 /* TaxBrackets2025View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxBrackets2025View.swift; sourceTree = "<group>"; };
+		B000003600000000000000 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 		B000003700000000000000 /* TaxAIEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxAIEngine.swift; sourceTree = "<group>"; };
 		B000003800000000000000 /* TaxAIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxAIView.swift; sourceTree = "<group>"; };
 		B000003900000000000000 /* TaxAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxAIService.swift; sourceTree = "<group>"; };
-		B000003600000000000000 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +144,6 @@
 				B000003300000000000000 /* LegalView.swift */,
 				B000003400000000000000 /* StoreKitManager.swift */,
 				B000003500000000000000 /* PaymentConfirmationView.swift */,
-				B000003600000000000000 /* TaxBrackets2025View.swift */,
 				B000003700000000000000 /* TaxAIEngine.swift */,
 				B000003800000000000000 /* TaxAIView.swift */,
 				B000003900000000000000 /* TaxAIService.swift */,
@@ -263,7 +261,7 @@
 				C000003300000000000000 /* LegalView.swift in Sources */,
 				C000003400000000000000 /* StoreKitManager.swift in Sources */,
 				C000003500000000000000 /* PaymentConfirmationView.swift in Sources */,
-				C000003600000000000000 /* TaxBrackets2025View.swift in Sources */,
+				C000003600000000000000 /* Products.storekit in Sources */,
 				C000003700000000000000 /* TaxAIEngine.swift in Sources */,
 				C000003800000000000000 /* TaxAIView.swift in Sources */,
 				C000003900000000000000 /* TaxAIService.swift in Sources */,
@@ -400,8 +398,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = Q6FAV95A27;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CanadianTaxCalc/Info.plist;
@@ -410,8 +409,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.smartcanadatax;
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.1000936219.smartcanadatax;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -425,8 +424,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = Q6FAV95A27;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CanadianTaxCalc/Info.plist;
@@ -435,8 +435,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.smartcanadatax;
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.1000936219.smartcanadatax;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

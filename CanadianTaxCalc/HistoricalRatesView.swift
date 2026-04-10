@@ -2,82 +2,95 @@ import SwiftUI
 
 // MARK: - Historical Federal Rates
 struct HistoricalRatesView: View {
+    @Environment(\.dismiss) private var dismiss
+
     @State private var selectedYear = 2024
 
     var body: some View {
-        NavigationStack {
-            Form {
-                Section(header: Text("Select Tax Year")) {
-                    Picker("Year", selection: $selectedYear) {
-                        ForEach(FederalTaxData.availableYears, id: \.self) {
-                            Text(String($0)).tag($0)
-                        }
+        Form {
+            Section(header: Text("Select Tax Year")) {
+                Picker("Year", selection: $selectedYear) {
+                    ForEach(FederalTaxData.availableYears, id: \.self) {
+                        Text(String($0)).tag($0)
                     }
-                    .pickerStyle(.wheel)
-                    .frame(height: 120)
                 }
+                .pickerStyle(.wheel)
+                .frame(height: 120)
+            }
 
-                if let data = FederalTaxData.data(for: selectedYear) {
-                    Section(header: Label("Federal Tax Brackets \(selectedYear)", systemImage: "flag.fill")) {
+            if let data = FederalTaxData.data(for: selectedYear) {
+                Section(header: Label("Federal Tax Brackets \(selectedYear)", systemImage: "flag.fill")) {
+                    HStack {
+                        Text("Basic Personal Amount")
+                            .font(.subheadline)
+                        Spacer()
+                        Text(data.basicPersonalAmount.currencyString)
+                            .font(.subheadline.bold())
+                    }
+                    HStack {
+                        Text("Rate")
+                            .font(.caption.bold())
+                            .frame(width: 55, alignment: .leading)
+                        Text("Income Range")
+                            .font(.caption.bold())
+                    }
+                    var prev = 0.0
+                    ForEach(data.brackets.indices, id: \.self) { idx in
+                        let bracket = data.brackets[idx]
+                        let lower = idx == 0 ? 0.0 : data.brackets[idx - 1].upperLimit
                         HStack {
-                            Text("Basic Personal Amount")
-                                .font(.subheadline)
-                            Spacer()
-                            Text(data.basicPersonalAmount.currencyString)
-                                .font(.subheadline.bold())
-                        }
-                        HStack {
-                            Text("Rate")
-                                .font(.caption.bold())
+                            Text(bracket.rate.percentString)
+                                .font(.caption)
                                 .frame(width: 55, alignment: .leading)
-                            Text("Income Range")
-                                .font(.caption.bold())
-                        }
-                        var prev = 0.0
-                        ForEach(data.brackets.indices, id: \.self) { idx in
-                            let bracket = data.brackets[idx]
-                            let lower = idx == 0 ? 0.0 : data.brackets[idx - 1].upperLimit
-                            HStack {
-                                Text(bracket.rate.percentString)
-                                    .font(.caption)
-                                    .frame(width: 55, alignment: .leading)
-                                if bracket.upperLimit == .infinity {
-                                    Text("\(lower.shortCurrencyString) +")
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                } else {
-                                    Text("\(lower.shortCurrencyString) – \(bracket.upperLimit.shortCurrencyString)")
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Section(header: Label("All Federal Years Quick View", systemImage: "tablecells.fill")) {
-                    ForEach(FederalTaxData.availableYears, id: \.self) { yr in
-                        if let d = FederalTaxData.data(for: yr) {
-                            HStack {
-                                Text(String(yr))
-                                    .font(.subheadline)
-                                    .foregroundColor(yr == selectedYear ? Color("CanadianRed") : .primary)
-                                Spacer()
-                                Text("BPA \(d.basicPersonalAmount.shortCurrencyString)")
+                            if bracket.upperLimit == .infinity {
+                                Text("\(lower.shortCurrencyString) +")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
-                                Text("Top \(d.brackets.last!.rate.percentString)")
-                                    .font(.caption.bold())
-                                    .foregroundColor(yr == selectedYear ? Color("CanadianRed") : .primary)
+                            } else {
+                                Text("\(lower.shortCurrencyString) – \(bracket.upperLimit.shortCurrencyString)")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
                             }
                         }
                     }
                 }
-
-                DisclaimerRow()
             }
-            .navigationTitle("Historical Tax Rates")
-            .navigationBarTitleDisplayMode(.inline)
+
+            Section(header: Label("All Federal Years Quick View", systemImage: "tablecells.fill")) {
+                ForEach(FederalTaxData.availableYears, id: \.self) { yr in
+                    if let d = FederalTaxData.data(for: yr) {
+                        HStack {
+                            Text(String(yr))
+                                .font(.subheadline)
+                                .foregroundColor(yr == selectedYear ? Color("CanadianRed") : .primary)
+                            Spacer()
+                            Text("BPA \(d.basicPersonalAmount.shortCurrencyString)")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            Text("Top \(d.brackets.last!.rate.percentString)")
+                                .font(.caption.bold())
+                                .foregroundColor(yr == selectedYear ? Color("CanadianRed") : .primary)
+                        }
+                    }
+                }
+            }
+
+            DisclaimerRow()
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle("Historical Tax Rates")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .fontWeight(.semibold)
+                        Text("Back")
+                    }
+                    .foregroundColor(Color("CanadianRed"))
+                }
+            }
         }
     }
 }
@@ -373,6 +386,7 @@ struct GlossarySectionView: View {
 
 // MARK: - Filing Dates
 struct FilingDatesView: View {
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         Form {
             Section(header: Label("2025 Filing Deadlines", systemImage: "calendar")) {
@@ -395,7 +409,20 @@ struct FilingDatesView: View {
 
             DisclaimerRow()
         }
+        .navigationBarBackButtonHidden(true)
         .navigationTitle("Filing Deadlines")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { dismiss() }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                                .fontWeight(.semibold)
+                            Text("Back")
+                        }
+                        .foregroundColor(Color("CanadianRed"))
+                    }
+                }
+            }
         .navigationBarTitleDisplayMode(.inline)
     }
 }

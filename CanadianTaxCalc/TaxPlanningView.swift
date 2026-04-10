@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TaxPlanningView: View {
+    @Environment(\.dismiss) private var dismiss
+
     @State private var incomeText = ""
     @State private var selectedProvince = Province.ontario
     @State private var capitalGainText = ""
@@ -8,40 +10,51 @@ struct TaxPlanningView: View {
     @State private var showResult = false
 
     var body: some View {
-        NavigationStack {
-            Form {
-                Section(header: Label("Tax Planning Tools", systemImage: "lightbulb.fill")) {
-                    NavigationLink(destination: MarginalRateCompareView()) {
-                        Label("Compare Marginal Rates by Province", systemImage: "map.fill")
-                    }
-                    NavigationLink(destination: CapitalGainsView()) {
-                        Label("Capital Gains Calculator", systemImage: "arrow.up.right")
-                    }
-                    NavigationLink(destination: DividendTaxView()) {
-                        Label("Canadian Dividend Tax Credit", systemImage: "rosette")
-                    }
-                    NavigationLink(destination: IncomeSplittingView()) {
-                        Label("Income Splitting Strategies", systemImage: "person.2.fill")
-                    }
+        Form {
+            Section(header: Label("Tax Planning Tools", systemImage: "lightbulb.fill")) {
+                NavigationLink(destination: MarginalRateCompareView()) {
+                    Label("Compare Marginal Rates by Province", systemImage: "map.fill")
                 }
-
-                Section(header: Label("Top 10 Tax Strategies", systemImage: "star.fill")) {
-                    ForEach(taxStrategies, id: \.title) { strategy in
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(strategy.title)
-                                .font(.subheadline.bold())
-                            Text(strategy.description)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                        .padding(.vertical, 2)
-                    }
+                NavigationLink(destination: CapitalGainsView()) {
+                    Label("Capital Gains Calculator", systemImage: "arrow.up.right")
                 }
-
-                DisclaimerRow()
+                NavigationLink(destination: DividendTaxView()) {
+                    Label("Canadian Dividend Tax Credit", systemImage: "rosette")
+                }
+                NavigationLink(destination: IncomeSplittingView()) {
+                    Label("Income Splitting Strategies", systemImage: "person.2.fill")
+                }
             }
-            .navigationTitle("Tax Planning")
-            .navigationBarTitleDisplayMode(.inline)
+
+            Section(header: Label("Top 10 Tax Strategies", systemImage: "star.fill")) {
+                ForEach(taxStrategies, id: \.title) { strategy in
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(strategy.title)
+                            .font(.subheadline.bold())
+                        Text(strategy.description)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.vertical, 2)
+                }
+            }
+
+            DisclaimerRow()
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle("Tax Planning")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .fontWeight(.semibold)
+                        Text("Back")
+                    }
+                    .foregroundColor(Color("CanadianRed"))
+                }
+            }
         }
     }
 
@@ -238,6 +251,7 @@ struct IncomeSplittingView: View {
 
 // MARK: - Marginal Rate Comparison
 struct MarginalRateCompareView: View {
+    @Environment(\.dismiss) private var dismiss
     @State private var incomeText = ""
     @State private var selectedYear = 2024
 
@@ -277,7 +291,20 @@ struct MarginalRateCompareView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
         .navigationTitle("Rate Comparison")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { dismiss() }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                                .fontWeight(.semibold)
+                            Text("Back")
+                        }
+                        .foregroundColor(Color("CanadianRed"))
+                    }
+                }
+            }
         .navigationBarTitleDisplayMode(.inline)
     }
 }

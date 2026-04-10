@@ -2,6 +2,8 @@ import SwiftUI
 
 // MARK: - RESP + CESG Calculator
 struct RESPView: View {
+    @Environment(\.dismiss) private var dismiss
+
 
     @State private var childAge         = ""
     @State private var annualContrib    = ""
@@ -259,6 +261,18 @@ struct RESPView: View {
                 DisclaimerRow()
             }
             .navigationTitle("RESP & CESG Calculator")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { dismiss() }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                                .fontWeight(.semibold)
+                            Text("Back")
+                        }
+                        .foregroundColor(Color("CanadianRed"))
+                    }
+                }
+            }
             .navigationBarTitleDisplayMode(.inline)
         }
     }

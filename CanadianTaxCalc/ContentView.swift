@@ -35,6 +35,9 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("SwitchToSessionsTab"))) { _ in
             selectedTab = 3
         }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("SwitchToHomeTab"))) { _ in
+            selectedTab = 0
+        }
     }
 }
 
@@ -237,46 +240,44 @@ struct ResourcesView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            List {
-                if filtered.isEmpty {
-                    VStack(spacing: 12) {
-                        Image(systemName: "magnifyingglass")
-                            .font(.largeTitle)
-                            .foregroundColor(.secondary)
-                        Text("No results for \"\(searchText)\"")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 40)
-                    .listRowBackground(Color.clear)
-                } else {
-                    ForEach(sections, id: \.self) { section in
-                        Section(section) {
-                            ForEach(filtered.filter { $0.section == section }) { entry in
-                                NavigationLink(destination: entry.destination) {
-                                    Label {
-                                        Text(entry.name)
-                                    } icon: {
-                                        Image(systemName: entry.icon)
-                                            .foregroundColor(entry.color)
-                                    }
+        List {
+            if filtered.isEmpty {
+                VStack(spacing: 12) {
+                    Image(systemName: "magnifyingglass")
+                        .font(.largeTitle)
+                        .foregroundColor(.secondary)
+                    Text("No results for \"\(searchText)\"")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 40)
+                .listRowBackground(Color.clear)
+            } else {
+                ForEach(sections, id: \.self) { section in
+                    Section(section) {
+                        ForEach(filtered.filter { $0.section == section }) { entry in
+                            NavigationLink(destination: entry.destination) {
+                                Label {
+                                    Text(entry.name)
+                                } icon: {
+                                    Image(systemName: entry.icon)
+                                        .foregroundColor(entry.color)
                                 }
                             }
                         }
                     }
-                    DisclaimerRow()
                 }
+                DisclaimerRow()
             }
-            .searchable(text: $searchText, prompt: "Search resources…")
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Resources")
-                        .font(.title3.bold())
-                }
+        }
+        .searchable(text: $searchText, prompt: "Search resources…")
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Resources")
+                    .font(.title3.bold())
             }
         }
     }
@@ -288,27 +289,25 @@ struct TaxBrackets2025View: View {
     @State private var selectedTab = 0   // 0 = Federal, 1 = Provincial
 
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                Picker("", selection: $selectedTab) {
-                    Text("Federal").tag(0)
-                    Text("Provincial").tag(1)
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
-                .padding(.vertical, 10)
-                .background(Color(.systemBackground))
-
-                if selectedTab == 0 {
-                    FederalBracketsView()
-                } else {
-                    ProvincialBracketsView()
-                }
+        VStack(spacing: 0) {
+            Picker("", selection: $selectedTab) {
+                Text("Federal").tag(0)
+                Text("Provincial").tag(1)
             }
+            .pickerStyle(.segmented)
+            .padding(.horizontal)
+            .padding(.vertical, 10)
             .background(Color(.systemBackground))
-            .navigationTitle("2025 Tax Brackets")
-            .navigationBarTitleDisplayMode(.inline)
+
+            if selectedTab == 0 {
+                FederalBracketsView()
+            } else {
+                ProvincialBracketsView()
+            }
         }
+        .background(Color(.systemBackground))
+        .navigationTitle("2025 Tax Brackets")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

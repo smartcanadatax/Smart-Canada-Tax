@@ -2,6 +2,8 @@ import SwiftUI
 
 // MARK: - Tax Tips Tab
 struct TaxTipsView: View {
+    @Environment(\.dismiss) private var dismiss
+
 
     struct Tip: Identifiable {
         let id = UUID()
@@ -184,30 +186,41 @@ struct TaxTipsView: View {
     ]
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 0) {
+        ScrollView {
+            VStack(spacing: 0) {
 
-                    // ── Banner ──────────────────────────────────
-                    TipsBannerView()
-                        .padding(.bottom, 8)
+                // ── Banner ──────────────────────────────────
+                TipsBannerView()
+                    .padding(.bottom, 8)
 
-                    // ── Categories ──────────────────────────────
-                    ForEach(categories) { category in
-                        TipCategorySection(category: category)
+                // ── Categories ──────────────────────────────
+                ForEach(categories) { category in
+                    TipCategorySection(category: category)
+                }
+
+                // ── CRA Official Resources ───────────────────
+                TaxTipsCRALinksView()
+                    .padding(.bottom, 8)
+
+                DisclaimerBanner()
+                    .padding(.vertical, 12)
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle("Tax Tips")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .fontWeight(.semibold)
+                        Text("Back")
                     }
-
-                    // ── CRA Official Resources ───────────────────
-                    TaxTipsCRALinksView()
-                        .padding(.bottom, 8)
-
-                    DisclaimerBanner()
-                        .padding(.vertical, 12)
+                    .foregroundColor(Color("CanadianRed"))
                 }
             }
-            .navigationTitle("Tax Tips")
-            .navigationBarTitleDisplayMode(.large)
         }
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 
