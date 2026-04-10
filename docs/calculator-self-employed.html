@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Self-Employed Tax Calculator Canada 2025 — Smart Canada Tax</title>
+  <meta name="description" content="Free self-employed tax calculator for Canada 2025. Calculate T2125 net business income, CPP contributions (both sides), and estimated income tax for all provinces." />
+  <link rel="canonical" href="https://smartcanadatax.help/calculator-self-employed.html" />
+  <style>
+    :root { --red: #C8102E; --red-dark: #9b0c22; --white: #fff; --bg: #f7f8fa; --text: #1a1a2e; --muted: #64748b; --border: #e8eaed; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    nav { position: sticky; top: 0; z-index: 100; background: var(--red); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-brand { color: white; font-weight: 800; font-size: 1.1rem; text-decoration: none; }
+    .nav-links { display: flex; gap: 16px; }
+    .nav-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-size: .9rem; }
+    .nav-cta { background: white; color: var(--red) !important; font-weight: 700 !important; padding: 6px 14px; border-radius: 20px; }
+    .hero { background: linear-gradient(135deg, var(--red), var(--red-dark)); color: white; padding: 40px 24px; text-align: center; }
+    .hero h1 { font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 800; margin-bottom: 8px; }
+    .hero p { opacity: .9; font-size: 1rem; }
+    .container { max-width: 760px; margin: 0 auto; padding: 32px 20px; }
+    .card { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 24px rgba(0,0,0,.07); margin-bottom: 24px; }
+    label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: 6px; }
+    .hint { font-size: .8rem; color: var(--muted); margin-bottom: 8px; }
+    input, select { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 1rem; outline: none; transition: border .15s; }
+    input:focus, select:focus { border-color: var(--red); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media(max-width:540px){ .form-grid { grid-template-columns: 1fr; } }
+    .btn { display: block; width: 100%; margin-top: 24px; background: var(--red); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; }
+    .btn:hover { background: var(--red-dark); }
+    .section-title { font-size: 1rem; font-weight: 700; margin-bottom: 16px; }
+    .results { display: none; }
+    .results.show { display: block; }
+    .result-highlight { background: linear-gradient(135deg, var(--red), var(--red-dark)); border-radius: 12px; padding: 20px; color: white; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .result-highlight .lbl { opacity: .85; font-size: .9rem; }
+    .result-highlight .val { font-size: 1.6rem; font-weight: 800; }
+    .result-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: .95rem; }
+    .result-row:last-child { border-bottom: none; }
+    .result-row .lbl { color: var(--muted); }
+    .result-row .val { font-weight: 700; }
+    .result-row .val.green { color: #16a34a; }
+    .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    @media(max-width:480px){ .summary-grid { grid-template-columns: 1fr; } }
+    .sum-box { background: var(--bg); border-radius: 10px; padding: 14px 16px; }
+    .sum-box .sl { font-size: .78rem; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+    .sum-box .sv { font-size: 1.1rem; font-weight: 800; }
+    .book-cta { background: linear-gradient(135deg, var(--red), var(--red-dark)); border-radius: 16px; padding: 28px; color: white; text-align: center; margin-top: 32px; }
+    .book-cta h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .book-cta p { opacity: .9; margin-bottom: 20px; font-size: .95rem; }
+    .book-cta a { display: inline-block; background: white; color: var(--red); font-weight: 700; padding: 12px 28px; border-radius: 25px; text-decoration: none; }
+    footer { background: #1a1a2e; color: rgba(255,255,255,.7); padding: 32px 24px; text-align: center; font-size: .85rem; }
+    footer a { color: rgba(255,255,255,.7); text-decoration: none; margin: 0 8px; }
+    footer .brand { color: white; font-weight: 800; font-size: 1rem; display: block; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">Smart Canada Tax</a>
+  <div class="nav-links">
+    <a href="/calculators.html">Calculators</a>
+    <a href="/contact.html" class="nav-cta">Book a Session</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Self-Employed Tax Calculator 2025</h1>
+  <p>T2125 net income, CPP contributions (both sides), and estimated income tax</p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <p class="section-title">Settings</p>
+    <div class="form-grid" style="margin-bottom:20px">
+      <div>
+        <label for="province">Province / Territory</label>
+        <select id="province">
+          <option value="ontario">Ontario</option>
+          <option value="alberta">Alberta</option>
+          <option value="britishColumbia">British Columbia</option>
+          <option value="quebec">Quebec</option>
+          <option value="saskatchewan">Saskatchewan</option>
+          <option value="manitoba">Manitoba</option>
+          <option value="newBrunswick">New Brunswick</option>
+          <option value="novaScotia">Nova Scotia</option>
+          <option value="pei">Prince Edward Island</option>
+          <option value="newfoundland">Newfoundland &amp; Labrador</option>
+          <option value="yukon">Yukon</option>
+          <option value="northwestTerritories">Northwest Territories</option>
+          <option value="nunavut">Nunavut</option>
+        </select>
+      </div>
+      <div>
+        <label for="taxYear">Tax Year</label>
+        <select id="taxYear">
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="section-title">Income (T2125)</p>
+    <div class="form-grid" style="margin-bottom:20px">
+      <div>
+        <label for="grossRevenue">Gross Business Revenue ($)</label>
+        <p class="hint">Total sales/fees before expenses</p>
+        <input type="number" id="grossRevenue" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="otherIncome">Other Income ($)</label>
+        <p class="hint">Grants, subcontracting, other business income</p>
+        <input type="number" id="otherIncome" min="0" placeholder="0" />
+      </div>
+    </div>
+
+    <p class="section-title">Deductible Business Expenses</p>
+    <div class="form-grid">
+      <div>
+        <label for="advertising">Advertising ($)</label>
+        <input type="number" id="advertising" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="meals">Meals &amp; Entertainment ($)</label>
+        <p class="hint">Only 50% deductible — enter full amount</p>
+        <input type="number" id="meals" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="professionalFees">Professional Fees ($)</label>
+        <input type="number" id="professionalFees" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="officeSupplies">Office Supplies ($)</label>
+        <input type="number" id="officeSupplies" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="phoneInternet">Phone &amp; Internet ($)</label>
+        <input type="number" id="phoneInternet" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="insurance">Insurance ($)</label>
+        <input type="number" id="insurance" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="bankFees">Bank Fees ($)</label>
+        <input type="number" id="bankFees" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="salariesSubcontract">Salaries / Subcontractors ($)</label>
+        <input type="number" id="salariesSubcontract" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="otherExpenses">Other Expenses ($)</label>
+        <input type="number" id="otherExpenses" min="0" placeholder="0" />
+      </div>
+    </div>
+
+    <button class="btn" onclick="calculate()">Calculate Self-Employment Tax</button>
+  </div>
+
+  <!-- Results -->
+  <div class="results" id="results">
+
+    <div class="result-highlight">
+      <div><div class="lbl">Estimated Income Tax</div><div style="font-size:.8rem;opacity:.7">Federal + provincial (after CPP deduction)</div></div>
+      <div class="val" id="r-incomeTax">—</div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="sum-box">
+        <div class="sl">Net Business Income</div>
+        <div class="sv" id="r-netIncome">—</div>
+      </div>
+      <div class="sum-box">
+        <div class="sl">Total CPP (both sides)</div>
+        <div class="sv" id="r-cppTotal">—</div>
+      </div>
+      <div class="sum-box">
+        <div class="sl">Taxable Income (after CPP deduction)</div>
+        <div class="sv" id="r-taxableIncome">—</div>
+      </div>
+      <div class="sum-box">
+        <div class="sl">Effective Tax Rate</div>
+        <div class="sv" id="r-effRate">—</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">Income Summary</p>
+      <div class="result-row"><span class="lbl">Gross Business Revenue</span><span class="val" id="r-grossRev">—</span></div>
+      <div class="result-row" id="row-other" style="display:none"><span class="lbl">Other Income</span><span class="val" id="r-other">—</span></div>
+      <div class="result-row"><span class="lbl">Total Income</span><span class="val" id="r-totalIncome">—</span></div>
+      <div class="result-row"><span class="lbl">Total Expenses</span><span class="val" style="color:#16a34a" id="r-totalExp">—</span></div>
+      <div class="result-row"><span class="lbl">Meals (50% only deductible)</span><span class="val" id="r-mealsDeduct">—</span></div>
+      <div class="result-row"><span class="lbl" style="font-weight:700">Net Business Income (T2125)</span><span class="val" id="r-netIncome2">—</span></div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">CPP Contributions (Self-Employed Pay Both Sides)</p>
+      <div class="result-row"><span class="lbl">CPP1 Pensionable Earnings</span><span class="val" id="r-cpp1earn">—</span></div>
+      <div class="result-row"><span class="lbl">CPP1 Employee Portion (5.95%)</span><span class="val" id="r-cpp1emp">—</span></div>
+      <div class="result-row"><span class="lbl">CPP1 Employer Portion (5.95%)</span><span class="val" id="r-cpp1er">—</span></div>
+      <div class="result-row" id="row-cpp2" style="display:none"><span class="lbl">CPP2 Total (4% each side)</span><span class="val" id="r-cpp2">—</span></div>
+      <div class="result-row"><span class="lbl" style="font-weight:700">Total CPP Contributions</span><span class="val" id="r-cppTot">—</span></div>
+      <div class="result-row"><span class="lbl">Employer Half (deductible from income)</span><span class="val" id="r-cppDed">—</span></div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">Tax Summary</p>
+      <div class="result-row"><span class="lbl">Net Business Income</span><span class="val" id="r-netIncome3">—</span></div>
+      <div class="result-row"><span class="lbl">Less: CPP Employer Deduction</span><span class="val" id="r-lessDeduct">—</span></div>
+      <div class="result-row"><span class="lbl">Taxable Income</span><span class="val" id="r-taxInc2">—</span></div>
+      <div class="result-row"><span class="lbl">Estimated Federal + Provincial Tax</span><span class="val" id="r-fedProvTax">—</span></div>
+      <div class="result-row"><span class="lbl">Total CPP Contributions</span><span class="val" id="r-cppTot2">—</span></div>
+      <div class="result-row"><span class="lbl" style="font-weight:700">Total Amount Owing</span><span class="val" id="r-totalOwing">—</span></div>
+    </div>
+
+    <div class="book-cta">
+      <h3>File Your T2125 Correctly</h3>
+      <p>Our advisors help self-employed Canadians maximize their deductions and avoid common CRA audit triggers.</p>
+      <a href="/contact.html">Book a Session →</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="brand">Smart Canada Tax</span>
+  <a href="/">Home</a>
+  <a href="/calculators.html">Calculators</a>
+  <a href="/contact.html">Contact</a>
+  <a href="/privacy.html">Privacy</a>
+  <p style="margin-top:12px;opacity:.5">&copy; 2025 Smart Canada Tax. All rights reserved.</p>
+</footer>
+
+<script>
+// Simplified personal tax engine for self-employed (uses same brackets as app)
+const FED_BRACKETS = [
+  { upper: 57375, rate: 0.145 }, { upper: 114750, rate: 0.205 },
+  { upper: 177882, rate: 0.260 }, { upper: 253414, rate: 0.290 },
+  { upper: Infinity, rate: 0.330 },
+];
+
+const PROV_BRACKETS = {
+  ontario:              [{ upper:52886,rate:.0505},{upper:105775,rate:.0915},{upper:150000,rate:.1116},{upper:220000,rate:.1216},{upper:Infinity,rate:.1316}],
+  alberta:              [{ upper:60000,rate:.08},{upper:151234,rate:.10},{upper:181481,rate:.12},{upper:241974,rate:.13},{upper:362961,rate:.14},{upper:Infinity,rate:.15}],
+  britishColumbia:      [{ upper:49279,rate:.0506},{upper:98560,rate:.077},{upper:113158,rate:.105},{upper:137407,rate:.1229},{upper:186306,rate:.147},{upper:259829,rate:.168},{upper:Infinity,rate:.205}],
+  quebec:               [{ upper:53255,rate:.14},{upper:106495,rate:.19},{upper:129590,rate:.24},{upper:Infinity,rate:.2575}],
+  saskatchewan:         [{ upper:53463,rate:.105},{upper:152750,rate:.125},{upper:Infinity,rate:.145}],
+  manitoba:             [{ upper:47000,rate:.108},{upper:100000,rate:.1275},{upper:Infinity,rate:.174}],
+  newBrunswick:         [{ upper:51306,rate:.094},{upper:102614,rate:.14},{upper:190060,rate:.16},{upper:Infinity,rate:.195}],
+  novaScotia:           [{ upper:30507,rate:.0879},{upper:61015,rate:.1495},{upper:95883,rate:.1667},{upper:154650,rate:.175},{upper:Infinity,rate:.21}],
+  pei:                  [{ upper:33328,rate:.095},{upper:64656,rate:.1347},{upper:105000,rate:.166},{upper:140000,rate:.1762},{upper:Infinity,rate:.19}],
+  newfoundland:         [{ upper:44192,rate:.087},{upper:88382,rate:.145},{upper:157792,rate:.158},{upper:220910,rate:.178},{upper:282214,rate:.198},{upper:564429,rate:.208},{upper:1128858,rate:.213},{upper:Infinity,rate:.218}],
+  yukon:                [{ upper:57375,rate:.064},{upper:114750,rate:.09},{upper:177882,rate:.109},{upper:500000,rate:.128},{upper:Infinity,rate:.15}],
+  northwestTerritories: [{ upper:51964,rate:.059},{upper:103930,rate:.086},{upper:168967,rate:.122},{upper:Infinity,rate:.1405}],
+  nunavut:              [{ upper:54707,rate:.04},{upper:109413,rate:.07},{upper:177881,rate:.09},{upper:Infinity,rate:.115}],
+};
+
+const PROV_BPA = {
+  ontario:12747, alberta:22323, britishColumbia:12932, quebec:17183, saskatchewan:19491,
+  manitoba:15780, newBrunswick:13396, novaScotia:11744, pei:14650, newfoundland:11067,
+  yukon:16129, northwestTerritories:17842, nunavut:19274,
+};
+
+function applyBrackets(brackets, income) {
+  let tax = 0, prev = 0;
+  for (const b of brackets) {
+    if (income <= prev) break;
+    const upper = b.upper === Infinity ? income : Math.min(b.upper, income);
+    tax += (upper - prev) * b.rate;
+    prev = b.upper === Infinity ? income : b.upper;
+    if (b.upper === Infinity) break;
+  }
+  return tax;
+}
+
+function estimateTax(taxableIncome, provinceKey) {
+  const isQC    = provinceKey === "quebec";
+  const provBrk = PROV_BRACKETS[provinceKey];
+  const provBpa = PROV_BPA[provinceKey];
+  const provCrR = provBrk[0].rate;
+  const fedBPA  = Math.min(16129, Math.max(14538, 16129 - (16129-14538)*Math.max(0,Math.min(1,(taxableIncome-177882)/(253414-177882)))));
+  const fedGross = applyBrackets(FED_BRACKETS, taxableIncome);
+  const fedNet0  = Math.max(0, fedGross - fedBPA * 0.145);
+  const fedTax   = isQC ? fedNet0 * (1 - 0.165) : fedNet0;
+  const provGross = applyBrackets(provBrk, taxableIncome);
+  let provTax = Math.max(0, provGross - provBpa * provCrR);
+  if (provinceKey === "ontario") {
+    const e1 = Math.max(0, provTax - 5710);
+    const e2 = Math.max(0, provTax - 7307);
+    provTax += e1 * 0.20 + e2 * 0.36;
+    // OHP
+    let ohp = 0;
+    const ti = taxableIncome;
+    if (ti > 20000) {
+      if (ti <= 36000)  ohp = Math.min(300, (ti-20000)*0.06);
+      else if (ti <= 48000) ohp = Math.min(450, 300+(ti-36000)*0.06);
+      else if (ti <= 72000) ohp = Math.min(600, 450+(ti-48000)*0.25);
+      else if (ti <= 200000) ohp = Math.min(750, 600+(ti-72000)*0.25);
+      else ohp = Math.min(900, 750+(ti-200000)*0.25);
+    }
+    provTax += ohp;
+  }
+  return fedTax + provTax;
+}
+
+function fmt(n) { return "$" + Math.round(n).toLocaleString("en-CA"); }
+function pct(n) { return (n * 100).toFixed(1) + "%"; }
+function set(id, v) { document.getElementById(id).textContent = v; }
+function show(id) { document.getElementById(id).style.display = ""; }
+function hide(id) { document.getElementById(id).style.display = "none"; }
+
+function calculate() {
+  const yr         = parseInt(document.getElementById("taxYear").value);
+  const province   = document.getElementById("province").value;
+  const grossRev   = parseFloat(document.getElementById("grossRevenue").value)    || 0;
+  const otherInc   = parseFloat(document.getElementById("otherIncome").value)     || 0;
+  const advertising= parseFloat(document.getElementById("advertising").value)     || 0;
+  const meals      = parseFloat(document.getElementById("meals").value)           || 0;
+  const profFees   = parseFloat(document.getElementById("professionalFees").value)|| 0;
+  const offSup     = parseFloat(document.getElementById("officeSupplies").value)  || 0;
+  const phone      = parseFloat(document.getElementById("phoneInternet").value)   || 0;
+  const insurance  = parseFloat(document.getElementById("insurance").value)       || 0;
+  const bankFees   = parseFloat(document.getElementById("bankFees").value)        || 0;
+  const salaries   = parseFloat(document.getElementById("salariesSubcontract").value) || 0;
+  const otherExp   = parseFloat(document.getElementById("otherExpenses").value)   || 0;
+
+  if (grossRev + otherInc <= 0) { alert("Please enter your gross revenue."); return; }
+
+  const mealsDeduct  = meals * 0.50;
+  const totalExp     = advertising + mealsDeduct + profFees + offSup + phone + insurance + bankFees + salaries + otherExp;
+  const totalIncome  = grossRev + otherInc;
+  const netIncome    = Math.max(0, totalIncome - totalExp);
+
+  // CPP 2025
+  const ympe = yr >= 2025 ? 71300 : 68500;
+  const yampe = yr >= 2025 ? 81200 : 73200;
+  const cppRate = 0.0595;
+  const cpp2Rate = 0.04;
+  const cppExemp = 3500;
+
+  const cpp1Earn  = Math.max(0, Math.min(netIncome, ympe) - cppExemp);
+  const cpp1Total = cpp1Earn * cppRate * 2;   // both sides
+  const cpp1Deduct = cpp1Earn * cppRate;       // employer half deductible
+
+  const cpp2Earn  = yr >= 2024 ? Math.max(0, Math.min(netIncome, yampe) - ympe) : 0;
+  const cpp2Total = cpp2Earn * cpp2Rate * 2;
+  const cpp2Deduct = cpp2Earn * cpp2Rate;
+
+  const cppTotal   = cpp1Total + cpp2Total;
+  const cppDeduct  = cpp1Deduct + cpp2Deduct;
+  const taxableInc = Math.max(0, netIncome - cppDeduct);
+  const incomeTax  = estimateTax(taxableInc, province);
+  const effRate    = taxableInc > 0 ? incomeTax / taxableInc : 0;
+
+  // Display
+  set("r-incomeTax",  fmt(incomeTax));
+  set("r-netIncome",  fmt(netIncome));
+  set("r-cppTotal",   fmt(cppTotal));
+  set("r-taxableIncome", fmt(taxableInc));
+  set("r-effRate",    pct(effRate));
+
+  set("r-grossRev",  fmt(grossRev));
+  if (otherInc > 0) { show("row-other"); set("r-other", fmt(otherInc)); } else hide("row-other");
+  set("r-totalIncome", fmt(totalIncome));
+  set("r-totalExp", "−" + fmt(totalExp));
+  set("r-mealsDeduct", fmt(mealsDeduct) + " (" + fmt(meals) + " × 50%)");
+  set("r-netIncome2", fmt(netIncome));
+
+  set("r-cpp1earn", fmt(cpp1Earn));
+  set("r-cpp1emp", fmt(cpp1Earn * cppRate));
+  set("r-cpp1er", fmt(cpp1Earn * cppRate));
+  if (cpp2Total > 0) { show("row-cpp2"); set("r-cpp2", fmt(cpp2Total)); } else hide("row-cpp2");
+  set("r-cppTot", fmt(cppTotal));
+  set("r-cppDed", fmt(cppDeduct));
+
+  set("r-netIncome3", fmt(netIncome));
+  set("r-lessDeduct", "−" + fmt(cppDeduct));
+  set("r-taxInc2", fmt(taxableInc));
+  set("r-fedProvTax", fmt(incomeTax));
+  set("r-cppTot2", fmt(cppTotal));
+  set("r-totalOwing", fmt(incomeTax + cppTotal));
+
+  document.getElementById("results").classList.add("show");
+  document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+</script>
+</body>
+</html>

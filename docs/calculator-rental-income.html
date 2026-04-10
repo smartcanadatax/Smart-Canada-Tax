@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rental Income Tax Calculator Canada 2025 — Smart Canada Tax</title>
+  <meta name="description" content="Free rental income tax calculator for Canada. Calculate T776 net rental income after expenses, and estimate tax owed on rental profit for all provinces." />
+  <link rel="canonical" href="https://smartcanadatax.help/calculator-rental-income.html" />
+  <style>
+    :root { --red: #C8102E; --red-dark: #9b0c22; --white: #fff; --bg: #f7f8fa; --text: #1a1a2e; --muted: #64748b; --border: #e8eaed; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    nav { position: sticky; top: 0; z-index: 100; background: var(--red); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-brand { color: white; font-weight: 800; font-size: 1.1rem; text-decoration: none; }
+    .nav-links { display: flex; gap: 16px; }
+    .nav-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-size: .9rem; }
+    .nav-cta { background: white; color: var(--red) !important; font-weight: 700 !important; padding: 6px 14px; border-radius: 20px; }
+    .hero { background: linear-gradient(135deg, var(--red), var(--red-dark)); color: white; padding: 40px 24px; text-align: center; }
+    .hero h1 { font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 800; margin-bottom: 8px; }
+    .hero p { opacity: .9; font-size: 1rem; }
+    .container { max-width: 760px; margin: 0 auto; padding: 32px 20px; }
+    .card { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 24px rgba(0,0,0,.07); margin-bottom: 24px; }
+    label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: 6px; }
+    .hint { font-size: .8rem; color: var(--muted); margin-bottom: 8px; }
+    input, select { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 1rem; outline: none; transition: border .15s; }
+    input:focus, select:focus { border-color: var(--red); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media(max-width:540px){ .form-grid { grid-template-columns: 1fr; } }
+    .btn { display: block; width: 100%; margin-top: 24px; background: var(--red); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; }
+    .btn:hover { background: var(--red-dark); }
+    .section-title { font-size: 1rem; font-weight: 700; margin-bottom: 16px; }
+    .results { display: none; }
+    .results.show { display: block; }
+    .result-highlight { background: linear-gradient(135deg, var(--red), var(--red-dark)); border-radius: 12px; padding: 20px; color: white; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .result-highlight .lbl { opacity: .85; font-size: .9rem; }
+    .result-highlight .val { font-size: 1.6rem; font-weight: 800; }
+    .result-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: .95rem; }
+    .result-row:last-child { border-bottom: none; }
+    .result-row .lbl { color: var(--muted); }
+    .result-row .val { font-weight: 700; }
+    .result-row .val.green { color: #16a34a; }
+    .result-row .val.red { color: var(--red); }
+    .running-total { display: flex; justify-content: space-between; background: var(--bg); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: .9rem; }
+    .running-total .lbl { color: var(--muted); font-weight: 600; }
+    .running-total .val { font-weight: 800; color: var(--red); }
+    .book-cta { background: linear-gradient(135deg, var(--red), var(--red-dark)); border-radius: 16px; padding: 28px; color: white; text-align: center; margin-top: 32px; }
+    .book-cta h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .book-cta p { opacity: .9; margin-bottom: 20px; font-size: .95rem; }
+    .book-cta a { display: inline-block; background: white; color: var(--red); font-weight: 700; padding: 12px 28px; border-radius: 25px; text-decoration: none; }
+    footer { background: #1a1a2e; color: rgba(255,255,255,.7); padding: 32px 24px; text-align: center; font-size: .85rem; }
+    footer a { color: rgba(255,255,255,.7); text-decoration: none; margin: 0 8px; }
+    footer .brand { color: white; font-weight: 800; font-size: 1rem; display: block; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">Smart Canada Tax</a>
+  <div class="nav-links">
+    <a href="/calculators.html">Calculators</a>
+    <a href="/contact.html" class="nav-cta">Book a Session</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Rental Income Tax Calculator 2025</h1>
+  <p>T776 — net rental income after expenses, and estimated tax owed</p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <p class="section-title">Annual Rental Income</p>
+    <div style="margin-bottom:20px">
+      <label for="grossIncome">Gross Rental Income ($)</label>
+      <p class="hint">Total rent collected before any expenses</p>
+      <input type="number" id="grossIncome" min="0" placeholder="e.g. 24000" oninput="updateRunning()" />
+    </div>
+
+    <p class="section-title">Deductible Expenses (T776)</p>
+    <div class="form-grid">
+      <div>
+        <label for="propTax">Property Tax ($)</label>
+        <p class="hint">Annual municipal property taxes</p>
+        <input type="number" id="propTax" min="0" placeholder="0" oninput="updateRunning()" />
+      </div>
+      <div>
+        <label for="insurance">Insurance ($)</label>
+        <p class="hint">Rental / landlord insurance premiums</p>
+        <input type="number" id="insurance" min="0" placeholder="0" oninput="updateRunning()" />
+      </div>
+      <div>
+        <label for="maintenance">Maintenance &amp; Repairs ($)</label>
+        <p class="hint">To maintain, not improve, the property</p>
+        <input type="number" id="maintenance" min="0" placeholder="0" oninput="updateRunning()" />
+      </div>
+      <div>
+        <label for="mortgageInt">Mortgage Interest ($)</label>
+        <p class="hint">Interest only — not principal payments</p>
+        <input type="number" id="mortgageInt" min="0" placeholder="0" oninput="updateRunning()" />
+      </div>
+      <div>
+        <label for="mgmtFees">Management Fees ($)</label>
+        <p class="hint">Property manager or rental agency fees</p>
+        <input type="number" id="mgmtFees" min="0" placeholder="0" oninput="updateRunning()" />
+      </div>
+      <div>
+        <label for="utilities">Utilities — Landlord Paid ($)</label>
+        <p class="hint">Heat, hydro, water you pay as landlord</p>
+        <input type="number" id="utilities" min="0" placeholder="0" oninput="updateRunning()" />
+      </div>
+      <div>
+        <label for="advertising">Advertising ($)</label>
+        <p class="hint">Tenant listing, signage</p>
+        <input type="number" id="advertising" min="0" placeholder="0" oninput="updateRunning()" />
+      </div>
+      <div>
+        <label for="profFees">Professional Fees ($)</label>
+        <p class="hint">Accounting or legal fees for rental</p>
+        <input type="number" id="profFees" min="0" placeholder="0" oninput="updateRunning()" />
+      </div>
+      <div>
+        <label for="cca">Capital Cost Allowance — CCA ($)</label>
+        <p class="hint">Depreciation on building; cannot create a rental loss</p>
+        <input type="number" id="cca" min="0" placeholder="0" oninput="updateRunning()" />
+      </div>
+    </div>
+
+    <div class="running-total" style="margin-top:20px">
+      <span class="lbl">Net Rental Income (Running Total)</span>
+      <span class="val" id="runningNet">$0</span>
+    </div>
+
+    <div style="margin-top:16px">
+      <label for="marginalRate">Your Marginal Tax Rate (%)</label>
+      <p class="hint">Combined federal + provincial rate on next dollar — use the <a href="/calculator-personal-tax.html" style="color:var(--red)">Personal Tax calculator</a> to find it</p>
+      <input type="number" id="marginalRate" min="0" max="100" step="0.1" placeholder="e.g. 43.41" />
+    </div>
+
+    <button class="btn" onclick="calculate()">Calculate Rental Tax</button>
+  </div>
+
+  <!-- Results -->
+  <div class="results" id="results">
+
+    <div class="result-highlight">
+      <div><div class="lbl">Estimated Tax on Rental Income</div><div style="font-size:.8rem;opacity:.7">At your marginal rate</div></div>
+      <div class="val" id="r-tax">—</div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">T776 — Rental Income Summary</p>
+      <div class="result-row"><span class="lbl">Gross Rental Income</span><span class="val" id="r-gross">—</span></div>
+      <div class="result-row"><span class="lbl">Property Tax</span><span class="val green" id="r-propTax">—</span></div>
+      <div class="result-row"><span class="lbl">Insurance</span><span class="val green" id="r-ins">—</span></div>
+      <div class="result-row"><span class="lbl">Maintenance &amp; Repairs</span><span class="val green" id="r-maint">—</span></div>
+      <div class="result-row"><span class="lbl">Mortgage Interest</span><span class="val green" id="r-mortInt">—</span></div>
+      <div class="result-row"><span class="lbl">Management Fees</span><span class="val green" id="r-mgmt">—</span></div>
+      <div class="result-row"><span class="lbl">Utilities</span><span class="val green" id="r-utils">—</span></div>
+      <div class="result-row"><span class="lbl">Advertising</span><span class="val green" id="r-adv">—</span></div>
+      <div class="result-row"><span class="lbl">Professional Fees</span><span class="val green" id="r-profFees">—</span></div>
+      <div class="result-row"><span class="lbl">CCA</span><span class="val green" id="r-cca">—</span></div>
+      <div class="result-row"><span class="lbl" style="font-weight:700">Total Expenses</span><span class="val" id="r-totalExp">—</span></div>
+      <div class="result-row"><span class="lbl" style="font-weight:700">Net Rental Income (Profit)</span><span class="val" id="r-netRental">—</span></div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">Tax Estimate</p>
+      <div class="result-row"><span class="lbl">Net Rental Income</span><span class="val" id="r-netRental2">—</span></div>
+      <div class="result-row"><span class="lbl">Your Marginal Rate</span><span class="val" id="r-margRate">—</span></div>
+      <div class="result-row"><span class="lbl" style="font-weight:700">Estimated Tax Owing</span><span class="val" id="r-taxOwing">—</span></div>
+      <div class="result-row"><span class="lbl">After-Tax Rental Income</span><span class="val green" id="r-afterTax">—</span></div>
+      <div style="margin-top:14px;padding:12px;background:var(--bg);border-radius:8px;font-size:.82rem;color:var(--muted);line-height:1.6">
+        <strong style="color:var(--text)">Note:</strong> CCA cannot create or increase a rental loss. The net rental income above is added to your other income and taxed at your marginal rate. To find your exact marginal rate, use the <a href="/calculator-personal-tax.html" style="color:var(--red)">Personal Tax calculator</a>.
+      </div>
+    </div>
+
+    <div class="book-cta">
+      <h3>Need Help With Your Rental Return?</h3>
+      <p>Our advisors can help with T776 filing, CCA optimization, and co-ownership arrangements.</p>
+      <a href="/contact.html">Book a Tax Session →</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="brand">Smart Canada Tax</span>
+  <a href="/">Home</a>
+  <a href="/calculators.html">Calculators</a>
+  <a href="/contact.html">Contact</a>
+  <a href="/privacy.html">Privacy</a>
+  <p style="margin-top:12px;opacity:.5">&copy; 2025 Smart Canada Tax. All rights reserved.</p>
+</footer>
+
+<script>
+function v(id) { return parseFloat(document.getElementById(id).value) || 0; }
+function fmt(n) { return "$" + Math.round(n).toLocaleString("en-CA"); }
+function set(id, val) { document.getElementById(id).textContent = val; }
+
+function totalExpenses() {
+  return v("propTax") + v("insurance") + v("maintenance") + v("mortgageInt") +
+         v("mgmtFees") + v("utilities") + v("advertising") + v("profFees") + v("cca");
+}
+
+function updateRunning() {
+  const gross = v("grossIncome");
+  const net   = Math.max(0, gross - totalExpenses());
+  document.getElementById("runningNet").textContent = fmt(net);
+}
+
+function calculate() {
+  const gross   = v("grossIncome");
+  const propTax = v("propTax");
+  const ins     = v("insurance");
+  const maint   = v("maintenance");
+  const mortInt = v("mortgageInt");
+  const mgmt    = v("mgmtFees");
+  const utils   = v("utilities");
+  const adv     = v("advertising");
+  const prof    = v("profFees");
+  const cca     = v("cca");
+  const margRate = v("marginalRate") / 100;
+
+  if (gross <= 0) { alert("Please enter your gross rental income."); return; }
+  if (margRate <= 0) { alert("Please enter your marginal tax rate (%)."); return; }
+
+  const totalExp = propTax + ins + maint + mortInt + mgmt + utils + adv + prof + cca;
+  const netRental = Math.max(0, gross - totalExp);
+  const taxOwing  = netRental * margRate;
+  const afterTax  = netRental - taxOwing;
+
+  set("r-tax", fmt(taxOwing));
+  set("r-gross", fmt(gross));
+  set("r-propTax", propTax > 0 ? "−" + fmt(propTax) : "—");
+  set("r-ins",     ins     > 0 ? "−" + fmt(ins)     : "—");
+  set("r-maint",   maint   > 0 ? "−" + fmt(maint)   : "—");
+  set("r-mortInt", mortInt > 0 ? "−" + fmt(mortInt) : "—");
+  set("r-mgmt",    mgmt    > 0 ? "−" + fmt(mgmt)    : "—");
+  set("r-utils",   utils   > 0 ? "−" + fmt(utils)   : "—");
+  set("r-adv",     adv     > 0 ? "−" + fmt(adv)     : "—");
+  set("r-profFees",prof    > 0 ? "−" + fmt(prof)    : "—");
+  set("r-cca",     cca     > 0 ? "−" + fmt(cca)     : "—");
+  set("r-totalExp", "−" + fmt(totalExp));
+  set("r-netRental", fmt(netRental));
+  set("r-netRental2", fmt(netRental));
+  set("r-margRate", (margRate * 100).toFixed(2) + "%");
+  set("r-taxOwing", fmt(taxOwing));
+  set("r-afterTax", fmt(afterTax));
+
+  document.getElementById("results").classList.add("show");
+  document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+</script>
+</body>
+</html>
