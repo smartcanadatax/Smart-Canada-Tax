@@ -475,7 +475,7 @@
     <a href="/contact.html">Contact</a>
   </div>
   <div class="nav-cta-wrap">
-    <a href="#download">Download Free</a>
+    <a href="#sessions">Book a Session</a>
   </div>
 </nav>
 
@@ -488,8 +488,8 @@
     <a href="#sessions" class="btn-primary">
       Book a Tax Session →
     </a>
-    <a href="https://apps.apple.com/ca/app/smart-canada-tax/id6761863234" target="_blank" class="btn-secondary">
-      Free Calculator App
+    <a href="#calculators" class="btn-secondary">
+      Free Tax Calculators →
     </a>
   </div>
 </section>
@@ -970,63 +970,5 @@
   body.banner-shown{padding-top:60px;}
 </style>
 
-<div id="app-banner">
-  <div class="b-left">
-    <img src="/AppIcon.png" alt="Smart Canada Tax">
-    <div class="b-text">
-      <strong>Smart Canada Tax — Free Download</strong>
-      All calculators free · 3 free AI tax questions
-    </div>
-  </div>
-  <a href="#" class="b-btn" id="banner-store-btn">Get App</a>
-  <button class="b-close" id="banner-close-btn" aria-label="Close">×</button>
-</div>
-
-<div id="app-popup-overlay">
-  <div id="app-popup">
-    <button class="p-close-x" id="popup-close-x" aria-label="Close">×</button>
-    <img src="/AppIcon.png" alt="Smart Canada Tax">
-    <h2>Smart Canada Tax</h2>
-    <div class="p-badge">FREE DOWNLOAD</div>
-    <ul>
-      <li>All tax calculators — personal, corporate, GST/HST &amp; more</li>
-      <li>3 free AI tax questions included</li>
-      <li>10 provinces &amp; 3 territories</li>
-      <li>Works offline · no data collected</li>
-    </ul>
-    <a href="#" class="p-store-btn" id="popup-store-btn">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      Download on the App Store
-    </a>
-    <button class="p-dismiss" id="popup-dismiss">Maybe later</button>
-  </div>
-</div>
-
-<script>
-(function(){
-  var STORE_URL='https://apps.apple.com/ca/app/smart-canada-tax/id6761863234';
-  document.getElementById('banner-store-btn').href=STORE_URL;
-  document.getElementById('popup-store-btn').href=STORE_URL;
-  var banner=document.getElementById('app-banner');
-  var overlay=document.getElementById('app-popup-overlay');
-  if(!sessionStorage.getItem('sct_banner_off')){document.body.classList.add('banner-shown');}
-  else{banner.style.display='none';}
-  document.getElementById('banner-close-btn').addEventListener('click',function(){
-    banner.style.display='none';document.body.classList.remove('banner-shown');sessionStorage.setItem('sct_banner_off','1');
-  });
-  function hidePopup(){overlay.classList.remove('show');}
-  document.getElementById('popup-close-x').addEventListener('click',hidePopup);
-  document.getElementById('popup-dismiss').addEventListener('click',hidePopup);
-  overlay.addEventListener('click',function(e){if(e.target===overlay)hidePopup();});
-  if(!sessionStorage.getItem('sct_popup_shown')){
-    document.addEventListener('click',function handler(e){
-      if(!overlay.contains(e.target)&&!banner.contains(e.target)){
-        overlay.classList.add('show');sessionStorage.setItem('sct_popup_shown','1');
-        document.removeEventListener('click',handler);
-      }
-    });
-  }
-})();
-</script>
 </body>
 </html>
