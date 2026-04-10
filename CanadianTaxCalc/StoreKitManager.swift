@@ -2,8 +2,8 @@ import StoreKit
 
 @MainActor
 class StoreKitManager: ObservableObject {
-    static let personalID  = "com.smartcanadatax.session.personal"
-    static let corporateID = "com.smartcanadatax.session.corporate"
+    static let personalID  = "com.1000936219.smartcanadatax.session.personal"
+    static let corporateID = "com.1000936219.smartcanadatax.session.corporate"
 
     @Published var products: [Product] = []
     @Published var isPurchasing = false
