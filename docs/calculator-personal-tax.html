@@ -10,11 +10,11 @@
     :root { --red: #c0392b; --red-dark: #a93226; --white: #fff; --bg: #f7f8fa; --text: #1a1a2e; --muted: #64748b; --border: #e8eaed; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-    nav { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
-    .nav-brand { color: var(--text); font-weight: 800; font-size: 1.1rem; text-decoration: none; }
+    nav { position: sticky; top: 0; z-index: 100; background: var(--red); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .nav-brand { color: white; font-weight: 800; font-size: 1.1rem; text-decoration: none; }
     .nav-links { display: flex; gap: 16px; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; }
-    .nav-cta { background: var(--red); color: white !important; font-weight: 700 !important; padding: 6px 14px; border-radius: 20px; }
+    .nav-links a { color: rgba(255,255,255,0.9); text-decoration: none; font-size: .9rem; }
+    .nav-cta { background: white; color: var(--red) !important; font-weight: 700 !important; padding: 6px 14px; border-radius: 20px; }
     .hero { background: linear-gradient(135deg, #e8a0a8, #d4717c); color: white; padding: 40px 24px; text-align: center; }
     .hero h1 { font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 800; margin-bottom: 8px; }
     .hero p { opacity: .9; font-size: 1rem; }
