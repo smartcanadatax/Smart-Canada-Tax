@@ -389,7 +389,7 @@ struct TaxAIDisclaimerView: View {
                         disclaimerBox(
                             icon: "person.fill.questionmark", color: .orange,
                             title: "Not Professional Tax Advice",
-                            body: "Tax AI provides general guidance based on CRA published rules and AI knowledge. It is not a substitute for advice from a licensed CPA, tax lawyer, or professional advisor."
+                            body: "Tax AI provides general guidance based on CRA published rules and AI knowledge. It is not a substitute for advice from a CPA, tax lawyer, or professional advisor."
                         )
                         disclaimerBox(
                             icon: "building.columns.fill", color: .blue,
@@ -409,7 +409,7 @@ struct TaxAIDisclaimerView: View {
                         disclaimerBox(
                             icon: "phone.fill", color: .red,
                             title: "When to Call the CRA",
-                            body: "For complex situations — audits, foreign income, business sales, or estate matters — contact the CRA at 1-800-959-8281 or consult a licensed tax professional."
+                            body: "For complex situations — audits, foreign income, business sales, or estate matters — contact the CRA at 1-800-959-8281 or consult a tax professional."
                         )
                     }
                     .padding(.horizontal)
@@ -526,7 +526,7 @@ struct TaxAIBookingPromptView: View {
 
                 Spacer()
 
-                Text("For professional tax advice, always consult a licensed CPA.")
+                Text("For professional tax advice, always consult a CPA.")
                     .font(.caption2)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
