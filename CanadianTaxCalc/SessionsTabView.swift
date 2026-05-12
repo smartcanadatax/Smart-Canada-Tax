@@ -52,7 +52,7 @@ struct SessionsTabView: View {
             .background(Color(.systemBackground))
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $showPicker) { SessionPickerSheet() }
+            .sheet(isPresented: $showPicker) { ContactInquiryView() }
         }
     }
 }
@@ -112,156 +112,12 @@ private struct SessionsHeroView: View {
     }
 }
 
-// MARK: - Session Picker Sheet
-struct SessionPickerSheet: View {
-    @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var storeKit: StoreKitManager
-
-    @State private var showConfirmation = false
-    @State private var confirmedSessionType = ""
-    @State private var confirmedTxID = ""
-    @State private var purchaseError: String?
-
-    var body: some View {
-        NavigationStack {
-            List {
-                Section {
-                    Text("Choose the session type below. Applicable taxes will be added at checkout.")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .listRowBackground(Color.clear)
-                        .padding(.vertical, 4)
-                }
-
-                Section {
-                    Button {
-                        Task { await purchase(productID: StoreKitManager.personalID, sessionType: "Personal Tax") }
-                    } label: {
-                        SessionPickerRow(
-                            icon: "person.fill",
-                            iconColor: Color("CanadianRed"),
-                            title: "Personal Tax Questions",
-                            subtitle: "Deductions, RRSP, credits, rental income & more",
-                            price: "$34.99",
-                            priceNote: "30-minute session",
-                            highlightSubtitle: true
-                        )
-                    }
-                    .buttonStyle(.plain)
-
-                    Button {
-                        Task { await purchase(productID: StoreKitManager.corporateID, sessionType: "Corporate Tax") }
-                    } label: {
-                        SessionPickerRow(
-                            icon: "building.2.fill",
-                            iconColor: .indigo,
-                            title: "Corporate Tax Questions",
-                            subtitle: "T2, SBD, salary vs. dividend, GST/HST, incorporation — get expert answers without paying an accountant thousands of dollars.",
-                            price: "$79.99",
-                            priceNote: "30-minute session",
-                            highlightSubtitle: true
-                        )
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-            .listStyle(.insetGrouped)
-            .navigationTitle("Book a Session")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Close") { dismiss() }
-                        .foregroundColor(Color("CanadianRed"))
-                }
-            }
-            .overlay {
-                if storeKit.isPurchasing {
-                    ZStack {
-                        Color.black.opacity(0.3).ignoresSafeArea()
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .tint(.white)
-                            .scaleEffect(1.5)
-                    }
-                }
-            }
-            .sheet(isPresented: $showConfirmation, onDismiss: { dismiss() }) {
-                PaymentConfirmationView(sessionType: confirmedSessionType, transactionID: confirmedTxID)
-            }
-            .alert("Purchase Failed", isPresented: Binding(
-                get: { purchaseError != nil },
-                set: { if !$0 { purchaseError = nil } }
-            )) {
-                Button("OK") { purchaseError = nil }
-            } message: {
-                Text(purchaseError ?? "")
-            }
-        }
-    }
-
-    private func purchase(productID: String, sessionType: String) async {
-        do {
-            let txID = try await storeKit.purchase(productID: productID)
-            confirmedSessionType = sessionType
-            confirmedTxID = txID
-            showConfirmation = true
-        } catch SKError.userCancelled {
-            // No alert — user intentionally cancelled
-        } catch {
-            purchaseError = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
-        }
-    }
-}
-
-private struct SessionPickerRow: View {
-    let icon: String
-    let iconColor: Color
-    let title: String
-    let subtitle: String
-    let price: String
-    let priceNote: String
-    var highlightSubtitle: Bool = false
-
-    var body: some View {
-        HStack(spacing: 14) {
-            ZStack {
-                Circle()
-                    .fill(iconColor.opacity(0.12))
-                    .frame(width: 44, height: 44)
-                Image(systemName: icon)
-                    .font(.system(size: 18))
-                    .foregroundColor(iconColor)
-            }
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.subheadline.bold())
-                    .foregroundColor(.primary)
-                Text(subtitle)
-                    .font(highlightSubtitle ? .caption.bold() : .caption)
-                    .foregroundColor(highlightSubtitle ? Color("CanadianRed") : .secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-                Text(priceNote)
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-            }
-
-            Spacer()
-
-            Text(price)
-                .font(.title3.bold())
-                .foregroundColor(iconColor)
-        }
-        .padding(.vertical, 6)
-    }
-}
-
 // MARK: - How It Works
 private struct SessionHowItWorksCard: View {
     private let steps: [(String, Color, String, String)] = [
-        ("dollarsign.circle.fill",  .orange,              "Secure Payment",   "Pay securely via In-App Purchase through the App Store."),
-        ("calendar.badge.plus",     Color("CanadianRed"), "Book Your Slot",   "Pick a time on Calendly. Specify Personal or Corporate Tax when booking."),
-        ("video.fill",              .green,               "30-Min Session",   "Meet your tax professional on Google Meet for tailored advice."),
+        ("envelope.fill",           Color("CanadianRed"), "Contact Us",       "Send us your question and session type — Personal or Corporate Tax."),
+        ("calendar.badge.plus",     .orange,              "Book Your Slot",   "We'll confirm your booking and set up a 30-minute Google Meet session."),
+        ("video.fill",              .green,               "30-Min Session",   "Meet your tax professional for tailored Canadian tax advice."),
     ]
 
     var body: some View {
